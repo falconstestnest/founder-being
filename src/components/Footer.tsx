@@ -89,11 +89,32 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-8 text-xs tracking-wide text-fb-text sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 border-t border-white/10 pt-10">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-lg">
+              <p className="font-serif text-xl text-fb-text">
+                Already part of the Founder-Being community?
+              </p>
+              <p className="mt-3 type-small">
+                Access your workspace, upcoming gatherings, applications and
+                community resources.
+              </p>
+              <p className="mt-3 text-xs text-fb-meta">
+                Secure access for members, patrons, volunteers, reviewers and
+                the Founder-Being team.
+              </p>
+            </div>
+            <Link href="/login" className="btn btn-secondary shrink-0">
+              Sign In
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-8 text-xs tracking-wide text-fb-meta sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {siteConfig.name}. All rights reserved.
           </p>
-          <p>Quiet. Intentional. Timeless.</p>
+          <p className="text-fb-secondary">Quiet. Intentional. Timeless.</p>
         </div>
       </div>
     </footer>

@@ -48,8 +48,9 @@ See the [Retreat Platform handoff](docs/RETREAT_PLATFORM_MVP.md) for principles,
 
 | Surface | Route |
 |---------|--------|
-| Sign in | `/admin/login` |
-| Operations shell | `/admin` (auth required) |
+| Sign in | `/login` (institutional — not “Admin Login”) |
+| Operations shell | `/admin` (Super Administrator) |
+| Workspaces | `/founder` · `/patron` · `/programme` · `/review` · `/finance` · … |
 | Team & Access (IAM) | `/admin/team` |
 | Request access | `/access` (request only — not registration) |
 
