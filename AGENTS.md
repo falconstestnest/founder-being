@@ -3,3 +3,25 @@
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
+
+<!-- BEGIN:docs-sync-rules -->
+# Documentation sync (required)
+
+When changing code, config, or assets that an existing markdown file already describes, **update that markdown in the same change**. Do not leave topic docs stale.
+
+## Process
+
+1. Before finishing a change, open `docs/README.md` and check the **Topic → doc map**.
+2. If any listed path or topic matches your work, edit the linked `docs/*.md` so it matches the new behaviour (sizes, filenames, placement, APIs, etc.).
+3. Refresh **Last verified** (or equivalent) dates when present.
+4. If you create a new topic-specific doc under `docs/`, register it in `docs/README.md`’s map with the paths that should trigger future updates.
+5. You do **not** need to invent new docs unless the user asks — only keep existing related ones current.
+
+## Current topic docs
+
+| Topic | Doc |
+|-------|-----|
+| Logos / brand assets / favicons | `docs/LOGO_PLACEMENT.md` |
+
+Full path watchlists live in `docs/README.md`.
+<!-- END:docs-sync-rules -->

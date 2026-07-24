@@ -25,7 +25,8 @@ Motion: fade only. No gradients, parallax, or animated counters.
 
 ## Docs
 
-- [Logo placement](docs/LOGO_PLACEMENT.md) — where monograms, wordmarks, and favicons appear
+- [Docs index & sync rule](docs/README.md) — keep topic markdown updated when related code changes
+- [Logo placement](docs/LOGO_PLACEMENT.md) — lockups, monograms, favicons, and where they appear
 
 ## Stack
 
