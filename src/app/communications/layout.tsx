@@ -8,9 +8,9 @@ export default async function CommunicationsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { ctx, workspace } = await requireWorkspace("communications");
+  const { ctx, workspace, roleLabel } = await requireWorkspace("communications");
   return (
-    <WorkspaceShell workspace={workspace} userName={ctx.fullName}>
+    <WorkspaceShell workspace={workspace} userName={ctx.fullName} roleLabel={roleLabel}>
       {children}
     </WorkspaceShell>
   );

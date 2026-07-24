@@ -8,9 +8,9 @@ export default async function FounderLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { ctx, workspace } = await requireWorkspace("founder");
+  const { ctx, workspace, roleLabel } = await requireWorkspace("founder");
   return (
-    <WorkspaceShell workspace={workspace} userName={ctx.fullName}>
+    <WorkspaceShell workspace={workspace} userName={ctx.fullName} roleLabel={roleLabel}>
       {children}
     </WorkspaceShell>
   );

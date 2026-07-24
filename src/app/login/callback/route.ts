@@ -1,10 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { getAuthzContext } from "@/lib/iam/authz";
-import { resolveWorkspace } from "@/lib/iam/workspaces";
-import { getServiceSupabase } from "@/lib/supabase/server";
 
+/**
+ * OAuth / magic-link callback.
+ * Always hand off to /workspace — never resolve role-specific paths here.
+ * Embedding destinations in auth logic is forbidden; /workspace is the sole post-login hub.
+ */
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
@@ -29,26 +31,12 @@ export async function GET(request: Request) {
       });
       const { error } = await supabase.auth.exchangeCodeForSession(code);
       if (!error) {
-        if (next) {
-          return NextResponse.redirect(`${origin}${next}`);
+        const dest = new URL("/workspace", origin);
+        // Only forward next when it is an app-relative path; /workspace validates it
+        if (next && next.startsWith("/") && !next.startsWith("//")) {
+          dest.searchParams.set("next", next);
         }
-        // Resolve workspace
-        const ctx = await getAuthzContext();
-        if (ctx) {
-          let relationship: string | null = null;
-          const service = getServiceSupabase();
-          if (service) {
-            const { data } = await service
-              .from("profiles")
-              .select("relationship_slug")
-              .eq("id", ctx.profileId)
-              .maybeSingle();
-            relationship = (data?.relationship_slug as string) ?? null;
-          }
-          const ws = resolveWorkspace(ctx.systemRoles, relationship);
-          return NextResponse.redirect(`${origin}${ws.path}`);
-        }
-        return NextResponse.redirect(`${origin}/member`);
+        return NextResponse.redirect(dest);
       }
     }
   }

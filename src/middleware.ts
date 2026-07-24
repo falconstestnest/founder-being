@@ -10,6 +10,7 @@ const PUBLIC_AUTH_PATHS = [
 ];
 
 const PROTECTED_PREFIXES = [
+  "/workspace",
   "/admin",
   "/founder",
   "/patron",
@@ -48,19 +49,18 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Allow public auth pages through session refresh when configured
+  // Sign-in page: already authenticated → always /workspace (stable post-auth hub)
   if (isPublicAuth(pathname) && pathname.startsWith("/login")) {
     const { response, user, configured } = await updateSession(request);
     if (configured && user && pathname === "/login") {
-      // Let client call /api/auth/workspace; optional soft redirect to member
-      // Stay on login if they need to switch accounts — only auto-redirect with next
+      const dest = request.nextUrl.clone();
+      dest.pathname = "/workspace";
       const next = request.nextUrl.searchParams.get("next");
-      if (next) {
-        const dest = request.nextUrl.clone();
-        dest.pathname = next;
-        dest.search = "";
-        return NextResponse.redirect(dest);
+      dest.search = "";
+      if (next && next.startsWith("/") && !next.startsWith("//")) {
+        dest.searchParams.set("next", next);
       }
+      return NextResponse.redirect(dest);
     }
     return response;
   }
@@ -76,6 +76,7 @@ export async function middleware(request: NextRequest) {
 
   if (!configured) {
     if (isAuthSurface) return response;
+    // Never expose local fallback IAM in production routing
     const login = request.nextUrl.clone();
     login.pathname = "/login";
     login.searchParams.set("error", "auth_not_configured");
@@ -97,6 +98,8 @@ export const config = {
   matcher: [
     "/login",
     "/login/:path*",
+    "/workspace",
+    "/workspace/:path*",
     "/admin",
     "/admin/:path*",
     "/founder",

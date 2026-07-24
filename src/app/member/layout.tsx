@@ -8,9 +8,9 @@ export default async function MemberLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { ctx, workspace } = await requireWorkspace("member");
+  const { ctx, workspace, roleLabel } = await requireWorkspace("member");
   return (
-    <WorkspaceShell workspace={workspace} userName={ctx.fullName}>
+    <WorkspaceShell workspace={workspace} userName={ctx.fullName} roleLabel={roleLabel}>
       {children}
     </WorkspaceShell>
   );

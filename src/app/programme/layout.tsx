@@ -8,9 +8,9 @@ export default async function ProgrammeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { ctx, workspace } = await requireWorkspace("programme");
+  const { ctx, workspace, roleLabel } = await requireWorkspace("programme");
   return (
-    <WorkspaceShell workspace={workspace} userName={ctx.fullName}>
+    <WorkspaceShell workspace={workspace} userName={ctx.fullName} roleLabel={roleLabel}>
       {children}
     </WorkspaceShell>
   );

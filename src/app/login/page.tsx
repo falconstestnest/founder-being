@@ -26,16 +26,10 @@ function SignInForm() {
   const [loading, setLoading] = useState(false);
 
   async function afterAuth() {
-    // Ask server where this person belongs
-    const res = await fetch("/api/auth/workspace");
-    if (res.ok) {
-      const data = (await res.json()) as { path?: string };
-      router.replace(next || data.path || "/member");
-    } else if (next) {
-      router.replace(next);
-    } else {
-      router.replace("/member");
-    }
+    // Always resolve through one stable /workspace entry — never embed role routes in auth.
+    // The server re-checks authorization; client path is routing only.
+    const qs = next ? `?next=${encodeURIComponent(next)}` : "";
+    router.replace(`/workspace${qs}`);
     router.refresh();
   }
 
@@ -79,7 +73,7 @@ function SignInForm() {
       const { error: err } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${origin}/login/callback${next ? `?next=${encodeURIComponent(next)}` : ""}`,
+          emailRedirectTo: `${origin}/login/callback?next=${encodeURIComponent(next || "/workspace")}`,
         },
       });
       if (err) {
@@ -106,7 +100,7 @@ function SignInForm() {
       const { error: err } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${origin}/login/callback${next ? `?next=${encodeURIComponent(next)}` : ""}`,
+          redirectTo: `${origin}/login/callback?next=${encodeURIComponent(next || "/workspace")}`,
         },
       });
       if (err) setError(err.message);

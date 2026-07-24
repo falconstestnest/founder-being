@@ -8,9 +8,9 @@ export default async function ReviewLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { ctx, workspace } = await requireWorkspace("review");
+  const { ctx, workspace, roleLabel } = await requireWorkspace("review");
   return (
-    <WorkspaceShell workspace={workspace} userName={ctx.fullName}>
+    <WorkspaceShell workspace={workspace} userName={ctx.fullName} roleLabel={roleLabel}>
       {children}
     </WorkspaceShell>
   );

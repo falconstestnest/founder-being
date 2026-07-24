@@ -2,19 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { Logo } from "@/components/Logo";
 import type { WorkspaceDef } from "@/lib/iam/workspaces";
 
 export function WorkspaceShell({
   workspace,
   userName,
+  roleLabel,
   children,
 }: {
   workspace: WorkspaceDef;
   userName?: string;
+  /** Discreet — never shown as a status symbol in the header */
+  roleLabel?: string;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [profileOpen, setProfileOpen] = useState(false);
 
   return (
     <div className="admin-root min-h-screen">
@@ -50,11 +55,6 @@ export function WorkspaceShell({
           </nav>
 
           <div className="admin-sidebar-footer">
-            {userName && (
-              <p className="px-3 py-2 text-xs text-[var(--admin-muted)]">
-                {userName}
-              </p>
-            )}
             <form action="/admin/logout" method="post">
               <button type="submit" className="admin-nav-link w-full text-left">
                 Sign out
@@ -63,7 +63,80 @@ export function WorkspaceShell({
           </div>
         </aside>
 
-        <div className="admin-main">{children}</div>
+        <div className="admin-main">
+          {/* Consistent workspace header controls */}
+          <header className="mb-6 flex flex-wrap items-center justify-end gap-2 border-b border-[var(--admin-border)] pb-4">
+            <button
+              type="button"
+              className="admin-btn text-xs"
+              title="Search (coming soon)"
+              disabled
+            >
+              Search
+            </button>
+            <button
+              type="button"
+              className="admin-btn text-xs"
+              title="Notifications (coming soon)"
+              disabled
+            >
+              Notifications
+            </button>
+            <Link href="/admin/help" className="admin-btn text-xs">
+              Help
+            </Link>
+            <div className="relative">
+              <button
+                type="button"
+                className="admin-btn text-xs"
+                aria-expanded={profileOpen}
+                aria-haspopup="menu"
+                onClick={() => setProfileOpen((o) => !o)}
+              >
+                {userName?.split(/\s+/)[0] || "Profile"}
+              </button>
+              {profileOpen && (
+                <div
+                  role="menu"
+                  className="absolute right-0 z-20 mt-2 w-56 border border-[var(--admin-border)] bg-[var(--admin-panel,#131313)] p-3 shadow-lg"
+                >
+                  {userName && (
+                    <p className="text-sm font-medium text-white">{userName}</p>
+                  )}
+                  {roleLabel && (
+                    <p className="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-[var(--admin-muted)]">
+                      {roleLabel}
+                    </p>
+                  )}
+                  <p className="mt-1 text-xs text-[var(--admin-muted)]">
+                    {workspace.title}
+                  </p>
+                  <div className="mt-3 space-y-1 border-t border-[var(--admin-border)] pt-3">
+                    <Link
+                      href="/workspace"
+                      className="admin-nav-link block text-sm"
+                      role="menuitem"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Switch workspace
+                    </Link>
+                    <form action="/admin/logout" method="post">
+                      <button
+                        type="submit"
+                        className="admin-nav-link w-full text-left text-sm"
+                        role="menuitem"
+                      >
+                        Sign out
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              )}
+            </div>
+          </header>
+
+          {children}
+        </div>
       </div>
     </div>
   );

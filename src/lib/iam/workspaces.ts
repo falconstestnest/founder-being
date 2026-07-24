@@ -214,7 +214,14 @@ export const WORKSPACE_PATHS = Object.values(WORKSPACES).map((w) => w.path);
 
 export function isWorkspacePath(pathname: string): boolean {
   if (pathname === "/login" || pathname.startsWith("/login/")) return false;
+  if (pathname === "/workspace" || pathname.startsWith("/workspace/")) {
+    return true;
+  }
   return WORKSPACE_PATHS.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
 }
+
+/** Stable post-auth entry — email links, OAuth, magic link, session recovery */
+export const WORKSPACE_ENTRY_PATH = "/workspace";
+

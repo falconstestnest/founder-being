@@ -36,7 +36,7 @@ Index of project documentation and the rule for keeping it current.
 | Events Operations Foundation | [EVENTS_OPERATIONS_FOUNDATION.md](./EVENTS_OPERATIONS_FOUNDATION.md) | `src/app/admin/events/**`, participation, lifecycle, adminTabs |
 | Typography system | [TYPOGRAPHY.md](./TYPOGRAPHY.md) | `src/app/globals.css` |
 | Institution OS (Phase 2) | [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) | Future modules: People CRM, orgs, timeline, workflows — post security gate |
-| Institutional login & workspaces | [INSTITUTIONAL_LOGIN_WORKSPACES.md](./INSTITUTIONAL_LOGIN_WORKSPACES.md) | `src/app/login/**`, `src/app/founder/**`, `src/lib/iam/workspaces.ts`, `src/middleware.ts` |
+| Institutional login & workspaces | [INSTITUTIONAL_LOGIN_WORKSPACES.md](./INSTITUTIONAL_LOGIN_WORKSPACES.md) | `src/app/login/**`, `src/app/workspace/**`, `src/lib/iam/workspaceSession.ts`, `src/lib/iam/workspaces.ts`, `src/lib/workspace/**`, `src/middleware.ts` |
 | **OS v0.2 Secure People Foundation** | [OS_V0_2_SECURE_PEOPLE_FOUNDATION.md](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md) | Next milestone: security gate + Person graph + timeline — before other Phase 2 |
 | Hash → routes migration | [HASH_TO_ROUTES_MIGRATION.md](./HASH_TO_ROUTES_MIGRATION.md) | Public nav routes, legacy hash map, SEO |
 

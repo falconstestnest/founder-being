@@ -52,9 +52,10 @@ See [Events Domain](docs/EVENTS_DOMAIN.md) and [Events Operations Foundation](do
 | Surface | Route |
 |---------|--------|
 | Sign in | `/login` (institutional — not “Admin Login”) |
+| Workspace hub | `/workspace` (post-auth resolver — never user-picked) |
 | Operations shell | `/admin` (Super Administrator) |
 | Events (ops) | `/admin/events` · `/admin/events/[eventId]` |
-| Workspaces | `/founder` · `/patron` · `/programme` · `/review` · `/finance` · … |
+| Role workspaces | `/founder` · `/patron` · `/programme` · `/review` · `/finance` · … |
 | Team & Access (IAM) | `/admin/team` |
 | Request access | `/access` (request only — not registration) |
 

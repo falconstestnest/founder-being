@@ -30,7 +30,7 @@ export function WorkspaceHome({
           {greet}, {name}.
         </h1>
         <p className="mt-2 max-w-xl text-sm text-[var(--admin-muted)]">
-          Here&apos;s what&apos;s happening today. {workspace.purpose}
+          Here is what needs your attention today.
         </p>
       </header>
 
