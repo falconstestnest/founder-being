@@ -1,28 +1,49 @@
 @import "tailwindcss";
 
+/*
+ * Founder-Being design system — typography & colour
+ * Premium institutional · calm · WCAG AA on #0B0B0B
+ */
+
 :root {
   --black: #0b0b0b;
   --white: #f8f8f8;
   --gold: #ffab33;
-  /*
-   * Typography colour hierarchy (WCAG AA on #0B0B0B):
-   * - primary / headings: near-white, highest emphasis
-   * - body: full readable paragraphs & list items
-   * - secondary: supporting lines, still body-scale AA
-   * - meta: labels, captions, mono (AA for normal text ≥4.5:1)
-   */
+
+  /* Semantic text colours */
   --text-primary: #f8f8f8;
   --text-body: #e8e8ec;
   --text-secondary: #c4c4cc;
-  --text-meta: #a8a8b2;
+  --text-tertiary: #a8a8b2;
+  --text-disabled: #6b6b74;
+  --text-accent: #ffab33;
+  --text-success: #86efac;
+  --text-warning: #fcd34d;
+  --text-error: #fca5a5;
+
+  /* Legacy aliases */
+  --text-meta: var(--text-tertiary);
   --muted: var(--text-body);
   --muted-dark: rgba(11, 11, 11, 0.62);
   --border: rgba(248, 248, 248, 0.14);
   --border-dark: rgba(11, 11, 11, 0.1);
+
+  /* Layout */
   --max: 1280px;
-  --content: 760px;
+  --content: 720px; /* editorial measure ~60–75ch */
+  --measure: 42rem; /* ~672px at 16px */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --duration: 300ms;
+
+  /* Vertical rhythm (8-point) */
+  --space-1: 0.5rem; /* 8 */
+  --space-2: 1rem; /* 16 */
+  --space-3: 1.5rem; /* 24 — heading → paragraph */
+  --space-4: 2rem; /* 32 */
+  --space-5: 3rem; /* 48 — content groups */
+  --space-6: 4rem; /* 64 */
+  --space-7: 6rem; /* 96 — major sections (mobile) */
+  --space-8: 8rem; /* 128 — major sections (desktop) */
 }
 
 @theme inline {
@@ -32,7 +53,17 @@
   --color-fb-text: var(--text-primary);
   --color-fb-body: var(--text-body);
   --color-fb-secondary: var(--text-secondary);
-  --color-fb-meta: var(--text-meta);
+  --color-fb-meta: var(--text-tertiary);
+  /* Semantic colour utilities (preferred going forward) */
+  --color-text-primary: var(--text-primary);
+  --color-text-body: var(--text-body);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-accent: var(--text-accent);
+  --color-text-success: var(--text-success);
+  --color-text-warning: var(--text-warning);
+  --color-text-error: var(--text-error);
   --font-sans: var(--font-inter);
   --font-serif: var(--font-cormorant);
   --font-mono: var(--font-plex);
@@ -64,15 +95,17 @@ html {
 
 body {
   background: var(--black);
-  color: var(--white);
+  color: var(--text-body);
   font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 1rem; /* 16px min body */
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
   background: rgba(255, 171, 51, 0.28);
-  color: var(--white);
+  color: var(--text-primary);
 }
 
 .font-serif {
@@ -83,11 +116,13 @@ body {
   font-family: var(--font-plex), ui-monospace, monospace;
 }
 
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+
 .container-site {
   width: 100%;
   max-width: var(--max);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: 1.25rem;
 }
 
 @media (min-width: 768px) {
@@ -96,13 +131,276 @@ body {
   }
 }
 
-.container-content {
+.container-content,
+.measure {
   width: 100%;
   max-width: var(--content);
   margin-inline: auto;
 }
 
-/* Ambient noise texture */
+/* ─── Typography scale (strict — prefer these over arbitrary sizes) ──────── */
+
+.type-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 3.75rem); /* 40–60 ≈ 56–64 target */
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--text-primary);
+}
+
+.type-h1 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2rem, 4vw, 2.75rem); /* 32–44 ≈ 40–48 */
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.type-h2 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem); /* 28–36 */
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.type-h3 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.5rem; /* 24 */
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.type-h4 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.25rem; /* 20 */
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.type-body-lg {
+  font-size: 1.125rem; /* 18 */
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.type-body {
+  font-size: 1rem; /* 16 */
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--text-body);
+}
+
+.type-small {
+  font-size: 0.875rem; /* 14 */
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.type-meta {
+  font-family: var(--font-plex), ui-monospace, monospace;
+  font-size: 0.8125rem; /* 13 */
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--text-tertiary);
+}
+
+/* Editorial heading alias (legacy) */
+.editorial-h {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+/* ─── Colour utilities ───────────────────────────────────────────────────── */
+
+.muted,
+.text-body,
+.text-fb-body {
+  color: var(--text-body);
+}
+
+.text-secondary,
+.text-fb-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary,
+.text-meta,
+.text-fb-meta {
+  color: var(--text-tertiary);
+}
+
+.text-primary,
+.text-fb-text {
+  color: var(--text-primary);
+}
+
+.text-disabled {
+  color: var(--text-disabled);
+}
+
+.text-accent {
+  color: var(--text-accent);
+}
+
+.text-success {
+  color: var(--text-success);
+}
+
+.text-warning {
+  color: var(--text-warning);
+}
+
+.text-error {
+  color: var(--text-error);
+}
+
+/* ─── Content types ──────────────────────────────────────────────────────── */
+
+.prose-fb,
+.prose-editorial {
+  max-width: var(--measure);
+  color: var(--text-body);
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.prose-editorial p + p,
+.prose-fb p + p {
+  margin-top: var(--space-3);
+}
+
+.prose-editorial strong,
+.prose-fb strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Narrative paragraph */
+.text-narrative {
+  max-width: var(--measure);
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--text-body);
+}
+
+/* Intentional list — breathing room */
+.list-intentional {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-5) 0 0;
+  max-width: var(--measure);
+}
+
+.list-intentional li {
+  display: flex;
+  gap: 0.75rem;
+  padding-block: 0.65rem;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--text-body);
+  border-bottom: 1px solid transparent;
+}
+
+.list-intentional li + li {
+  margin-top: 0.15rem;
+}
+
+.list-intentional .list-mark {
+  flex-shrink: 0;
+  color: var(--text-accent);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* Pull quote / key statement */
+.pull-quote {
+  max-width: var(--measure);
+  margin-block: var(--space-5);
+  padding: var(--space-3) 0 var(--space-3) var(--space-4);
+  border-left: 2px solid var(--text-accent);
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Reflection prompt */
+.reflection-prompt {
+  max-width: var(--measure);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Key statement (inline emphasis block) */
+.key-statement {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+  line-height: 1.35;
+  color: var(--text-primary);
+  max-width: var(--measure);
+}
+
+/* ─── Section rhythm ─────────────────────────────────────────────────────── */
+
+.section {
+  padding-block: var(--space-7);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--space-8);
+  }
+}
+
+.section-label {
+  font-family: var(--font-plex), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  margin-bottom: var(--space-3);
+}
+
+.section-heading {
+  margin-bottom: var(--space-3);
+}
+
+.section-lead {
+  max-width: var(--measure);
+  margin-top: var(--space-3);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.content-group + .content-group {
+  margin-top: var(--space-5);
+}
+
+/* ─── Ambient noise ──────────────────────────────────────────────────────── */
+
 .noise {
   position: relative;
 }
@@ -124,7 +422,8 @@ body {
   z-index: 1;
 }
 
-/* Subtle fade-in on scroll */
+/* ─── Motion ─────────────────────────────────────────────────────────────── */
+
 .fade-in {
   opacity: 0;
   transform: translateY(12px);
@@ -138,18 +437,23 @@ body {
   transform: translateY(0);
 }
 
-/* Buttons */
+/* ─── Interactive: buttons ───────────────────────────────────────────────── */
+
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   min-height: 3rem;
+  min-width: 2.75rem;
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
+  font-weight: 500;
   letter-spacing: 0.04em;
   text-decoration: none;
   border: 1px solid transparent;
+  color: var(--text-primary);
+  cursor: pointer;
   transition:
     background-color var(--duration) var(--ease),
     color var(--duration) var(--ease),
@@ -158,8 +462,15 @@ body {
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--text-accent);
   outline-offset: 3px;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  color: var(--text-disabled);
 }
 
 .btn-primary {
@@ -168,123 +479,188 @@ body {
   border-color: var(--white);
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
   background: transparent;
-  color: var(--white);
+  color: var(--text-primary);
+}
+
+.btn-primary:active:not(:disabled) {
+  opacity: 0.9;
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--white);
+  color: var(--text-primary);
   border-color: rgba(248, 248, 248, 0.35);
 }
 
-.btn-secondary:hover {
-  border-color: var(--white);
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.btn-secondary:active:not(:disabled) {
+  background: rgba(248, 248, 248, 0.04);
 }
 
 .btn-gold {
   background: transparent;
-  color: var(--white);
-  border-color: var(--gold);
+  color: var(--text-primary);
+  border-color: var(--text-accent);
 }
 
-.btn-gold:hover {
-  background: var(--gold);
+.btn-gold:hover:not(:disabled) {
+  background: var(--text-accent);
   color: var(--black);
 }
 
-/* Form fields */
+/* ─── Interactive: links ─────────────────────────────────────────────────── */
+
+a.link-inline {
+  color: var(--text-body);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: rgba(232, 232, 236, 0.35);
+  transition:
+    color var(--duration) var(--ease),
+    text-decoration-color var(--duration) var(--ease);
+}
+
+a.link-inline:hover {
+  color: var(--text-primary);
+  text-decoration-color: var(--text-accent);
+}
+
+a.link-inline:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 3px;
+}
+
+/* ─── Forms ──────────────────────────────────────────────────────────────── */
+
 .field {
   width: 100%;
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--border);
-  color: var(--white);
+  color: var(--text-primary);
   font: inherit;
   font-size: 1rem;
+  line-height: 1.5;
   padding: 0.85rem 0;
   transition: border-color var(--duration) var(--ease);
 }
 
 .field::placeholder {
-  color: var(--text-meta);
+  color: var(--text-tertiary);
+}
+
+.field:hover {
+  border-bottom-color: rgba(248, 248, 248, 0.28);
 }
 
 .field:focus {
   outline: none;
-  border-bottom-color: var(--gold);
+  border-bottom-color: var(--text-accent);
+}
+
+.field:disabled {
+  color: var(--text-disabled);
+  cursor: not-allowed;
 }
 
 .field option {
   color: var(--black);
 }
 
-/* Section rhythm */
-.section {
-  padding-block: 7rem;
-}
-
-@media (min-width: 768px) {
-  .section {
-    padding-block: 9rem;
-  }
-}
-
-.section-label {
+.field-label {
+  display: block;
   font-family: var(--font-plex), ui-monospace, monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.5rem;
-}
-
-.editorial-h {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-
-/* Prefer semantic utilities over opacity-on-white for body copy */
-.muted,
-.text-body {
-  color: var(--text-body);
-}
-
-.text-secondary {
-  color: var(--text-secondary);
-}
-
-.text-meta {
-  color: var(--text-meta);
-}
-
-.text-primary {
-  color: var(--text-primary);
-}
-
-.prose-fb {
-  color: var(--text-body);
-  line-height: 1.7;
-}
-
-.prose-fb p + p {
-  margin-top: 1.25em;
-}
-
-.prose-fb li {
-  color: var(--text-body);
-}
-
-.prose-fb strong {
-  color: var(--text-primary);
+  font-size: 0.8125rem;
   font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-1);
 }
+
+.field-error {
+  margin-top: var(--space-1);
+  font-size: 0.875rem;
+  color: var(--text-error);
+}
+
+.field-success {
+  margin-top: var(--space-1);
+  font-size: 0.875rem;
+  color: var(--text-success);
+}
+
+/* ─── FAQ / accordion ────────────────────────────────────────────────────── */
+
+.faq-item {
+  border: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  transition: border-color var(--duration) var(--ease);
+}
+
+.faq-item[open] {
+  border-color: rgba(248, 248, 248, 0.22);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 4px;
+}
+
+.faq-item summary:hover {
+  color: var(--text-primary);
+}
+
+.faq-body {
+  margin-top: var(--space-3);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-body);
+  max-width: var(--measure);
+}
+
+/* ─── Utilities ──────────────────────────────────────────────────────────── */
 
 .rule {
   height: 1px;
   background: var(--border);
   border: 0;
+}
+
+/* Mobile comfort */
+@media (max-width: 639px) {
+  body {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .type-body-lg,
+  .text-narrative,
+  .list-intentional li {
+    font-size: 1.0625rem; /* 17px — still ≥16 feel */
+    line-height: 1.7;
+  }
+
+  .container-site {
+    padding-inline: 1.25rem;
+  }
 }

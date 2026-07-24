@@ -14,16 +14,13 @@ export function SectionChanged() {
 
         <div className="grid gap-12 md:grid-cols-2 md:gap-20 lg:gap-28">
           <FadeIn>
-            <h2
-              id="changed-heading"
-              className="editorial-h text-4xl text-fb-text md:text-5xl lg:text-[3.25rem]"
-            >
+            <h2 id="changed-heading" className="type-h2 section-heading">
               Entrepreneurship Has Changed
             </h2>
           </FadeIn>
 
           <FadeIn delayMs={80}>
-            <div className="space-y-6 text-base leading-relaxed text-fb-body md:text-lg">
+            <div className="prose-editorial">
               <p>
                 The startup ecosystem has transformed how companies are built.
                 Capital cycles move faster. Markets shift overnight. The path
@@ -34,7 +31,7 @@ export function SectionChanged() {
                 pressure have become ordinary conditions of the journey—often
                 carried in silence.
               </p>
-              <p className="font-serif text-2xl leading-snug text-fb-text md:text-3xl">
+              <p className="key-statement mt-8">
                 Founder wellbeing is no longer optional.
               </p>
             </div>

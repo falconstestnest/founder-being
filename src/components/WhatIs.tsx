@@ -11,16 +11,13 @@ export function WhatIs() {
       <div className="container-site">
         <FadeIn>
           <p className="section-label">02 — About</p>
-          <h2
-            id="about-heading"
-            className="editorial-h max-w-3xl text-4xl text-fb-text md:text-5xl lg:text-[3.5rem]"
-          >
+          <h2 id="about-heading" className="type-h2 section-heading max-w-3xl">
             What is Founder-Being?
           </h2>
         </FadeIn>
 
         <FadeIn delayMs={60}>
-          <p className="mt-10 max-w-[40rem] text-lg leading-relaxed text-fb-body md:text-xl">
+          <p className="section-lead mt-6">
             Founder-Being exists to cultivate a culture where ambitious
             individuals can pursue extraordinary ambition without compromising
             their wellbeing, relationships, identity, or inner peace.

@@ -70,6 +70,11 @@ export const retreatFacts = [
 export const whyExists = {
   intro:
     "Founders are taught to raise capital, build teams, ship products and scale companies. Very few are taught how to carry uncertainty, responsibility, loneliness and ambition without losing themselves.",
+  /** Full intro string — UI may split for pull-quote treatment */
+  lead:
+    "Founders are taught to raise capital, build teams, ship products and scale companies.",
+  pullQuote:
+    "Very few are taught how to carry uncertainty, responsibility, loneliness and ambition without losing themselves.",
   points: [
     "Step away from operational noise.",
     "Recover from sustained pressure.",

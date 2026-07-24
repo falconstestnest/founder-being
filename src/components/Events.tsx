@@ -18,15 +18,10 @@ export function Events() {
       <div className="container-site">
         <FadeIn>
           <p className="section-label">06 — Gatherings</p>
-          <h2
-            id="events-heading"
-            className="editorial-h max-w-2xl text-4xl text-fb-text md:text-5xl"
-          >
+          <h2 id="events-heading" className="type-h2 section-heading max-w-2xl">
             Upcoming Gatherings
           </h2>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-fb-body md:text-lg">
-            {gatheringsIntro}
-          </p>
+          <p className="section-lead">{gatheringsIntro}</p>
         </FadeIn>
 
         {/* Residential retreat highlight */}
@@ -87,10 +82,10 @@ export function Events() {
                     <p className="text-sm text-fb-secondary">
                       The gathering may include:
                     </p>
-                    <ul className="mt-3 space-y-2 text-sm leading-relaxed text-fb-body md:text-base">
+                    <ul className="list-intentional mt-4">
                       {event.bullets.map((b) => (
-                        <li key={b} className="flex gap-3">
-                          <span className="text-[#FFAB33]" aria-hidden>
+                        <li key={b}>
+                          <span className="list-mark" aria-hidden>
                             —
                           </span>
                           <span>{b}</span>

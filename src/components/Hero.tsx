@@ -17,17 +17,12 @@ export function Hero() {
           />
         </div>
 
-        <h1
-          id="hero-heading"
-          className="editorial-h max-w-3xl text-4xl text-fb-text sm:text-5xl md:text-6xl lg:text-[4.25rem]"
-        >
+        <h1 id="hero-heading" className="type-display max-w-3xl">
           Building Healthier Founders.
-          <span className="mt-3 block text-fb-text">
-            Building Better Companies.
-          </span>
+          <span className="mt-3 block">Building Better Companies.</span>
         </h1>
 
-        <p className="muted mt-10 max-w-[36rem] text-base leading-relaxed md:text-lg">
+        <p className="section-lead mx-auto mt-10 text-center">
           Founder-Being is a founder wellbeing and conscious leadership
           initiative creating meaningful spaces where entrepreneurs can reflect,
           reconnect, and build resilient companies without sacrificing themselves

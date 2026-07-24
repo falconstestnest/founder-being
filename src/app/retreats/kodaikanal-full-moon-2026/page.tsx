@@ -58,13 +58,13 @@ export default function KodaikanalRetreatPage() {
         <section className="noise relative border-b border-white/10 pt-28 pb-20 md:pt-36 md:pb-28">
           <div className="container-site">
             <p className="section-label">{r.eyebrow}</p>
-            <h1 className="editorial-h max-w-3xl text-4xl md:text-6xl lg:text-[4rem]">
+            <h1 className="type-display max-w-3xl">
               {r.headline}
             </h1>
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fb-body md:text-xl">
+            <p className="section-lead type-body-lg mt-6">
               {r.subheadline}
             </p>
-            <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs tracking-[0.12em] uppercase text-fb-secondary">
+            <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 type-meta text-secondary">
               <li>{r.datesLabel}</li>
               <li>{r.locationPublic}</li>
               <li>{r.durationLabel}</li>
@@ -77,7 +77,7 @@ export default function KodaikanalRetreatPage() {
                 View the Programme
               </a>
             </div>
-            <p className="mt-6 max-w-xl text-sm text-fb-meta">
+            <p className="mt-8 max-w-xl type-small">
               Not a pitch event. Not a panel. Not a productivity workshop. A
               curated space for founders to rest, reconnect and examine what they
               are carrying.
@@ -90,7 +90,7 @@ export default function KodaikanalRetreatPage() {
           <div className="container-site">
             <FadeIn>
               <p className="section-label">Overview</p>
-              <h2 id="facts-heading" className="editorial-h text-3xl md:text-4xl">
+              <h2 id="facts-heading" className="type-h2 section-heading">
                 Essential retreat facts
               </h2>
             </FadeIn>
@@ -120,18 +120,20 @@ export default function KodaikanalRetreatPage() {
           <div className="container-site grid gap-12 md:grid-cols-2">
             <FadeIn>
               <p className="section-label">Intent</p>
-              <h2 id="why-heading" className="editorial-h text-3xl md:text-4xl">
+              <h2 id="why-heading" className="type-h2 section-heading">
                 Why this retreat exists
               </h2>
             </FadeIn>
-            <FadeIn delayMs={60} className="prose-fb">
-              <p className="text-base leading-relaxed text-fb-body md:text-lg">
-                {whyExists.intro}
+            <FadeIn delayMs={60}>
+              <p className="text-narrative">{whyExists.lead}</p>
+              <blockquote className="pull-quote">{whyExists.pullQuote}</blockquote>
+              <p className="type-small text-secondary" style={{ marginTop: "3rem" }}>
+                This retreat creates time and space for founders to:
               </p>
-              <ul className="mt-8 space-y-3.5">
+              <ul className="list-intentional">
                 {whyExists.points.map((p) => (
-                  <li key={p} className="flex gap-3 text-base leading-relaxed text-fb-body md:text-lg">
-                    <span className="mt-0.5 shrink-0 text-[#FFAB33]" aria-hidden>
+                  <li key={p}>
+                    <span className="list-mark" aria-hidden>
                       —
                     </span>
                     <span>{p}</span>
@@ -147,17 +149,20 @@ export default function KodaikanalRetreatPage() {
           <div className="container-site">
             <FadeIn>
               <p className="section-label">Cohort</p>
-              <h2 id="who-heading" className="editorial-h text-3xl md:text-4xl">
+              <h2 id="who-heading" className="type-h2 section-heading">
                 Who should apply
               </h2>
-              <ul className="mt-10 max-w-2xl space-y-4 text-fb-body">
+              <ul className="list-intentional">
                 {whoShouldApply.map((w) => (
-                  <li key={w} className="border-b border-white/10 pb-4">
-                    {w}
+                  <li key={w}>
+                    <span className="list-mark" aria-hidden>
+                      —
+                    </span>
+                    <span>{w}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-8 max-w-xl text-sm text-fb-meta">
+              <p className="mt-10 max-w-xl type-small">
                 Not restricted by startup stage, funding status or company size.
                 Selection considers fit, intent, willingness to participate and
                 cohort balance.
@@ -386,23 +391,21 @@ export default function KodaikanalRetreatPage() {
               <h2 id="faq-heading" className="editorial-h text-3xl md:text-4xl">
                 Frequently asked questions
               </h2>
-              <div className="mt-12 max-w-3xl space-y-4">
+              <div className="mt-12 max-w-3xl space-y-3">
                 {faqs.map((f) => (
-                  <details
-                    key={f.q}
-                    className="group border border-white/10 px-6 py-4 open:border-white/20"
-                  >
-                    <summary className="cursor-pointer list-none font-serif text-xl text-fb-text marker:content-none [&::-webkit-details-marker]:hidden">
+                  <details key={f.q} className="faq-item group">
+                    <summary>
                       <span className="flex items-start justify-between gap-4">
                         {f.q}
-                        <span className="text-[#FFAB33] transition group-open:rotate-45">
+                        <span
+                          className="text-accent transition group-open:rotate-45"
+                          aria-hidden
+                        >
                           +
                         </span>
                       </span>
                     </summary>
-                    <p className="mt-4 text-sm leading-relaxed text-fb-body">
-                      {f.a}
-                    </p>
+                    <p className="faq-body">{f.a}</p>
                   </details>
                 ))}
               </div>
