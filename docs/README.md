@@ -41,6 +41,8 @@ Index of project documentation and the rule for keeping it current.
 | CTA reliability & identity linking | [CTA_RELIABILITY_AND_IDENTITY.md](./CTA_RELIABILITY_AND_IDENTITY.md) | `/access`, password recovery, analytics, identity normalize, portal entitlements |
 | **OS v0.2 Secure People Foundation** | [OS_V0_2_SECURE_PEOPLE_FOUNDATION.md](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md) | Security gate + Person graph + timeline — before other Phase 2 |
 | **v0.2.1 Person bootstrap** | [OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md](./OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md) | `people`, profile link, interest/application person_id, audit, `/admin/people` |
+| RLS test matrix | [RLS_TEST_MATRIX.md](./RLS_TEST_MATRIX.md) | Role-by-role policy checks before “production-secure” |
+| Migration rollback v0.2.1 | [MIGRATION_ROLLBACK_V0_2_1.md](./MIGRATION_ROLLBACK_V0_2_1.md) | Reverse plan; prefer backup restore with live PII |
 | Hash → routes migration | [HASH_TO_ROUTES_MIGRATION.md](./HASH_TO_ROUTES_MIGRATION.md) | Public nav routes, legacy hash map, SEO |
 
 *Add a row whenever a new topic-specific doc is created under `docs/`.*

@@ -9,7 +9,11 @@
 Secure access → Canonical Person → Timeline → Event links → Attention queues
 ```
 
-Until v0.2.1 completion test passes, timeline, communications, documents, payments, and attention dashboards stay blocked.
+Until v0.2.1 completion test passes **in production**, timeline, communications, documents, payments, and attention dashboards stay blocked.
+
+**Events Operations** is structurally complete enough to pause. Do **not** expand `event_participation` writes until Person resolution works in production.
+
+**Safe parallel Events path only:** lifecycle transition API + `event_lifecycle_audit` (Event entity — not Person).
 
 ## Why this milestone exists
 

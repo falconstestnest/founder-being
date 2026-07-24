@@ -161,9 +161,29 @@ Scaffold: `/admin/events/new`
 
 ---
 
-## Next after this foundation
+## Next after this foundation (sequencing locked)
 
-1. Wire interest/application writes into `event_participation`  
-2. Persist lifecycle transitions + audit  
-3. Person graph links (`person_id`) — OS v0.2  
-4. Then communications, documents, automation, finance  
+```text
+1. Production Supabase + security gate
+2. Canonical Person (v0.2.1)
+3. Interest/application identity linking (done in code; needs prod DB)
+4. event_participation writes (only after person_id resolves)
+5. Person timeline
+6. Attention dashboard
+```
+
+### Safe parallel (Event entity only)
+
+| Item | Status |
+| ---- | ------ |
+| `POST /api/events/[eventId]/lifecycle` | ✅ Guaranteed transitions + audit |
+| Admin UI transition controls | ✅ |
+| `event_lifecycle_audit` reason | ✅ migration |
+
+### Explicitly blocked until Person gate
+
+* interest → `event_participation` rows  
+* participant creation  
+* payments / invitations / communications automation  
+
+Person completion test: [OS_V0_2_1](./OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md) · RLS: [RLS_TEST_MATRIX.md](./RLS_TEST_MATRIX.md)

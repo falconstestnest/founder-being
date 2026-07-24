@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { LifecycleTransitionControls } from "@/components/admin/LifecycleTransitionControls";
 import { adminTabsForEvent } from "@/lib/events/adminTabs";
 import { getAdminEvent } from "@/lib/events/adminData";
 import { allowedNextStages } from "@/lib/events/lifecycle";
@@ -157,27 +158,11 @@ export default async function AdminEventDetailPage({
 
             <div className="admin-card">
               <h3 className="admin-section-title">Lifecycle transitions</h3>
-              <p className="mb-3 text-xs text-[var(--admin-muted)]">
-                Current:{" "}
-                <span className="text-white">
-                  {EVENT_LIFECYCLE_LABELS[event.lifecycle]}
-                </span>
-                . Only guarded next stages are listed (validation + audit on
-                change).
-              </p>
-              {nextStages.length === 0 ? (
-                <p className="text-sm text-[var(--admin-muted)]">
-                  No further transitions from archived.
-                </p>
-              ) : (
-                <ul className="flex flex-wrap gap-2">
-                  {nextStages.map((s) => (
-                    <li key={s} className="admin-btn text-xs">
-                      → {EVENT_LIFECYCLE_LABELS[s]}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <LifecycleTransitionControls
+                eventId={event.id}
+                current={event.lifecycle}
+                nextStages={nextStages}
+              />
             </div>
           </section>
 

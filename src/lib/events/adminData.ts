@@ -10,6 +10,7 @@ import {
   type DerivedCapacity,
   type ParticipationStatus,
 } from "@/lib/events/participation";
+import { resolveEventForOps } from "@/lib/events/transitionService";
 import type { FounderEvent } from "@/lib/events/taxonomy";
 import { getServiceSupabase } from "@/lib/supabase/server";
 
@@ -37,7 +38,9 @@ async function loadParticipationStatuses(
 
 export async function listAdminEvents(): Promise<EventOpsRecord[]> {
   const rows: EventOpsRecord[] = [];
-  for (const event of eventsCatalog) {
+  for (const catalogEvent of eventsCatalog) {
+    const event =
+      (await resolveEventForOps(catalogEvent.id)) ?? catalogEvent;
     const statuses = await loadParticipationStatuses(event.id);
     const derived = deriveCapacity(event.capacity.capacity, statuses);
     rows.push({
@@ -54,9 +57,19 @@ export async function listAdminEvents(): Promise<EventOpsRecord[]> {
 export async function getAdminEvent(
   eventIdOrSlug: string,
 ): Promise<EventOpsRecord | null> {
-  const event =
-    getEventById(eventIdOrSlug) || getEventBySlug(eventIdOrSlug) || null;
-  if (!event) return null;
+  const event = await resolveEventForOps(eventIdOrSlug);
+  if (!event) {
+    const fallback =
+      getEventById(eventIdOrSlug) || getEventBySlug(eventIdOrSlug) || null;
+    if (!fallback) return null;
+    return {
+      ...fallback,
+      derived: emptyDerivedCapacity(fallback.capacity.capacity),
+      openTasks: 0,
+      upcomingDeadlines: deadlinesForEvent(fallback),
+      recentActivity: [],
+    };
+  }
 
   const statuses = await loadParticipationStatuses(event.id);
   const derived =
@@ -64,18 +77,41 @@ export async function getAdminEvent(
       ? deriveCapacity(event.capacity.capacity, statuses)
       : emptyDerivedCapacity(event.capacity.capacity);
 
+  const recent = await loadRecentLifecycle(event.id);
+
   return {
     ...event,
     derived,
     openTasks: 0,
     upcomingDeadlines: deadlinesForEvent(event),
-    recentActivity: [
-      {
-        at: new Date().toISOString(),
-        label: "Event loaded from catalogue (participation empty until DB records exist)",
-      },
-    ],
+    recentActivity:
+      recent.length > 0
+        ? recent
+        : [
+            {
+              at: new Date().toISOString(),
+              label:
+                "Event loaded from catalogue. Lifecycle persists to DB on first transition.",
+            },
+          ],
   };
+}
+
+async function loadRecentLifecycle(eventId: string) {
+  const supabase = getServiceSupabase();
+  if (!supabase) return [];
+  const { data } = await supabase
+    .from("event_lifecycle_audit")
+    .select("from_stage, to_stage, validation_ok, created_at")
+    .eq("event_id", eventId)
+    .order("created_at", { ascending: false })
+    .limit(8);
+  return (data ?? []).map((r) => ({
+    at: r.created_at as string,
+    label: r.validation_ok
+      ? `Lifecycle ${r.from_stage} → ${r.to_stage}`
+      : `Rejected transition ${r.from_stage} → ${r.to_stage}`,
+  }));
 }
 
 function deadlinesForEvent(event: FounderEvent) {

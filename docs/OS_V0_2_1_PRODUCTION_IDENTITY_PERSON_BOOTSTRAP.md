@@ -1,7 +1,20 @@
 # v0.2.1 — Production Identity and Person Bootstrap
 
-**Status:** Implementation slice of [OS v0.2 Secure People Foundation](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md)  
+**Status:** Code + migrations ready · **production connection pending**  
 **Last verified:** 2026-07-25  
+**Parent:** [OS v0.2 Secure People Foundation](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md)  
+
+| Deliverable | Repo status | Production status |
+| ----------- | ----------- | ----------------- |
+| Schema `people` / relationships / audit | ✅ migration | ⏳ apply on owned project |
+| `profiles.person_id` | ✅ | ⏳ |
+| Interest / application link on write | ✅ API | ⏳ needs service role + tables |
+| Duplicate rules (no name merge) | ✅ | — |
+| Admin person view | ✅ `/admin/people` | ⏳ after data |
+| RLS policies | ✅ SQL | ⏳ [RLS matrix](./RLS_TEST_MATRIX.md) |
+| Supabase env on Vercel | 📄 documented | ⏳ [setup](./SUPABASE_PRODUCTION_SETUP.md) |
+| Super Admin Auth user | 📄 bootstrap steps | ⏳ Jimmy manual |
+| `event_participation` writes | ❌ blocked | — |
 
 This is the **right bottleneck**. Everything else stays downstream until this slice answers yes.
 
