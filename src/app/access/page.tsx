@@ -3,19 +3,22 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { Logo } from "@/components/Logo";
-import { requestableRoles, type RoleSlug } from "@/lib/iam/roles";
+import {
+  requestableSystemRoles,
+  type SystemRoleSlug,
+} from "@/lib/iam/roles";
 
 export default function AccessRequestPage() {
-  const roles = requestableRoles();
+  const roles = requestableSystemRoles();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [selected, setSelected] = useState<RoleSlug[]>([]);
+  const [selected, setSelected] = useState<SystemRoleSlug[]>([]);
   const [note, setNote] = useState("");
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  function toggle(slug: RoleSlug) {
+  function toggle(slug: SystemRoleSlug) {
     setSelected((prev) => {
       if (prev.includes(slug)) return prev.filter((s) => s !== slug);
       if (prev.length >= 3) return prev;
@@ -64,9 +67,10 @@ export default function AccessRequestPage() {
         </p>
         <h1 className="mt-3 font-serif text-4xl">Request access</h1>
         <p className="mt-4 text-sm leading-relaxed text-fb-body">
-          Founder-Being administration is invite- and approval-only. Tell us who
-          you are and which role best matches how you hope to contribute. A Super
-          Administrator will review and assign access.
+          Founder-Being administration is invite- and approval-only. This form is
+          a request, not registration. Preferred system roles never grant access
+          automatically—an authorised administrator must approve and assign final
+          permissions.
         </p>
 
         {done ? (

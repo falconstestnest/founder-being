@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { SUPER_ADMIN } from "@/lib/iam/constants";
-import { DEPARTMENTS, ROLES } from "@/lib/iam/roles";
+import { DEPARTMENTS, SYSTEM_ROLES } from "@/lib/iam/roles";
 
 export default function InvitePage() {
   const router = useRouter();
@@ -32,7 +31,6 @@ export default function InvitePage() {
           roleSlug,
           departmentSlug: departmentSlug || undefined,
           note: note || undefined,
-          actorEmail: SUPER_ADMIN.email,
         }),
       });
       const data = await res.json();
@@ -87,7 +85,9 @@ export default function InvitePage() {
             value={roleSlug}
             onChange={(e) => setRoleSlug(e.target.value)}
           >
-            {ROLES.filter((r) => r.slug !== "super_administrator").map((r) => (
+            {SYSTEM_ROLES.filter(
+              (r) => r.slug !== "super_administrator" && r.slug !== "none",
+            ).map((r) => (
               <option key={r.slug} value={r.slug}>
                 {r.name}
               </option>

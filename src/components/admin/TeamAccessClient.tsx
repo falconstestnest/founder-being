@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { SUPER_ADMIN } from "@/lib/iam/constants";
-import { ROLES, type RoleSlug } from "@/lib/iam/roles";
+import { SYSTEM_ROLES, type SystemRoleSlug } from "@/lib/iam/roles";
 
 type Member = {
   id: string;
   fullName?: string;
   full_name?: string;
   email: string;
-  roleSlug?: RoleSlug;
+  roleSlug?: SystemRoleSlug;
   status: string;
   lastLoginAt?: string | null;
   last_login_at?: string | null;
@@ -26,7 +26,7 @@ type AccessRequest = {
   fullName?: string;
   full_name?: string;
   email: string;
-  preferredRoles?: RoleSlug[];
+  preferredRoles?: SystemRoleSlug[];
   preferred_role_slugs?: string[];
   note?: string;
   createdAt?: string;
@@ -97,7 +97,6 @@ export function TeamAccessClient() {
         body: JSON.stringify({
           action,
           assignedRole,
-          actorEmail: SUPER_ADMIN.email,
         }),
       });
       const data = await res.json();
@@ -174,7 +173,7 @@ export function TeamAccessClient() {
             {pending.map((req) => {
               const roles =
                 req.preferredRoles ??
-                (req.preferred_role_slugs as RoleSlug[] | undefined) ??
+                (req.preferred_role_slugs as SystemRoleSlug[] | undefined) ??
                 [];
               const defaultRole = roles[0] ?? "reviewer";
               return (
@@ -188,12 +187,13 @@ export function TeamAccessClient() {
                         {req.email}
                       </p>
                       <p className="mt-3 text-xs text-[var(--admin-muted)]">
-                        Preferred:{" "}
+                        Preferred system roles (not granted):{" "}
                         <span className="text-white">
                           {roles
                             .map(
                               (s) =>
-                                ROLES.find((r) => r.slug === s)?.name ?? s,
+                                SYSTEM_ROLES.find((r) => r.slug === s)?.name ??
+                                s,
                             )
                             .join(", ") || "—"}
                         </span>
@@ -206,7 +206,7 @@ export function TeamAccessClient() {
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
                       <label className="sr-only" htmlFor={`role-${req.id}`}>
-                        Assign role
+                        Assign system role
                       </label>
                       <select
                         id={`role-${req.id}`}
@@ -214,13 +214,15 @@ export function TeamAccessClient() {
                         defaultValue={defaultRole}
                         style={{ minHeight: 36 }}
                       >
-                        {ROLES.filter((r) => r.slug !== "super_administrator").map(
-                          (r) => (
-                            <option key={r.slug} value={r.slug}>
-                              {r.name}
-                            </option>
-                          ),
-                        )}
+                        {SYSTEM_ROLES.filter(
+                          (r) =>
+                            r.slug !== "super_administrator" &&
+                            r.slug !== "none",
+                        ).map((r) => (
+                          <option key={r.slug} value={r.slug}>
+                            {r.name}
+                          </option>
+                        ))}
                       </select>
                       <button
                         type="button"
@@ -302,9 +304,10 @@ export function TeamAccessClient() {
                     m.roleSlug ??
                     (m.email === SUPER_ADMIN.email
                       ? "super_administrator"
-                      : "guest");
+                      : "read_only");
                   const roleName =
-                    ROLES.find((r) => r.slug === roleSlug)?.name ?? roleSlug;
+                    SYSTEM_ROLES.find((r) => r.slug === roleSlug)?.name ??
+                    roleSlug;
                   const created = m.createdAt ?? m.created_at;
                   const mfa = m.mfaEnabled ?? m.mfa_enabled;
                   return (

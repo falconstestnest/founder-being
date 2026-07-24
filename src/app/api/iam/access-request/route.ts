@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { ROLE_SLUGS, requestableRoles } from "@/lib/iam/roles";
+import { allowLocalIamFallback } from "@/lib/iam/constants";
+import { SYSTEM_ROLE_SLUGS, requestableSystemRoles } from "@/lib/iam/roles";
 import { saveAccessRequest } from "@/lib/iam/store";
 import { getServiceSupabase } from "@/lib/supabase/server";
 
@@ -8,7 +9,7 @@ const schema = z.object({
   fullName: z.string().trim().min(2).max(100),
   email: z.string().trim().email().transform((e) => e.toLowerCase()),
   preferredRoles: z
-    .array(z.enum(ROLE_SLUGS as unknown as [string, ...string[]]))
+    .array(z.enum(SYSTEM_ROLE_SLUGS as unknown as [string, ...string[]]))
     .min(1)
     .max(3),
   note: z.string().trim().max(1000).optional(),
@@ -26,7 +27,10 @@ export async function POST(request: Request) {
   const parsed = schema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "Please check the form.", fieldErrors: parsed.error.flatten().fieldErrors },
+      {
+        error: "Please check the form.",
+        fieldErrors: parsed.error.flatten().fieldErrors,
+      },
       { status: 400 },
     );
   }
@@ -36,11 +40,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const allowed = new Set(requestableRoles().map((r) => r.slug));
+  const allowed = new Set(requestableSystemRoles().map((r) => r.slug));
   const preferred = data.preferredRoles.filter((r) => allowed.has(r as never));
   if (preferred.length === 0) {
     return NextResponse.json(
-      { error: "Select at least one requestable role." },
+      { error: "Select at least one preferred system role." },
       { status: 400 },
     );
   }
@@ -54,7 +58,7 @@ export async function POST(request: Request) {
         email: data.email,
         preferred_role_slugs: preferred,
         note: data.note ?? null,
-        status: "pending",
+        status: "submitted",
       })
       .select("id")
       .single();
@@ -67,6 +71,16 @@ export async function POST(request: Request) {
       );
     }
     return NextResponse.json({ ok: true, id: inserted.id });
+  }
+
+  if (!allowLocalIamFallback()) {
+    return NextResponse.json(
+      {
+        error:
+          "Access requests are unavailable until the identity service is configured.",
+      },
+      { status: 503 },
+    );
   }
 
   try {

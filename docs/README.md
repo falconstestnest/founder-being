@@ -30,6 +30,7 @@ Index of project documentation and the rule for keeping it current.
 | Kodaikanal retreat implementation PRD | [Founder_Being_Kodaikanal_Retreat_Signup_PRD.md](./Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) | Same as retreat platform + event content in `src/lib/retreats/kodaikanal-2026.ts` |
 | Admin Dashboard (UI/UX design PRD) | [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md) | `src/app/admin/**`, `src/components/admin/**`, `src/lib/admin/**`, `src/app/admin/admin.css` |
 | Identity & Access (Team & Access) | [IAM_TEAM_ACCESS_PRD.md](./IAM_TEAM_ACCESS_PRD.md) | `src/lib/iam/**`, `src/app/admin/team/**`, `src/app/access/**`, `src/app/api/iam/**`, `supabase/migrations/*iam*` |
+| IAM production access control | [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) | `src/middleware.ts`, `src/lib/iam/authz.ts`, `src/app/admin/login/**`, `src/app/admin/auth/**` |
 
 *Add a row whenever a new topic-specific doc is created under `docs/`.*
 
@@ -45,6 +46,7 @@ Index of project documentation and the rule for keeping it current.
 | [Founder_Being_Kodaikanal_Retreat_Signup_PRD.md](./Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) | Full implementation PRD for Kodaikanal Full Moon Retreat (Aug 2026) |
 | [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md) | Admin Dashboard design PRD — Calm Operations UI/UX |
 | [IAM_TEAM_ACCESS_PRD.md](./IAM_TEAM_ACCESS_PRD.md) | IAM / Team & Access — RBAC, Super Admin, invites |
+| [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) | Phase 1 authn/authz gates — not prod-secure until checklist passes |
 
 ---
 

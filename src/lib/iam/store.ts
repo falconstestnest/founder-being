@@ -1,35 +1,44 @@
 /**
- * Lightweight store for access requests / invitations when Supabase
- * is not configured. Replace with Supabase tables in production.
+ * Local IAM store — ONLY when ALLOW_LOCAL_IAM=1 and not production.
+ * Never used as a production security boundary.
  */
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { SUPER_ADMIN } from "@/lib/iam/constants";
-import type { RoleSlug } from "@/lib/iam/roles";
+import { SUPER_ADMIN, allowLocalIamFallback } from "@/lib/iam/constants";
+import type { SystemRoleSlug } from "@/lib/iam/roles";
 
 const DATA_DIR = path.join(process.cwd(), ".data");
 const REQUESTS_FILE = path.join(DATA_DIR, "access-requests.json");
 const INVITES_FILE = path.join(DATA_DIR, "invitations.json");
 
+export type AccessRequestStatus =
+  | "submitted"
+  | "under_review"
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "withdrawn"
+  | "expired";
+
 export type AccessRequest = {
   id: string;
   fullName: string;
   email: string;
-  preferredRoles: RoleSlug[];
+  preferredRoles: SystemRoleSlug[];
   note?: string;
-  status: "pending" | "approved" | "rejected" | "cancelled";
+  status: AccessRequestStatus;
   createdAt: string;
   reviewedAt?: string;
   reviewedBy?: string;
-  assignedRole?: RoleSlug;
+  assignedRole?: SystemRoleSlug;
 };
 
 export type Invitation = {
   id: string;
   email: string;
   fullName: string;
-  roleSlug: RoleSlug;
+  roleSlug: SystemRoleSlug;
   departmentSlug?: string;
   note?: string;
   token: string;
@@ -43,7 +52,8 @@ export type TeamMember = {
   id: string;
   fullName: string;
   email: string;
-  roleSlug: RoleSlug;
+  roleSlug: SystemRoleSlug;
+  relationshipSlug?: string;
   status: "active" | "invited" | "pending" | "deactivated";
   lastLoginAt: string | null;
   mfaEnabled: boolean;
@@ -51,11 +61,19 @@ export type TeamMember = {
   protected?: boolean;
 };
 
+function assertLocalAllowed() {
+  if (!allowLocalIamFallback()) {
+    throw new Error("Local IAM store is disabled.");
+  }
+}
+
 async function ensureDir() {
+  assertLocalAllowed();
   await fs.mkdir(DATA_DIR, { recursive: true });
 }
 
 async function readJson<T>(file: string, fallback: T): Promise<T> {
+  assertLocalAllowed();
   try {
     const raw = await fs.readFile(file, "utf8");
     return JSON.parse(raw) as T;
@@ -80,7 +98,9 @@ export async function saveAccessRequest(
   const existing = list.find(
     (r) =>
       r.email.toLowerCase() === req.email.toLowerCase() &&
-      r.status === "pending",
+      (r.status === "pending" ||
+        r.status === "submitted" ||
+        r.status === "under_review"),
   );
   if (existing) {
     throw new Error("A pending request already exists for this email.");
@@ -88,7 +108,7 @@ export async function saveAccessRequest(
   const row: AccessRequest = {
     ...req,
     id: crypto.randomUUID(),
-    status: "pending",
+    status: "submitted",
     createdAt: new Date().toISOString(),
   };
   list.unshift(row);
@@ -114,11 +134,11 @@ export async function listInvitations(): Promise<Invitation[]> {
 
 export async function saveInvitation(
   inv: Omit<Invitation, "id" | "createdAt" | "status" | "token" | "expiresAt"> & {
-    expiresInDays?: number;
+    expiresInHours?: number;
   },
 ): Promise<Invitation> {
   const list = await listInvitations();
-  const days = inv.expiresInDays ?? 7;
+  const hours = inv.expiresInHours ?? 72;
   const row: Invitation = {
     id: crypto.randomUUID(),
     email: inv.email,
@@ -126,18 +146,17 @@ export async function saveInvitation(
     roleSlug: inv.roleSlug,
     departmentSlug: inv.departmentSlug,
     note: inv.note,
-    token: crypto.randomUUID().replace(/-/g, ""),
+    token: crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().replace(/-/g, ""),
     status: "pending",
     createdAt: new Date().toISOString(),
     invitedBy: inv.invitedBy,
-    expiresAt: new Date(Date.now() + days * 864e5).toISOString(),
+    expiresAt: new Date(Date.now() + hours * 3600e3).toISOString(),
   };
   list.unshift(row);
   await writeJson(INVITES_FILE, list);
   return row;
 }
 
-/** Seed Super Admin + pending requests for Team UI when DB not connected. */
 export async function listTeamMembers(): Promise<TeamMember[]> {
   const requests = await listAccessRequests();
   const invites = await listInvitations();
@@ -148,6 +167,7 @@ export async function listTeamMembers(): Promise<TeamMember[]> {
       fullName: SUPER_ADMIN.fullName,
       email: SUPER_ADMIN.email,
       roleSlug: "super_administrator",
+      relationshipSlug: "co_founder",
       status: "active",
       lastLoginAt: null,
       mfaEnabled: false,
@@ -169,12 +189,17 @@ export async function listTeamMembers(): Promise<TeamMember[]> {
     });
   }
 
-  for (const req of requests.filter((r) => r.status === "pending")) {
+  for (const req of requests.filter(
+    (r) =>
+      r.status === "pending" ||
+      r.status === "submitted" ||
+      r.status === "under_review",
+  )) {
     members.push({
       id: `request-${req.id}`,
       fullName: req.fullName,
       email: req.email,
-      roleSlug: req.preferredRoles[0] ?? "guest",
+      roleSlug: req.preferredRoles[0] ?? "read_only",
       status: "pending",
       lastLoginAt: null,
       mfaEnabled: false,
@@ -182,7 +207,9 @@ export async function listTeamMembers(): Promise<TeamMember[]> {
     });
   }
 
-  for (const req of requests.filter((r) => r.status === "approved" && r.assignedRole)) {
+  for (const req of requests.filter(
+    (r) => r.status === "approved" && r.assignedRole,
+  )) {
     if (members.some((m) => m.email.toLowerCase() === req.email.toLowerCase())) {
       continue;
     }

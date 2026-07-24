@@ -46,11 +46,23 @@ See the [Retreat Platform handoff](docs/RETREAT_PLATFORM_MVP.md) for principles,
 
 | Surface | Route |
 |---------|--------|
-| Operations shell | `/admin` |
+| Sign in | `/admin/login` |
+| Operations shell | `/admin` (auth required) |
 | Team & Access (IAM) | `/admin/team` |
-| Request access (preferred roles) | `/access` |
+| Request access | `/access` (request only — not registration) |
 
-Super Administrator: **Jimmy James** · `jimmymanalel@gmail.com` (protected). Run `supabase/migrations/20260726_iam_team_access.sql` for production RBAC.
+**Not production-secure until** the [production access-control gate](docs/IAM_PRODUCTION_ACCESS_CONTROL.md) passes (session + profile + role + permission on every action).
+
+Super Administrator is bootstrapped in the database only (Jimmy James · `jimmymanalel@gmail.com` · protected). Email match never grants privileges.
+
+```bash
+# Required for /admin
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+```
+
+Run IAM migrations under `supabase/migrations/*iam*`.
 
 ## Stack
 

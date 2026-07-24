@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SUPER_ADMIN } from "@/lib/iam/constants";
-import { ROLE_PERMISSIONS, ROLES, roleBySlug } from "@/lib/iam/roles";
+import { ROLE_PERMISSIONS, roleBySlug } from "@/lib/iam/roles";
 
 type PageProps = { params: Promise<{ userId: string }> };
 
@@ -23,7 +23,7 @@ export default async function TeamMemberPage({ params }: PageProps) {
   const role = isSuper
     ? roleBySlug("super_administrator")
     : roleBySlug("reviewer");
-  const perms = ROLE_PERMISSIONS[role?.slug ?? "guest"] ?? [];
+  const perms = ROLE_PERMISSIONS[role?.slug ?? "none"] ?? [];
 
   return (
     <div>

@@ -16,7 +16,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [cmdOpen, setCmdOpen] = useState(false);
 
+  const isAuthSurface =
+    pathname === "/admin/login" ||
+    pathname.startsWith("/admin/auth") ||
+    pathname === "/admin/logout";
+
   useEffect(() => {
+    if (isAuthSurface) return;
     function onKey(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
@@ -25,7 +31,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [isAuthSurface]);
+
+  if (isAuthSurface) {
+    return <div className="admin-root">{children}</div>;
+  }
 
   return (
     <div className="admin-root">
@@ -69,6 +79,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            <form action="/admin/logout" method="post">
+              <button type="submit" className="admin-nav-link w-full text-left">
+                Sign out
+              </button>
+            </form>
           </div>
         </aside>
 

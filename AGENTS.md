@@ -38,5 +38,7 @@ Full path watchlists live in `docs/README.md`.
 - Schema: `supabase/migrations/`.
 - Never publish internal costs, honoraria, or applicant scoring on the public site.
 - Admin UI follows `docs/ADMIN_DASHBOARD_DESIGN_PRD.md` (Calm Operations). Shell at `/admin` must stay noindex; auth required before production.
-- IAM is **Team & Access** (`docs/IAM_TEAM_ACCESS_PRD.md`), not a generic Users page. Super Admin: `jimmymanalel@gmail.com` — protected, not removable via UI.
+- IAM is **Team & Access** (`docs/IAM_TEAM_ACCESS_PRD.md`), not a generic Users page. Super Admin: `jimmymanalel@gmail.com` — protected, bootstrap via DB only.
+- **Never** grant access by email match. Use `requireAuthz(permission)` on every admin API. See `docs/IAM_PRODUCTION_ACCESS_CONTROL.md`.
+- Local `.data/` IAM is disabled in production. `/admin` is middleware-protected.
 <!-- END:docs-sync-rules -->

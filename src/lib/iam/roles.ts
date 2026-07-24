@@ -1,51 +1,99 @@
 /**
- * Founder-Being IAM — role hierarchy and permission matrix.
- * Permissions are data (not hardcoded only in UI). Super Admin = *.
+ * Founder-Being IAM
+ *
+ * Two separate concepts:
+ * 1. Institutional relationship — who someone is to Founder-Being
+ * 2. System access role — what they can do in the CMS
+ *
+ * Titles never auto-grant operational permissions.
  */
 
-export const ROLE_SLUGS = [
-  "super_administrator",
+// ─── Institutional relationship (not CMS permissions) ───────────────────────
+
+export const RELATIONSHIP_SLUGS = [
   "co_founder",
-  "founding_team",
+  "founding_team_member",
   "patron",
-  "programme_lead",
-  "finance",
-  "reviewer",
-  "operations",
-  "volunteer",
   "member",
+  "volunteer",
+  "advisor",
   "guest",
 ] as const;
 
-export type RoleSlug = (typeof ROLE_SLUGS)[number];
+export type RelationshipSlug = (typeof RELATIONSHIP_SLUGS)[number];
 
-/** Higher index = lower privilege (for inheritance / display). */
-export const ROLE_RANK: Record<RoleSlug, number> = {
-  super_administrator: 0,
-  co_founder: 1,
-  founding_team: 2,
-  patron: 3,
-  programme_lead: 4,
-  finance: 5,
-  reviewer: 6,
-  operations: 7,
-  volunteer: 8,
-  member: 9,
-  guest: 10,
-};
-
-export type RoleDefinition = {
-  slug: RoleSlug;
+export const RELATIONSHIPS: {
+  slug: RelationshipSlug;
   name: string;
   description: string;
-  /** Shown on access-request signup as selectable preferred role */
+}[] = [
+  {
+    slug: "co_founder",
+    name: "Co-Founder",
+    description: "Institutional co-founder relationship.",
+  },
+  {
+    slug: "founding_team_member",
+    name: "Founding Team Member",
+    description: "Part of the founding team community.",
+  },
+  {
+    slug: "patron",
+    name: "Patron",
+    description: "Founding Patron Circle.",
+  },
+  {
+    slug: "member",
+    name: "Member",
+    description: "Founder-Being community member.",
+  },
+  {
+    slug: "volunteer",
+    name: "Volunteer",
+    description: "Volunteer contributor.",
+  },
+  {
+    slug: "advisor",
+    name: "Advisor",
+    description: "Advisory relationship.",
+  },
+  {
+    slug: "guest",
+    name: "Guest",
+    description: "Invitation-only guest relationship.",
+  },
+];
+
+// ─── System access roles (CMS permissions) ──────────────────────────────────
+
+export const SYSTEM_ROLE_SLUGS = [
+  "super_administrator",
+  "administrator",
+  "programme_manager",
+  "reviewer",
+  "finance",
+  "content_editor",
+  "communications",
+  "read_only",
+  "none",
+] as const;
+
+export type SystemRoleSlug = (typeof SYSTEM_ROLE_SLUGS)[number];
+
+/** @deprecated Use SystemRoleSlug — kept for gradual migration */
+export type RoleSlug = SystemRoleSlug;
+
+export type SystemRoleDefinition = {
+  slug: SystemRoleSlug;
+  name: string;
+  description: string;
+  /** May be requested on /access as preferred operational access */
   requestable: boolean;
   mfaRequired: boolean;
   cmsAccess: boolean;
-  portalOnly: boolean;
 };
 
-export const ROLES: RoleDefinition[] = [
+export const SYSTEM_ROLES: SystemRoleDefinition[] = [
   {
     slug: "super_administrator",
     name: "Super Administrator",
@@ -53,52 +101,22 @@ export const ROLES: RoleDefinition[] = [
     requestable: false,
     mfaRequired: true,
     cmsAccess: true,
-    portalOnly: false,
   },
   {
-    slug: "co_founder",
-    name: "Co-Founder",
-    description: "Operational leadership across programmes and community.",
+    slug: "administrator",
+    name: "Administrator",
+    description: "Broad operational CMS access without ownership controls.",
     requestable: true,
     mfaRequired: true,
     cmsAccess: true,
-    portalOnly: false,
   },
   {
-    slug: "founding_team",
-    name: "Founding Team",
-    description: "Leadership team: events, founders, content, communications.",
-    requestable: true,
-    mfaRequired: true,
-    cmsAccess: true,
-    portalOnly: false,
-  },
-  {
-    slug: "patron",
-    name: "Patron",
-    description: "Founding Patron Circle — read-only portal access.",
-    requestable: true,
-    mfaRequired: false,
-    cmsAccess: false,
-    portalOnly: true,
-  },
-  {
-    slug: "programme_lead",
-    name: "Programme Lead",
+    slug: "programme_manager",
+    name: "Programme Manager",
     description: "Retreats, gatherings, attendees, schedules.",
     requestable: true,
     mfaRequired: true,
     cmsAccess: true,
-    portalOnly: false,
-  },
-  {
-    slug: "finance",
-    name: "Finance",
-    description: "Payments, refunds, invoices, reports only.",
-    requestable: true,
-    mfaRequired: true,
-    cmsAccess: true,
-    portalOnly: false,
   },
   {
     slug: "reviewer",
@@ -107,45 +125,51 @@ export const ROLES: RoleDefinition[] = [
     requestable: true,
     mfaRequired: false,
     cmsAccess: true,
-    portalOnly: false,
   },
   {
-    slug: "operations",
-    name: "Operations",
-    description: "Logistics, travel, rooms, participants.",
+    slug: "finance",
+    name: "Finance",
+    description: "Payments, refunds, invoices, reports only.",
+    requestable: true,
+    mfaRequired: true,
+    cmsAccess: true,
+  },
+  {
+    slug: "content_editor",
+    name: "Content Editor",
+    description: "Publish and edit public content.",
     requestable: true,
     mfaRequired: false,
     cmsAccess: true,
-    portalOnly: false,
   },
   {
-    slug: "volunteer",
-    name: "Volunteer",
-    description: "Limited access, often scoped to a specific retreat.",
+    slug: "communications",
+    name: "Communications",
+    description: "Founder and patron communications.",
     requestable: true,
     mfaRequired: false,
     cmsAccess: true,
-    portalOnly: false,
   },
   {
-    slug: "member",
-    name: "Member",
-    description: "Portal only — no CMS.",
+    slug: "read_only",
+    name: "Read Only",
+    description: "View operational data without mutations.",
     requestable: true,
     mfaRequired: false,
-    cmsAccess: false,
-    portalOnly: true,
+    cmsAccess: true,
   },
   {
-    slug: "guest",
-    name: "Guest",
-    description: "Invitation-only, read-only access.",
+    slug: "none",
+    name: "No CMS access",
+    description: "Authenticated relationship only — no operations console.",
     requestable: false,
     mfaRequired: false,
     cmsAccess: false,
-    portalOnly: true,
   },
 ];
+
+/** Alias for UI that still says ROLES */
+export const ROLES = SYSTEM_ROLES;
 
 export const PERMISSION_CATEGORIES = [
   "dashboard",
@@ -181,10 +205,9 @@ export type PermissionAction = (typeof PERMISSION_ACTIONS)[number];
 
 export type PermissionKey = `${PermissionCategory}.${PermissionAction}` | "*";
 
-/** Explicit grants per role (Super Admin = *). */
-export const ROLE_PERMISSIONS: Record<RoleSlug, PermissionKey[]> = {
+export const ROLE_PERMISSIONS: Record<SystemRoleSlug, PermissionKey[]> = {
   super_administrator: ["*"],
-  co_founder: [
+  administrator: [
     "dashboard.view",
     "applications.view",
     "applications.create",
@@ -212,23 +235,9 @@ export const ROLE_PERMISSIONS: Record<RoleSlug, PermissionKey[]> = {
     "reports.view",
     "reports.export",
     "payments.view",
+    "users.view",
   ],
-  founding_team: [
-    "dashboard.view",
-    "applications.view",
-    "applications.approve",
-    "events.view",
-    "events.create",
-    "events.edit",
-    "members.view",
-    "communications.view",
-    "communications.create",
-    "content.view",
-    "content.edit",
-    "retreats.view",
-  ],
-  patron: ["dashboard.view", "patrons.view", "events.view", "content.view"],
-  programme_lead: [
+  programme_manager: [
     "dashboard.view",
     "retreats.view",
     "retreats.create",
@@ -241,6 +250,12 @@ export const ROLE_PERMISSIONS: Record<RoleSlug, PermissionKey[]> = {
     "communications.create",
     "applications.view",
   ],
+  reviewer: [
+    "dashboard.view",
+    "applications.view",
+    "applications.approve",
+    "applications.edit",
+  ],
   finance: [
     "dashboard.view",
     "payments.view",
@@ -251,48 +266,63 @@ export const ROLE_PERMISSIONS: Record<RoleSlug, PermissionKey[]> = {
     "reports.export",
     "applications.view",
   ],
-  reviewer: [
+  content_editor: [
     "dashboard.view",
-    "applications.view",
-    "applications.approve",
-    "applications.edit",
+    "content.view",
+    "content.create",
+    "content.edit",
+    "content.publish",
   ],
-  operations: [
+  communications: [
     "dashboard.view",
-    "retreats.view",
-    "retreats.edit",
-    "events.view",
-    "members.view",
     "communications.view",
     "communications.create",
+    "communications.edit",
+    "members.view",
+    "patrons.view",
   ],
-  volunteer: ["dashboard.view", "retreats.view", "events.view", "members.view"],
-  member: ["dashboard.view", "events.view", "content.view"],
-  guest: ["dashboard.view", "content.view"],
+  read_only: [
+    "dashboard.view",
+    "applications.view",
+    "retreats.view",
+    "events.view",
+    "members.view",
+    "patrons.view",
+    "content.view",
+    "reports.view",
+  ],
+  none: [],
 };
 
-export function roleBySlug(slug: string): RoleDefinition | undefined {
-  return ROLES.find((r) => r.slug === slug);
+/** Preferred system roles selectable on /access (never auto-granted). */
+export function requestableSystemRoles(): SystemRoleDefinition[] {
+  return SYSTEM_ROLES.filter((r) => r.requestable && r.cmsAccess);
 }
 
-export function requestableRoles(): RoleDefinition[] {
-  return ROLES.filter((r) => r.requestable);
+/** @deprecated use requestableSystemRoles */
+export function requestableRoles() {
+  return requestableSystemRoles();
+}
+
+export function roleBySlug(slug: string): SystemRoleDefinition | undefined {
+  return SYSTEM_ROLES.find((r) => r.slug === slug);
 }
 
 export function roleHasPermission(
-  role: RoleSlug,
+  role: SystemRoleSlug,
   permission: PermissionKey,
 ): boolean {
   const grants = ROLE_PERMISSIONS[role] ?? [];
   if (grants.includes("*")) return true;
   if (grants.includes(permission)) return true;
-  const [cat, action] = permission.split(".") as [
-    PermissionCategory,
-    PermissionAction,
-  ];
-  if (grants.includes(`${cat}.*` as PermissionKey)) return true;
-  if (action && grants.includes(`*.${action}` as PermissionKey)) return true;
   return false;
+}
+
+export function anyRoleHasPermission(
+  roles: SystemRoleSlug[],
+  permission: PermissionKey,
+): boolean {
+  return roles.some((r) => roleHasPermission(r, permission));
 }
 
 export const DEPARTMENTS = [
@@ -306,3 +336,78 @@ export const DEPARTMENTS = [
   { slug: "patron_circle", name: "Patron Circle" },
   { slug: "volunteers", name: "Volunteers" },
 ] as const;
+
+/** Matrix summary for Team & Access UI */
+export const PERMISSION_MATRIX: {
+  role: SystemRoleSlug;
+  applications: string;
+  payments: string;
+  content: string;
+  users: string;
+  settings: string;
+}[] = [
+  {
+    role: "super_administrator",
+    applications: "Full",
+    payments: "Full",
+    content: "Full",
+    users: "Full",
+    settings: "Full",
+  },
+  {
+    role: "administrator",
+    applications: "Full",
+    payments: "View",
+    content: "Publish",
+    users: "View",
+    settings: "None",
+  },
+  {
+    role: "programme_manager",
+    applications: "View",
+    payments: "None",
+    content: "None",
+    users: "None",
+    settings: "None",
+  },
+  {
+    role: "reviewer",
+    applications: "Review",
+    payments: "None",
+    content: "None",
+    users: "None",
+    settings: "None",
+  },
+  {
+    role: "finance",
+    applications: "View limited",
+    payments: "Full",
+    content: "None",
+    users: "None",
+    settings: "None",
+  },
+  {
+    role: "content_editor",
+    applications: "None",
+    payments: "None",
+    content: "Publish",
+    users: "None",
+    settings: "None",
+  },
+  {
+    role: "communications",
+    applications: "None",
+    payments: "None",
+    content: "None",
+    users: "None",
+    settings: "None",
+  },
+  {
+    role: "read_only",
+    applications: "View",
+    payments: "None",
+    content: "View",
+    users: "None",
+    settings: "None",
+  },
+];
