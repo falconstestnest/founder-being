@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import type { Gathering } from "@/lib/gatherings";
-import { communityCta } from "@/lib/gatherings";
+import type { FounderEvent } from "@/lib/events/taxonomy";
+import {
+  EVENT_TYPE_LABELS,
+  REGISTRATION_WORKFLOW_LABELS,
+} from "@/lib/events/taxonomy";
 
-type Prefill = {
+export type Prefill = {
   eventId: string;
   eventName: string;
   eventType: string;
@@ -28,7 +31,7 @@ export function GatheringInterestForm({ prefill }: { prefill: Prefill }) {
     const data = new FormData(form);
 
     try {
-      const res = await fetch("/api/gatherings/interest", {
+      const res = await fetch("/api/events/interest", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -192,16 +195,18 @@ export function GatheringInterestForm({ prefill }: { prefill: Prefill }) {
   );
 }
 
-export function prefillFromGathering(
-  g: Gathering | typeof communityCta,
-): Prefill {
+export function prefillFromEvent(event: FounderEvent): Prefill {
   return {
-    eventId: g.id,
-    eventName: g.title,
-    eventType: g.eventType,
-    city: "city" in g ? g.city : "Multiple",
-    registrationWorkflow: g.registrationWorkflow,
-    slug: g.slug,
-    cta: g.cta,
+    eventId: event.id,
+    eventName: event.title,
+    eventType: EVENT_TYPE_LABELS[event.eventType],
+    city: event.location.city,
+    registrationWorkflow:
+      REGISTRATION_WORKFLOW_LABELS[event.registrationWorkflow],
+    slug: event.slug,
+    cta: event.cta,
   };
 }
+
+/** @deprecated use prefillFromEvent */
+export const prefillFromGathering = prefillFromEvent;

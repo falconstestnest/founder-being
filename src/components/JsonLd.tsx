@@ -1,4 +1,4 @@
-import { gatherings, residentialHighlight } from "@/lib/gatherings";
+import { eventsCatalog } from "@/lib/events/catalog";
 import { siteConfig } from "@/lib/site";
 
 export function JsonLd() {
@@ -37,49 +37,41 @@ export function JsonLd() {
         name: "Home",
         item: siteConfig.url,
       },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Events",
+        item: `${siteConfig.url}/events`,
+      },
     ],
   };
 
-  const eventSchemas = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Event",
-      name: residentialHighlight.title,
-      description: residentialHighlight.description,
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      eventStatus: "https://schema.org/EventScheduled",
-      location: {
-        "@type": "Place",
-        name: residentialHighlight.city,
-        address: residentialHighlight.meta,
+  const eventSchemas = eventsCatalog.map((event) => ({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.title,
+    description: event.description,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    startDate: event.startsOn,
+    endDate: event.endsOn,
+    location: {
+      "@type": "Place",
+      name: event.location.city,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: event.location.city,
+        addressRegion: event.location.state,
+        addressCountry: event.location.country,
       },
-      organizer: {
-        "@type": "Organization",
-        name: siteConfig.name,
-        url: siteConfig.url,
-      },
-      url: `${siteConfig.url}${residentialHighlight.href}`,
     },
-    ...gatherings.map((event) => ({
-      "@context": "https://schema.org",
-      "@type": "Event",
-      name: event.title,
-      description: event.description,
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      eventStatus: "https://schema.org/EventScheduled",
-      location: {
-        "@type": "Place",
-        name: event.city,
-        address: event.meta,
-      },
-      organizer: {
-        "@type": "Organization",
-        name: siteConfig.name,
-        url: siteConfig.url,
-      },
-      url: `${siteConfig.url}/#events`,
-    })),
-  ];
+    organizer: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    url: `${siteConfig.url}${event.path}`,
+  }));
 
   const payloads = [organization, website, breadcrumb, ...eventSchemas];
 

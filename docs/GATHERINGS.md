@@ -1,8 +1,11 @@
-# Upcoming Gatherings
+# Upcoming Gatherings (legacy note)
+
+**Superseded by:** [EVENTS_DOMAIN.md](./EVENTS_DOMAIN.md)  
 
 **Last verified:** 2026-07-25  
 
-Public section: homepage `#events` · Form: `/gatherings/interest?event={slug}`
+Public hub: `/events` · Form: `/events/interest?event={slug}`  
+Homepage still anchors `#events` as a preview of the Events Hub.
 
 ---
 

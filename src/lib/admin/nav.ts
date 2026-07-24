@@ -18,19 +18,14 @@ export const adminNavPrimary: AdminNavItem[] = [
     description: "Founder community overview",
   },
   {
-    href: "/admin/retreats",
-    label: "Retreats",
-    description: "Residential retreat programmes",
+    href: "/admin/events",
+    label: "Events",
+    description: "Unified events hub — retreats, meetups, dialogues",
   },
   {
     href: "/admin/applications",
     label: "Applications",
     description: "Review and select founders",
-  },
-  {
-    href: "/admin/gatherings",
-    label: "Gatherings",
-    description: "Events and circles",
   },
   {
     href: "/admin/patrons",

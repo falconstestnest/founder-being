@@ -7,20 +7,26 @@ export const sectionMeta: Record<
     description: "The Founder-Being community at a glance—not a marketing CRM.",
     primary: "Invite founder",
   },
-  retreats: {
-    title: "Retreats",
-    description: "Residential programmes, capacity, and timelines.",
-    primary: "Manage retreat",
+  events: {
+    title: "Events",
+    description:
+      "Single Events domain: retreats, meetups, dialogues, side events—lifecycle, capacity, people.",
+    primary: "Create event",
   },
   applications: {
     title: "Applications",
     description: "Review, select, waitlist, or decline—one primary action at a time.",
     primary: "Review application",
   },
+  retreats: {
+    title: "Retreats",
+    description: "Legacy label — use Events. Residential programmes live in the Events catalogue.",
+    primary: "Open Events",
+  },
   gatherings: {
     title: "Gatherings",
-    description: "Founder circles, dialogues, and non-residential events.",
-    primary: "Create gathering",
+    description: "Legacy label — use Events for all public programmes.",
+    primary: "Open Events",
   },
   patrons: {
     title: "Patrons",
