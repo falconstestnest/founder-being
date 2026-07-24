@@ -79,6 +79,54 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * Skip to content — off-screen until keyboard focus-visible.
+ * Do not use opacity-only hide or focus:not-sr-only (shows on nav focus restore).
+ */
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link:focus-visible {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 9999;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.625rem 1rem;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
+/* Programmatic focus target after client navigation */
+#main-content:focus {
+  outline: none;
+}
+
+#main-content:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

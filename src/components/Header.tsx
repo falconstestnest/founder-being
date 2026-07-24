@@ -25,6 +25,11 @@ export function Header() {
     };
   }, [open]);
 
+  // Close mobile menu on client navigation (avoids stale focus in overlay)
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   function isActive(href: string) {
     if (href === "/") return pathname === "/";
     return pathname === href || pathname.startsWith(`${href}/`);

@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { HomePathways } from "@/components/HomePathways";
 import { LegacyHashRedirect } from "@/components/LegacyHashRedirect";
+import { RouteFocusMain } from "@/components/RouteFocusMain";
+import { SkipToContent } from "@/components/SkipToContent";
 import { Voices } from "@/components/Voices";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
@@ -11,14 +13,10 @@ export default function HomePage() {
   return (
     <>
       <LegacyHashRedirect />
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-[#FFAB33] focus:px-4 focus:py-2 focus:text-[#0B0B0B]"
-      >
-        Skip to content
-      </a>
+      <SkipToContent />
+      <RouteFocusMain />
       <Header />
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <Hero />
         <HomePathways />
 
