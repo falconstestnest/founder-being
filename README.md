@@ -27,16 +27,18 @@ Motion: fade only. No gradients, parallax, or animated counters.
 
 - [Docs index & sync rule](docs/README.md) — keep topic markdown updated when related code changes
 - [Logo placement](docs/LOGO_PLACEMENT.md) — lockups, monograms, favicons, and where they appear
-- [Retreat platform MVP](docs/RETREAT_PLATFORM_MVP.md) — product scope for application-based retreats
-- [Kodaikanal retreat PRD](docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) — full implementation PRD
+- [Retreat Platform](docs/RETREAT_PLATFORM_MVP.md) — product handoff (scope, privacy, checklist, next phase)
+- [Kodaikanal retreat PRD](docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) — full implementation requirements
 
-## Retreats
+## Retreat Platform
+
+Application-based residential retreats, separate from the homepage.
 
 | Event | Public route |
 |-------|----------------|
 | Kodaikanal Full Moon Retreat (26–31 Aug 2026) | [`/retreats/kodaikanal-full-moon-2026`](https://www.foundrbeing.com/retreats/kodaikanal-full-moon-2026) |
 
-Application-first only (no online payment in MVP). Set Supabase env vars from `.env.example` and run `supabase/migrations/20260725_retreat_platform.sql` before production applications.
+See the [Retreat Platform handoff](docs/RETREAT_PLATFORM_MVP.md) for principles, MVP boundaries, deployment checklist, and Admin Console roadmap.
 
 ## Stack
 

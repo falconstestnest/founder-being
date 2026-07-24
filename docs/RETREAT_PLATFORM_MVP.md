@@ -1,18 +1,36 @@
-# Founder-Being Retreat Platform (MVP)
+# Retreat Platform
 
-**Status:** Product scope (website PRD section)  
-**Last verified:** 2026-07-25  
+The Founder-Being website includes a dedicated **Retreat Platform** designed to support application-based residential retreats. The first implementation powers the **Kodaikanal Full Moon Retreat (26–31 August 2026)** through a secure, curated application workflow.
 
-The Founder-Being website includes a dedicated retreat application platform designed to support curated, application-based residential experiences. The first implementation supports the **Kodaikanal Full Moon Retreat (26–31 August 2026)** through a secure, manual approval workflow.
+The retreat experience is intentionally separate from the homepage, with each retreat receiving its own dedicated landing page.
 
-This document is **product scope**. Detailed implementation requirements live in [Founder_Being_Kodaikanal_Retreat_Signup_PRD.md](./Founder_Being_Kodaikanal_Retreat_Signup_PRD.md).
+**Live Route**
 
-**Public route (this event only):**  
 `/retreats/kodaikanal-full-moon-2026`
+
+The retreat page is linked from the **Upcoming Gatherings** section as the featured upcoming residential experience.
+
+**Last verified:** 2026-07-25
 
 ---
 
-## Core product principles
+# Product Documentation
+
+The retreat platform is documented as a standalone product within the Founder-Being documentation.
+
+| Document | Purpose |
+| -------- | ------- |
+| `docs/RETREAT_PLATFORM_MVP.md` | Product vision, guiding principles, MVP scope, privacy model, and future roadmap (this document) |
+| `docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md` | Complete implementation PRD covering UX, workflows, database design, security, SEO, and operational requirements |
+
+Documentation is indexed through:
+
+* `docs/README.md`
+* `AGENTS.md` documentation map
+
+---
+
+# Core Product Principles
 
 * **Application-first experience** — founders apply to attend rather than purchasing a ticket immediately.
 * **Curated cohort selection** — every application is reviewed personally before an invitation is extended.
@@ -22,87 +40,136 @@ This document is **product scope**. Detailed implementation requirements live in
 
 ---
 
-## MVP features
+# Public Retreat Experience
 
-### Public experience
+The Kodaikanal retreat page includes:
 
-The public retreat page includes:
+* Hero section with key retreat information
+* Application-first call-to-action (**Apply to Attend**)
+* Retreat purpose and who should apply
+* Lead facilitator section (shown only after written confirmation)
+* Tentative day-by-day programme
+* What's included and excluded
+* Pricing and reservation deposit information
+* Founder selection process
+* Important dates and milestones
+* Frequently Asked Questions
+* Mobile-first three-step application form
+* Wellbeing, privacy, and cancellation notices
+* Search engine optimisation with Schema.org Event JSON-LD and sitemap integration
 
-* Retreat overview  
-* Day-by-day programme  
-* Facilitator profile (published only after written confirmation)  
-* What's included  
-* Pricing  
-* Application process  
-* Frequently Asked Questions  
-* Multi-step founder application form  
+The MVP intentionally excludes public ticket purchasing or instant checkout.
 
-Primary CTA throughout: **Apply to Attend**  
+---
 
-No online checkout or “Buy Now” functionality in the initial release.
+# Application & Selection Workflow
 
-### Founder applications
-
-Applications are securely stored in **Supabase** using Row Level Security (RLS) so applicant information is accessible only to authorised Founder-Being administrators.
-
-Application workflow:
+Applications follow a curated lifecycle:
 
 Submission → Review → Shortlisting → Selection → Personal contact → Deposit collection → Final payment → Retreat confirmation
 
-### Selection process
+Selection considers founder fit, intent, willingness to participate, cohort diversity, and community contribution—not solely company size, funding, or public profile.
 
-Applications are reviewed manually by the Founder-Being team.
+**Capacity (this event):** maximum **15** founders; minimum viable cohort **12** paid founders. The retreat proceeds only after the minimum is achieved.
 
-Selection considers: founder fit, intent, willingness to participate, cohort diversity, and community contribution.
-
-Selection is **not** based solely on company size, funding, or public profile.
-
-### Payment workflow (MVP)
-
-* Selected founders contacted personally by **3 August 2026**
-* Payment instructions shared privately via WhatsApp or email
-* Initial reservation deposit: **₹15,000**
-* Remaining balance payable after the retreat is officially confirmed
-* No online payment gateway in the first release
-
-### Capacity management
-
-* Maximum participants: **15 founders**
-* Minimum confirmed cohort: **12 paid founders**
-* Retreat proceeds only after the minimum viable cohort has been achieved
-
-### Administration dashboard
-
-Internal (not public) for: application review, status management, founder communication, deposit tracking, balance collection, refund management, operational reporting, and audit history.
-
-### Security & privacy
-
-Server-side validation, Cloudflare Turnstile, Supabase RLS, secure admin authentication, encrypted storage, private files, consent management, and audit logging. No applicant personal information is shared with analytics platforms.
-
-### SEO & analytics
-
-SEO landing pages, Schema.org Event, Open Graph, consent-based GA4, sitemap, performance / Core Web Vitals.
-
-### Operational privacy (never public)
-
-Internal financial projections, operational costs, resort negotiations, facilitator commercial terms, honorarium, internal review notes, applicant scoring, and profitability models remain internal.
-
-### Future enhancements
-
-Online payments, automated reconciliation, participant portal, WhatsApp automation, digital waivers, retreat CRM, room allocation, multi-retreat management, founder membership accounts.
+**Payment (MVP):** selected founders are contacted personally by **3 August 2026**; payment instructions are shared privately (WhatsApp or email); reservation deposit **₹15,000**; remaining balance after official confirmation. No online payment gateway in the first release.
 
 ---
 
-## Related files
+# Backend (MVP)
 
-| Concern | Path |
-|---------|------|
+The backend provides the foundation for the Founder-Being retreat platform.
+
+### Application API
+
+* `POST /api/retreats/apply`
+* Server-side validation using Zod
+* Honeypot spam protection
+* Optional Cloudflare Turnstile verification
+* Automatic application reference generation (`FBK-26-XXXXXX`)
+
+### Database
+
+Supports two operating modes:
+
+* Preview/demo mode without Supabase
+* Production mode using Supabase Postgres via the Service Role Key
+
+Included assets:
+
+* `supabase/migrations/20260725_retreat_platform.sql`
+* `.env.example`
+
+Content defaults for the first event live in `src/lib/retreats/kodaikanal-2026.ts` until full CMS-driven configuration is enabled.
+
+### Security & privacy (product requirements)
+
+Industry-standard practices include server-side validation, Turnstile, Supabase Row Level Security, secure admin authentication, private file storage, consent management, and audit logging. Applicant personal information is not shared with analytics platforms.
+
+### Operational privacy
+
+The public website will not display internal financial projections, operational costs, resort negotiations, facilitator commercial terms, honorarium information, internal review notes, applicant scoring, or profitability models.
+
+---
+
+# Deferred to Future Releases
+
+The following capabilities are intentionally excluded from the MVP:
+
+* Admin dashboard interface
+* Online payment gateway integration
+* Automated payment reconciliation
+* Cloudflare Turnstile production configuration
+* Participant portal
+* Automated communications
+* Retreat operations dashboard
+* WhatsApp automation
+* Digital waivers
+* Multi-retreat management UI
+* Founder membership accounts
+
+These will be developed on top of the existing platform without requiring architectural changes.
+
+---
+
+# Deployment Checklist
+
+Before opening applications:
+
+1. Create the Supabase project.
+2. Run the retreat platform migration.
+3. Configure all production environment variables from `.env.example`.
+4. Enable `facilitatorPublic = true` only after receiving Anjaan's written approval to publish his profile.
+5. Verify application submission, email delivery, database writes, and structured data before launch.
+
+---
+
+# Next Phase
+
+The next major milestone is the **Founder-Being Admin Console**, which will build upon the existing schema to provide:
+
+* Application review and selection
+* Founder communication history
+* Deposit and balance tracking
+* Refund management
+* Operational reporting
+* Retreat configuration
+* Capacity management
+* Audit logs
+
+No database redesign should be required, as the current MVP architecture has been designed to support these future capabilities.
+
+---
+
+# Related Implementation Paths
+
+| Concern | Location |
+| ------- | -------- |
+| Public retreat page | `src/app/retreats/kodaikanal-full-moon-2026/` |
+| Application form UI | `src/components/retreat/` |
 | Event content config | `src/lib/retreats/kodaikanal-2026.ts` |
-| Public page | `src/app/retreats/kodaikanal-full-moon-2026/` |
-| Application API | `src/app/api/retreats/apply/route.ts` |
-| Supabase schema | `supabase/migrations/` |
+| Apply API | `src/app/api/retreats/apply/route.ts` |
+| Database migration | `supabase/migrations/20260725_retreat_platform.sql` |
 | Full event PRD | `docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md` |
 
----
-
-This approach keeps the public website clean and founder-centric while providing a robust operational backend for Founder-Being retreat programmes.
+This document is product handoff scope. Engineering detail and acceptance criteria remain in the Kodaikanal implementation PRD.
