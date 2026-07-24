@@ -53,5 +53,6 @@ Full path watchlists live in `docs/README.md`.
 - CTA journeys: `docs/CTA_RELIABILITY_AND_IDENTITY.md`. Identity link via email/WhatsApp/auth id — never name alone.
 - Long-term product is an **Institution OS** (`docs/INSTITUTION_OS_PHASE2.md`): one Person graph, append-only timeline, IAM ≠ CRM. Do not invent parallel contact silos per programme.
 - **Next milestone only:** `docs/OS_V0_2_SECURE_PEOPLE_FOUNDATION.md` — finish security gate + Person graph before communications, documents, finance, automation, or AI.
+- **First slice v0.2.1:** `docs/OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md` — `profiles` ≠ CRM; `people` is canonical human. Link interest/applications via `person_id`. No timeline/comms/payments until completion test passes.
 - Every Phase 2 feature must answer: (1) canonical owner entity? (2) timeline event? (3) required permission?
 <!-- END:docs-sync-rules -->

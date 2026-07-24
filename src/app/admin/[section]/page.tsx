@@ -68,6 +68,7 @@ export default async function AdminSectionPage({ params }: PageProps) {
     section === "people" ||
     section === "events"
   ) {
+    // Dedicated routes: /admin/team, /admin/people, /admin/events
     notFound();
   }
   const meta = sectionMeta[section];

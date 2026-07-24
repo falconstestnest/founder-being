@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import {
+  auditPersonLink,
+  findOrCreatePerson,
+  matchMethodFromResult,
+} from "@/lib/people/personService";
+import {
   applySchema,
   generateApplicationCode,
   toE164ish,
@@ -75,12 +80,21 @@ export async function POST(request: Request) {
   const phoneE164 = toE164ish(data.phone);
   const now = new Date().toISOString();
 
+  const person = await findOrCreatePerson({
+    displayName: data.fullName,
+    email: data.email,
+    whatsapp: phoneE164,
+    source: "retreat_application",
+    relationshipSlug: "member",
+  });
+
   const record = {
     retreat_slug: data.retreatSlug,
     application_code: applicationCode,
     full_name: data.fullName,
     email_normalized: data.email,
     phone_e164: phoneE164,
+    person_id: person?.personId ?? null,
     city_country: data.cityCountry,
     company_name: data.companyName,
     current_role: data.currentRole,
@@ -126,13 +140,17 @@ export async function POST(request: Request) {
       );
     }
 
+    // retreat_slug is not a column — strip before insert
+    const { retreat_slug: _slug, ...applicationRow } = record;
+    void _slug;
+
     const { data: inserted, error } = await supabase
       .from("retreat_applications")
       .insert({
         retreat_id: retreat.id,
-        ...record,
+        ...applicationRow,
       })
-      .select("application_code")
+      .select("id, application_code")
       .single();
 
     if (error) {
@@ -152,9 +170,24 @@ export async function POST(request: Request) {
       );
     }
 
+    if (person && inserted?.id) {
+      await auditPersonLink({
+        action: "linked_application",
+        personId: person.personId,
+        objectType: "retreat_application",
+        objectId: inserted.id as string,
+        matchMethod: matchMethodFromResult(person.match),
+        meta: {
+          application_code: inserted.application_code,
+          conflict: person.conflict,
+        },
+      });
+    }
+
     return NextResponse.json({
       ok: true,
       applicationCode: inserted.application_code as string,
+      personId: person?.personId ?? null,
     });
   }
 

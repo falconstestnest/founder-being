@@ -45,8 +45,9 @@ export const sectionMeta: Record<
   },
   people: {
     title: "People",
-    description: "Founder directory—everything important on one profile later.",
-    primary: "Find founder",
+    description:
+      "Canonical humans (people table). Access identities are under Team & Access.",
+    primary: "Open People",
   },
   analytics: {
     title: "Analytics",

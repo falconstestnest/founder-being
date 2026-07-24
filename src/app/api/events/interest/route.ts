@@ -13,6 +13,11 @@ import {
   buildIdentityLinkKeys,
   normalizeEmail,
 } from "@/lib/identity/normalize";
+import {
+  auditPersonLink,
+  findOrCreatePerson,
+  matchMethodFromResult,
+} from "@/lib/people/personService";
 import { getServiceSupabase } from "@/lib/supabase/server";
 
 const schema = z.object({
@@ -116,24 +121,50 @@ async function persist(record: {
   note: string | null;
   marketing_consent: boolean;
 }) {
-  // Identity link keys (email / WhatsApp) — never name-only merge
   const link = buildIdentityLinkKeys({
     email: record.email,
     whatsapp: record.whatsapp,
   });
   const whatsappNorm = link.whatsappNormalized || record.whatsapp;
 
+  // Canonical person — not profiles (no login required for public interest)
+  const person = await findOrCreatePerson({
+    displayName: record.full_name,
+    email: record.email,
+    whatsapp: record.whatsapp,
+    source: "gathering_interest",
+    relationshipSlug: "member",
+  });
+
   const row = {
     ...record,
     email: link.emailNormalized || record.email,
     whatsapp: whatsappNorm,
+    person_id: person?.personId ?? null,
     created_at: new Date().toISOString(),
   };
+
   const supabase = getServiceSupabase();
   if (supabase) {
-    const { error } = await supabase.from("gathering_interest").insert(row);
-    if (!error) return NextResponse.json({ ok: true });
-    console.error("[events:interest]", error.message);
+    const { data: inserted, error } = await supabase
+      .from("gathering_interest")
+      .insert(row)
+      .select("id")
+      .single();
+
+    if (!error && inserted && person) {
+      await auditPersonLink({
+        action: "linked_interest",
+        personId: person.personId,
+        objectType: "gathering_interest",
+        objectId: inserted.id,
+        matchMethod: matchMethodFromResult(person.match),
+        meta: { event_id: record.event_id, conflict: person.conflict },
+      });
+      return NextResponse.json({ ok: true, personId: person.personId });
+    }
+    if (error) console.error("[events:interest]", error.message);
+    else if (!error) return NextResponse.json({ ok: true });
   }
 
   console.info("[founder-being:event-interest]", {
@@ -141,11 +172,8 @@ async function persist(record: {
     event_type: row.event_type,
     city: row.city,
     emailDomain: row.email.split("@")[1],
-    identity_keys: {
-      email: Boolean(link.emailNormalized),
-      whatsapp: Boolean(link.whatsappNormalized),
-    },
+    person_id: person?.personId ?? null,
   });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, personId: person?.personId ?? null });
 }

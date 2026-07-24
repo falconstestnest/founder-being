@@ -139,7 +139,7 @@ export async function resolveWorkspaceSession(): Promise<WorkspaceSessionResult>
   const { data: profile } = await db
     .from("profiles")
     .select(
-      "id, email, full_name, status, is_super_admin, protected, mfa_enabled, auth_user_id, relationship_slug",
+      "id, email, full_name, status, is_super_admin, protected, mfa_enabled, auth_user_id, relationship_slug, person_id",
     )
     .or(`auth_user_id.eq.${user.id},email.eq.${user.email ?? ""}`)
     .maybeSingle();
@@ -170,6 +170,22 @@ export async function resolveWorkspaceSession(): Promise<WorkspaceSessionResult>
       .from("profiles")
       .update({ auth_user_id: user.id, last_login_at: new Date().toISOString() })
       .eq("id", profile.id);
+  }
+
+  // profiles = access; ensure linked people row (CRM human) — never use profile as CRM
+  if (service) {
+    const { ensureProfilePerson } = await import(
+      "@/lib/people/ensureProfilePerson"
+    );
+    await ensureProfilePerson({
+      profileId: profile.id as string,
+      email: (profile.email as string) || user.email || "",
+      fullName: (profile.full_name as string) || "",
+      relationshipSlug:
+        (profile.relationship_slug as string | null | undefined) ?? null,
+      existingPersonId:
+        (profile.person_id as string | null | undefined) ?? null,
+    });
   }
 
   const { data: roleRows } = await db

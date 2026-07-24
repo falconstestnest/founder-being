@@ -38,7 +38,8 @@ Index of project documentation and the rule for keeping it current.
 | Institution OS (Phase 2) | [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) | Future modules: People CRM, orgs, timeline, workflows — post security gate |
 | Institutional login & workspaces | [INSTITUTIONAL_LOGIN_WORKSPACES.md](./INSTITUTIONAL_LOGIN_WORKSPACES.md) | `src/app/login/**`, `src/app/workspace/**`, `src/lib/iam/workspaceSession.ts`, `src/lib/iam/workspaces.ts`, `src/lib/workspace/**`, `src/middleware.ts` |
 | CTA reliability & identity linking | [CTA_RELIABILITY_AND_IDENTITY.md](./CTA_RELIABILITY_AND_IDENTITY.md) | `/access`, password recovery, analytics, identity normalize, portal entitlements |
-| **OS v0.2 Secure People Foundation** | [OS_V0_2_SECURE_PEOPLE_FOUNDATION.md](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md) | Next milestone: security gate + Person graph + timeline — before other Phase 2 |
+| **OS v0.2 Secure People Foundation** | [OS_V0_2_SECURE_PEOPLE_FOUNDATION.md](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md) | Security gate + Person graph + timeline — before other Phase 2 |
+| **v0.2.1 Person bootstrap** | [OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md](./OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md) | `people`, profile link, interest/application person_id, audit, `/admin/people` |
 | Hash → routes migration | [HASH_TO_ROUTES_MIGRATION.md](./HASH_TO_ROUTES_MIGRATION.md) | Public nav routes, legacy hash map, SEO |
 
 *Add a row whenever a new topic-specific doc is created under `docs/`.*

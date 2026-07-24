@@ -3,6 +3,14 @@
 **Status:** Next milestone (authoritative execution order)  
 **Last verified:** 2026-07-25  
 
+**First implementation slice:** [v0.2.1 Production Identity and Person Bootstrap](./OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md)
+
+```text
+Secure access → Canonical Person → Timeline → Event links → Attention queues
+```
+
+Until v0.2.1 completion test passes, timeline, communications, documents, payments, and attention dashboards stay blocked.
+
 ## Why this milestone exists
 
 The architecture is now **coherent and well-sequenced**. The strongest decision is the separation between:
@@ -193,6 +201,7 @@ If any answer is unclear, do not ship.
 | IAM & login | [IAM_TEAM_ACCESS_PRD.md](./IAM_TEAM_ACCESS_PRD.md), [INSTITUTIONAL_LOGIN_WORKSPACES.md](./INSTITUTIONAL_LOGIN_WORKSPACES.md) |
 | **Security gate** | [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) |
 | **This milestone** | **OS_V0_2_SECURE_PEOPLE_FOUNDATION.md** |
+| **v0.2.1 first slice** | [OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md](./OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md) |
 | Long-term OS | [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) |
 
 ---

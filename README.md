@@ -34,7 +34,8 @@ Motion: fade only. No gradients, parallax, or animated counters.
 - [Events Domain](docs/EVENTS_DOMAIN.md) — unified public + catalogue model  
 - [Events Operations Foundation](docs/EVENTS_OPERATIONS_FOUNDATION.md) — admin shell around each Event  
 - [Institution OS Phase 2](docs/INSTITUTION_OS_PHASE2.md) — long-term OS map  
-- **[OS v0.2 Secure People Foundation](docs/OS_V0_2_SECURE_PEOPLE_FOUNDATION.md)** — **next milestone** (security gate + Person graph)
+- **[OS v0.2 Secure People Foundation](docs/OS_V0_2_SECURE_PEOPLE_FOUNDATION.md)** — next milestone (security gate + Person graph)  
+- **[v0.2.1 Person bootstrap](docs/OS_V0_2_1_PRODUCTION_IDENTITY_PERSON_BOOTSTRAP.md)** — **current slice**: people schema, profile link, submission linkage
 - [Typography](docs/TYPOGRAPHY.md) — type scale and colour tokens
 
 ## Events domain

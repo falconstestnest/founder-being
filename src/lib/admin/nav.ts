@@ -23,6 +23,11 @@ export const adminNavPrimary: AdminNavItem[] = [
     description: "All events — single domain (retreats, meetups, dialogues)",
   },
   {
+    href: "/admin/people",
+    label: "People",
+    description: "Canonical person records (not profiles)",
+  },
+  {
     href: "/admin/applications",
     label: "Applications",
     description: "Cross-event applications (also under each Event)",
