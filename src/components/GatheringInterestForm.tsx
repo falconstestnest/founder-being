@@ -2,21 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { trackCta } from "@/lib/analytics/cta";
-import type { FounderEvent } from "@/lib/events/taxonomy";
-import {
-  EVENT_TYPE_LABELS,
-  REGISTRATION_WORKFLOW_LABELS,
-} from "@/lib/events/taxonomy";
+import type { InterestPrefill } from "@/lib/events/prefill";
 
-export type Prefill = {
-  eventId: string;
-  eventName: string;
-  eventType: string;
-  city: string;
-  registrationWorkflow: string;
-  slug: string;
-  cta: string;
-};
+export type Prefill = InterestPrefill;
 
 export function GatheringInterestForm({ prefill }: { prefill: Prefill }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
@@ -213,19 +201,3 @@ export function GatheringInterestForm({ prefill }: { prefill: Prefill }) {
     </form>
   );
 }
-
-export function prefillFromEvent(event: FounderEvent): Prefill {
-  return {
-    eventId: event.id,
-    eventName: event.title,
-    eventType: EVENT_TYPE_LABELS[event.eventType],
-    city: event.location.city,
-    registrationWorkflow:
-      REGISTRATION_WORKFLOW_LABELS[event.registrationWorkflow],
-    slug: event.slug,
-    cta: event.cta,
-  };
-}
-
-/** @deprecated use prefillFromEvent */
-export const prefillFromGathering = prefillFromEvent;
