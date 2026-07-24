@@ -31,6 +31,7 @@ Index of project documentation and the rule for keeping it current.
 | Admin Dashboard (UI/UX design PRD) | [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md) | `src/app/admin/**`, `src/components/admin/**`, `src/lib/admin/**`, `src/app/admin/admin.css` |
 | Identity & Access (Team & Access) | [IAM_TEAM_ACCESS_PRD.md](./IAM_TEAM_ACCESS_PRD.md) | `src/lib/iam/**`, `src/app/admin/team/**`, `src/app/access/**`, `src/app/api/iam/**`, `supabase/migrations/*iam*` |
 | IAM production access control | [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) | `src/middleware.ts`, `src/lib/iam/authz.ts`, `src/app/admin/login/**`, `src/app/admin/auth/**` |
+| Upcoming Gatherings | [GATHERINGS.md](./GATHERINGS.md) | `src/lib/gatherings.ts`, `src/components/Events.tsx`, `src/app/gatherings/**`, `src/app/api/gatherings/**` |
 
 *Add a row whenever a new topic-specific doc is created under `docs/`.*
 

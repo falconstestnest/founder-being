@@ -1,4 +1,4 @@
-import { events } from "@/lib/data";
+import { gatherings, residentialHighlight } from "@/lib/gatherings";
 import { siteConfig } from "@/lib/site";
 
 export function JsonLd() {
@@ -40,25 +40,46 @@ export function JsonLd() {
     ],
   };
 
-  const eventSchemas = events.map((event) => ({
-    "@context": "https://schema.org",
-    "@type": "Event",
-    name: event.title,
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    eventStatus: "https://schema.org/EventScheduled",
-    location: {
-      "@type": "Place",
-      name: event.location,
-      address: event.location,
+  const eventSchemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      name: residentialHighlight.title,
+      description: residentialHighlight.description,
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      location: {
+        "@type": "Place",
+        name: residentialHighlight.city,
+        address: residentialHighlight.meta,
+      },
+      organizer: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      url: `${siteConfig.url}${residentialHighlight.href}`,
     },
-    description: `${event.title} — ${event.location}. ${event.seatsRemaining}.`,
-    organizer: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    url: `${siteConfig.url}/#events`,
-  }));
+    ...gatherings.map((event) => ({
+      "@context": "https://schema.org",
+      "@type": "Event",
+      name: event.title,
+      description: event.description,
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      location: {
+        "@type": "Place",
+        name: event.city,
+        address: event.meta,
+      },
+      organizer: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      url: `${siteConfig.url}/#events`,
+    })),
+  ];
 
   const payloads = [organization, website, breadcrumb, ...eventSchemas];
 

@@ -55,35 +55,8 @@ export const statistics = [
   },
 ] as const;
 
-export const events = [
-  {
-    title: "Kodaikanal Full Moon Retreat",
-    location: "Kodaikanal, Tamil Nadu",
-    date: "26–31 August 2026",
-    seatsRemaining: "15 founders · Application only",
-    status: "Next Event" as const,
-    href: "/retreats/kodaikanal-full-moon-2026",
-    cta: "Apply to Attend",
-  },
-  {
-    title: "Founder Reflection Circle",
-    location: "Kochi, Kerala",
-    date: "Date to be announced",
-    seatsRemaining: "Limited seats",
-    status: "Upcoming" as const,
-    href: "#contact",
-    cta: "Register Interest",
-  },
-  {
-    title: "Conscious Leadership Dialogue",
-    location: "Dubai, UAE",
-    date: "Date to be announced",
-    seatsRemaining: "Registration opens soon",
-    status: "Upcoming" as const,
-    href: "#contact",
-    cta: "Register Interest",
-  },
-] as const;
+/** @deprecated Use `src/lib/gatherings.ts` — kept for any legacy imports */
+export { gatherings as events } from "@/lib/gatherings";
 
 export const patronBenefits = [
   {
