@@ -13,11 +13,11 @@ export function Patron() {
           <p className="section-label">07 — Patronage</p>
           <h2
             id="patron-heading"
-            className="editorial-h max-w-3xl text-4xl text-[#F8F8F8] md:text-5xl lg:text-[3.25rem]"
+            className="editorial-h max-w-3xl text-4xl text-fb-text md:text-5xl lg:text-[3.25rem]"
           >
             Founding Patron Circle
           </h2>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[#F8F8F8]/72">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fb-body">
             A small circle of visionary leaders helping establish Founder-Being
             from its very beginning.
           </p>
@@ -29,7 +29,7 @@ export function Patron() {
               <h3 className="font-mono text-xs tracking-[0.16em] uppercase text-[#FFAB33]">
                 Purpose
               </h3>
-              <div className="mt-6 space-y-5 text-base leading-relaxed text-[#F8F8F8]/72 md:text-lg">
+              <div className="mt-6 space-y-5 text-base leading-relaxed text-fb-body md:text-lg">
                 <p>
                   Founding Patrons provide the early stewardship that allows
                   Founder-Being to grow with integrity—quietly, deliberately,
@@ -55,10 +55,10 @@ export function Patron() {
                     key={item.title}
                     className="border-b border-white/10 pb-6 last:border-0"
                   >
-                    <p className="font-serif text-xl text-[#F8F8F8]">
+                    <p className="font-serif text-xl text-fb-text">
                       {item.title}
                     </p>
-                    <p className="mt-2 text-sm leading-relaxed text-[#F8F8F8]/6">
+                    <p className="mt-2 text-sm leading-relaxed text-fb-body">
                       {item.description}
                     </p>
                   </li>

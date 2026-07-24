@@ -114,7 +114,7 @@ export function JoinForm() {
         </label>
       </div>
 
-      <label className="flex items-start gap-3 text-sm text-[#F8F8F8]/65">
+      <label className="flex items-start gap-3 text-sm text-fb-body">
         <input
           type="checkbox"
           name="consent"

@@ -53,7 +53,7 @@ export default function KodaikanalRetreatPage() {
     <>
       <RetreatJsonLd />
       <Header />
-      <main className="bg-[#0B0B0B] text-[#F8F8F8]">
+      <main className="bg-[#0B0B0B] text-fb-text">
         {/* Hero */}
         <section className="noise relative border-b border-white/10 pt-28 pb-20 md:pt-36 md:pb-28">
           <div className="container-site">
@@ -61,10 +61,10 @@ export default function KodaikanalRetreatPage() {
             <h1 className="editorial-h max-w-3xl text-4xl md:text-6xl lg:text-[4rem]">
               {r.headline}
             </h1>
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[#F8F8F8]/72 md:text-xl">
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fb-body md:text-xl">
               {r.subheadline}
             </p>
-            <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs tracking-[0.12em] uppercase text-[#F8F8F8]/55">
+            <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs tracking-[0.12em] uppercase text-fb-secondary">
               <li>{r.datesLabel}</li>
               <li>{r.locationPublic}</li>
               <li>{r.durationLabel}</li>
@@ -77,7 +77,7 @@ export default function KodaikanalRetreatPage() {
                 View the Programme
               </a>
             </div>
-            <p className="mt-6 max-w-xl text-sm text-[#F8F8F8]/45">
+            <p className="mt-6 max-w-xl text-sm text-fb-meta">
               Not a pitch event. Not a panel. Not a productivity workshop. A
               curated space for founders to rest, reconnect and examine what they
               are carrying.
@@ -100,15 +100,15 @@ export default function KodaikanalRetreatPage() {
                   <dt className="font-mono text-xs tracking-[0.14em] uppercase text-[#FFAB33]">
                     {f.label}
                   </dt>
-                  <dd className="mt-3 text-base text-[#F8F8F8]">{f.value}</dd>
+                  <dd className="mt-3 text-base text-fb-text">{f.value}</dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-10 max-w-2xl text-sm leading-relaxed text-[#F8F8F8]/55">
-              <span className="text-[#F8F8F8]/8">Venue: </span>
+            <p className="mt-10 max-w-2xl text-sm leading-relaxed text-fb-body">
+              <span className="font-medium text-fb-text">Venue: </span>
               {r.venuePublic}
             </p>
-            <p className="mt-4 text-sm text-[#F8F8F8]/55">
+            <p className="mt-4 text-sm leading-relaxed text-fb-secondary">
               Departure for group transport: {r.departurePoint}. Capacity:{" "}
               {r.capacity} founders · Minimum cohort: {r.minimumPaid} paid.
             </p>
@@ -124,14 +124,14 @@ export default function KodaikanalRetreatPage() {
                 Why this retreat exists
               </h2>
             </FadeIn>
-            <FadeIn delayMs={60}>
-              <p className="text-base leading-relaxed text-[#F8F8F8]/72 md:text-lg">
+            <FadeIn delayMs={60} className="prose-fb">
+              <p className="text-base leading-relaxed text-fb-body md:text-lg">
                 {whyExists.intro}
               </p>
-              <ul className="mt-8 space-y-3 text-[#F8F8F8]/7">
+              <ul className="mt-8 space-y-3.5">
                 {whyExists.points.map((p) => (
-                  <li key={p} className="flex gap-3">
-                    <span className="text-[#FFAB33]" aria-hidden>
+                  <li key={p} className="flex gap-3 text-base leading-relaxed text-fb-body md:text-lg">
+                    <span className="mt-0.5 shrink-0 text-[#FFAB33]" aria-hidden>
                       —
                     </span>
                     <span>{p}</span>
@@ -150,14 +150,14 @@ export default function KodaikanalRetreatPage() {
               <h2 id="who-heading" className="editorial-h text-3xl md:text-4xl">
                 Who should apply
               </h2>
-              <ul className="mt-10 max-w-2xl space-y-4 text-[#F8F8F8]/72">
+              <ul className="mt-10 max-w-2xl space-y-4 text-fb-body">
                 {whoShouldApply.map((w) => (
                   <li key={w} className="border-b border-white/10 pb-4">
                     {w}
                   </li>
                 ))}
               </ul>
-              <p className="mt-8 max-w-xl text-sm text-[#F8F8F8]/5">
+              <p className="mt-8 max-w-xl text-sm text-fb-meta">
                 Not restricted by startup stage, funding status or company size.
                 Selection considers fit, intent, willingness to participate and
                 cohort balance.
@@ -176,20 +176,20 @@ export default function KodaikanalRetreatPage() {
               </h2>
               {r.facilitatorPublic ? (
                 <div className="mt-10 max-w-2xl">
-                  <h3 className="font-serif text-2xl text-[#F8F8F8]">
+                  <h3 className="font-serif text-2xl text-fb-text">
                     {r.facilitator.name}
                   </h3>
                   <p className="mt-2 font-mono text-xs tracking-[0.14em] uppercase text-[#FFAB33]">
                     {r.facilitator.role}
                   </p>
-                  <ul className="mt-8 space-y-2 text-[#F8F8F8]/7">
+                  <ul className="mt-8 space-y-2 text-fb-text">
                     {r.facilitator.roles.map((role) => (
                       <li key={role}>— {role}</li>
                     ))}
                   </ul>
                 </div>
               ) : (
-                <p className="mt-10 max-w-xl text-lg text-[#F8F8F8]/65">
+                <p className="mt-10 max-w-xl text-lg text-fb-body">
                   Lead facilitator to be announced.
                 </p>
               )}
@@ -209,7 +209,7 @@ export default function KodaikanalRetreatPage() {
               <h2 id="programme-heading" className="editorial-h text-3xl md:text-4xl">
                 Day-by-day (tentative)
               </h2>
-              <p className="mt-4 max-w-2xl text-sm text-[#F8F8F8]/5">
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-fb-secondary">
                 Timings may change based on weather, group needs and the
                 facilitator&apos;s final design.
               </p>
@@ -224,11 +224,11 @@ export default function KodaikanalRetreatPage() {
                     <p className="font-mono text-xs tracking-[0.14em] uppercase text-[#FFAB33]">
                       {day.day}
                     </p>
-                    <p className="mt-2 text-sm text-[#F8F8F8]/5">{day.date}</p>
+                    <p className="mt-2 text-sm text-fb-secondary">{day.date}</p>
                   </div>
                   <div>
-                    <h3 className="font-serif text-2xl text-[#F8F8F8]">{day.title}</h3>
-                    <ul className="mt-4 space-y-2 text-sm text-[#F8F8F8]/65">
+                    <h3 className="font-serif text-2xl text-fb-text">{day.title}</h3>
+                    <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-fb-body md:text-base">
                       {day.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
@@ -257,7 +257,7 @@ export default function KodaikanalRetreatPage() {
                 <h3 className="font-mono text-xs tracking-[0.14em] uppercase text-[#FFAB33]">
                   Included
                 </h3>
-                <ul className="mt-6 space-y-3 text-[#F8F8F8]/75">
+                <ul className="mt-6 space-y-3 text-fb-body">
                   {included.map((i) => (
                     <li key={i} className="border-b border-white/10 pb-3">
                       {i}
@@ -269,7 +269,7 @@ export default function KodaikanalRetreatPage() {
                 <h3 className="font-mono text-xs tracking-[0.14em] uppercase text-[#FFAB33]">
                   Not included
                 </h3>
-                <ul className="mt-6 space-y-3 text-[#F8F8F8]/75">
+                <ul className="mt-6 space-y-3 text-fb-body">
                   {excluded.map((i) => (
                     <li key={i} className="border-b border-white/10 pb-3">
                       {i}
@@ -294,27 +294,27 @@ export default function KodaikanalRetreatPage() {
                   <p className="font-mono text-xs tracking-[0.14em] uppercase text-[#FFAB33]">
                     Early bird
                   </p>
-                  <p className="mt-4 font-serif text-4xl text-[#F8F8F8]">
+                  <p className="mt-4 font-serif text-4xl text-fb-text">
                     {formatInr(r.earlyBirdPriceInr)}
                   </p>
-                  <p className="mt-4 text-sm text-[#F8F8F8]/6">
+                  <p className="mt-4 text-sm text-fb-body">
                     First {r.earlyBirdCapacity} selected founders who complete
                     the reservation deposit.
                   </p>
                 </article>
                 <article className="border border-white/10 p-8">
-                  <p className="font-mono text-xs tracking-[0.14em] uppercase text-[#F8F8F8]/5">
+                  <p className="font-mono text-xs tracking-[0.14em] uppercase text-fb-secondary">
                     Standard
                   </p>
-                  <p className="mt-4 font-serif text-4xl text-[#F8F8F8]">
+                  <p className="mt-4 font-serif text-4xl text-fb-text">
                     {formatInr(r.standardPriceInr)}
                   </p>
-                  <p className="mt-4 text-sm text-[#F8F8F8]/6">
+                  <p className="mt-4 text-sm text-fb-body">
                     Remaining founders after early-bird seats are filled.
                   </p>
                 </article>
               </div>
-              <p className="mt-8 max-w-2xl text-sm leading-relaxed text-[#F8F8F8]/55">
+              <p className="mt-8 max-w-2xl text-sm leading-relaxed text-fb-secondary">
                 Applying does not reserve a seat. A seat is confirmed only after
                 selection and receipt of the required payment. Early-bird
                 assignment depends on the order deposits are received, not
@@ -342,10 +342,10 @@ export default function KodaikanalRetreatPage() {
                     <span className="font-mono text-xs text-[#FFAB33]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="mt-4 font-serif text-xl text-[#F8F8F8]">
+                    <h3 className="mt-4 font-serif text-xl text-fb-text">
                       {s.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-[#F8F8F8]/6">
+                    <p className="mt-3 text-sm leading-relaxed text-fb-body">
                       {s.body}
                     </p>
                   </li>
@@ -369,8 +369,8 @@ export default function KodaikanalRetreatPage() {
                     key={d.label}
                     className="flex flex-col gap-1 border-b border-white/10 py-5 sm:flex-row sm:justify-between sm:gap-8"
                   >
-                    <dt className="text-[#F8F8F8]/55">{d.label}</dt>
-                    <dd className="text-[#F8F8F8] sm:text-right">{d.value}</dd>
+                    <dt className="text-fb-secondary">{d.label}</dt>
+                    <dd className="text-fb-text sm:text-right">{d.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -392,7 +392,7 @@ export default function KodaikanalRetreatPage() {
                     key={f.q}
                     className="group border border-white/10 px-6 py-4 open:border-white/20"
                   >
-                    <summary className="cursor-pointer list-none font-serif text-xl text-[#F8F8F8] marker:content-none [&::-webkit-details-marker]:hidden">
+                    <summary className="cursor-pointer list-none font-serif text-xl text-fb-text marker:content-none [&::-webkit-details-marker]:hidden">
                       <span className="flex items-start justify-between gap-4">
                         {f.q}
                         <span className="text-[#FFAB33] transition group-open:rotate-45">
@@ -400,7 +400,7 @@ export default function KodaikanalRetreatPage() {
                         </span>
                       </span>
                     </summary>
-                    <p className="mt-4 text-sm leading-relaxed text-[#F8F8F8]/65">
+                    <p className="mt-4 text-sm leading-relaxed text-fb-body">
                       {f.a}
                     </p>
                   </details>
@@ -427,7 +427,7 @@ export default function KodaikanalRetreatPage() {
                   <ApplicationForm />
                 </div>
               ) : (
-                <p className="max-w-xl text-lg text-[#F8F8F8]/7">
+                <p className="max-w-xl text-lg text-fb-text">
                   Applications for this retreat are currently closed. Join the
                   Founder-Being list on the{" "}
                   <Link href="/#contact" className="underline-offset-4 hover:underline">
@@ -446,7 +446,7 @@ export default function KodaikanalRetreatPage() {
             <h2 id="notices-heading" className="editorial-h text-2xl md:text-3xl">
               Wellbeing and legal notices
             </h2>
-            <div className="mt-8 space-y-5 text-sm leading-relaxed text-[#F8F8F8]/55">
+            <div className="mt-8 space-y-5 text-sm leading-relaxed text-fb-body">
               <p>
                 Founder-Being is a wellbeing and reflective community experience.
                 It is not a medical, psychiatric or psychological treatment

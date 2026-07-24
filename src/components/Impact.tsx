@@ -14,7 +14,7 @@ export function Impact() {
           <p className="section-label">04 — Impact</p>
           <h2
             id="impact-heading"
-            className="editorial-h max-w-2xl text-4xl text-[#F8F8F8] md:text-5xl"
+            className="editorial-h max-w-2xl text-4xl text-fb-text md:text-5xl"
           >
             How We Create Impact
           </h2>
@@ -27,7 +27,7 @@ export function Impact() {
                 <div className="mb-6 text-[#FFAB33]" aria-hidden>
                   <ImpactIcon name={item.icon} />
                 </div>
-                <h3 className="text-base font-normal leading-snug tracking-wide text-[#F8F8F8]">
+                <h3 className="text-base font-normal leading-snug tracking-wide text-fb-text">
                   {item.title}
                 </h3>
               </article>

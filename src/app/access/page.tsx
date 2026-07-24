@@ -54,7 +54,7 @@ export default function AccessRequestPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-[#F8F8F8]">
+    <div className="min-h-screen bg-[#0B0B0B] text-fb-text">
       <div className="mx-auto max-w-xl px-6 py-16">
         <Link href="/" className="inline-flex">
           <Logo variant="nav-white" height={28} />
@@ -63,7 +63,7 @@ export default function AccessRequestPage() {
           Access
         </p>
         <h1 className="mt-3 font-serif text-4xl">Request access</h1>
-        <p className="mt-4 text-sm leading-relaxed text-[#F8F8F8]/65">
+        <p className="mt-4 text-sm leading-relaxed text-fb-body">
           Founder-Being administration is invite- and approval-only. Tell us who
           you are and which role best matches how you hope to contribute. A Super
           Administrator will review and assign access.
@@ -72,7 +72,7 @@ export default function AccessRequestPage() {
         {done ? (
           <div className="mt-12 border border-white/10 p-8">
             <h2 className="font-serif text-2xl">Request received</h2>
-            <p className="mt-4 text-sm text-[#F8F8F8]/65">
+            <p className="mt-4 text-sm text-fb-body">
               Thank you. If approved, you will receive next steps by email. Your
               preferred role is a request only—final permissions are assigned by
               Super Administrator.
@@ -84,7 +84,7 @@ export default function AccessRequestPage() {
         ) : (
           <form onSubmit={onSubmit} className="mt-10 space-y-6">
             <label className="block">
-              <span className="font-mono text-xs uppercase tracking-wider text-white/45">
+              <span className="font-mono text-xs uppercase tracking-wider text-fb-meta">
                 Full name
               </span>
               <input
@@ -96,7 +96,7 @@ export default function AccessRequestPage() {
               />
             </label>
             <label className="block">
-              <span className="font-mono text-xs uppercase tracking-wider text-white/45">
+              <span className="font-mono text-xs uppercase tracking-wider text-fb-meta">
                 Email
               </span>
               <input
@@ -110,7 +110,7 @@ export default function AccessRequestPage() {
             </label>
 
             <fieldset>
-              <legend className="font-mono text-xs uppercase tracking-wider text-white/45">
+              <legend className="font-mono text-xs uppercase tracking-wider text-fb-meta">
                 Preferred role(s) — select up to 3
               </legend>
               <ul className="mt-4 space-y-3">
@@ -135,7 +135,7 @@ export default function AccessRequestPage() {
                           <span className="block text-sm font-medium text-white">
                             {r.name}
                           </span>
-                          <span className="mt-1 block text-xs text-white/50">
+                          <span className="mt-1 block text-xs text-fb-meta">
                             {r.description}
                           </span>
                         </span>
@@ -147,7 +147,7 @@ export default function AccessRequestPage() {
             </fieldset>
 
             <label className="block">
-              <span className="font-mono text-xs uppercase tracking-wider text-white/45">
+              <span className="font-mono text-xs uppercase tracking-wider text-fb-meta">
                 Note (optional)
               </span>
               <textarea

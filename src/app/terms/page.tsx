@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-[#F8F8F8]">
+    <div className="min-h-screen bg-[#0B0B0B] text-fb-text">
       <header className="border-b border-white/10">
         <div className="container-site flex h-20 items-center justify-between">
           <Link href="/" aria-label="Founder-Being home">
@@ -19,7 +19,7 @@ export default function TermsPage() {
           </Link>
           <Link
             href="/"
-            className="text-sm text-[#F8F8F8]/65 transition-colors hover:text-[#F8F8F8]"
+            className="text-sm text-fb-body transition-colors hover:text-fb-text"
           >
             Back home
           </Link>
@@ -30,7 +30,7 @@ export default function TermsPage() {
         <div className="container-content">
           <p className="section-label">Legal</p>
           <h1 className="editorial-h text-4xl md:text-5xl">Terms</h1>
-          <div className="mt-10 space-y-6 text-base leading-relaxed text-[#F8F8F8]/70">
+          <div className="mt-10 space-y-6 text-base leading-relaxed text-fb-body">
             <p>
               By using founderbeing.org you agree to use this site lawfully and
               respectfully. Content is provided for general information about
@@ -52,7 +52,7 @@ export default function TermsPage() {
               </a>
               .
             </p>
-            <p className="text-sm text-[#F8F8F8]/45">
+            <p className="text-sm text-fb-meta">
               These terms may be updated as the initiative evolves. Last updated{" "}
               {new Date().getFullYear()}.
             </p>

@@ -97,7 +97,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${cormorant.variable} ${plexMono.variable} h-full`}
     >
-      <body className="min-h-full bg-[#0B0B0B] font-sans text-[#F8F8F8] antialiased">
+      <body className="min-h-full bg-[#0B0B0B] font-sans text-fb-text antialiased">
         <JsonLd />
         {children}
       </body>

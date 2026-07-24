@@ -13,14 +13,14 @@ export function WhatIs() {
           <p className="section-label">02 — About</p>
           <h2
             id="about-heading"
-            className="editorial-h max-w-3xl text-4xl text-[#F8F8F8] md:text-5xl lg:text-[3.5rem]"
+            className="editorial-h max-w-3xl text-4xl text-fb-text md:text-5xl lg:text-[3.5rem]"
           >
             What is Founder-Being?
           </h2>
         </FadeIn>
 
         <FadeIn delayMs={60}>
-          <p className="mt-10 max-w-[40rem] text-lg leading-relaxed text-[#F8F8F8]/72 md:text-xl">
+          <p className="mt-10 max-w-[40rem] text-lg leading-relaxed text-fb-body md:text-xl">
             Founder-Being exists to cultivate a culture where ambitious
             individuals can pursue extraordinary ambition without compromising
             their wellbeing, relationships, identity, or inner peace.
@@ -37,11 +37,11 @@ export function WhatIs() {
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="font-serif text-2xl text-[#F8F8F8] md:text-3xl">
+                <h3 className="font-serif text-2xl text-fb-text md:text-3xl">
                   {pillar.title}
                 </h3>
                 <hr className="rule my-6 w-10" />
-                <p className="text-sm leading-relaxed text-[#F8F8F8]/65 md:text-base">
+                <p className="text-sm leading-relaxed text-fb-body md:text-base">
                   {pillar.description}
                 </p>
               </article>

@@ -51,7 +51,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[0.8125rem] tracking-[0.06em] text-[#F8F8F8]/75 transition-colors duration-300 hover:text-[#F8F8F8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
+              className="text-[0.8125rem] tracking-[0.06em] text-fb-body transition-colors duration-300 hover:text-fb-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
             >
               {link.label}
             </a>
@@ -60,7 +60,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center border border-white/20 text-[#F8F8F8] lg:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFAB33]"
+          className="inline-flex h-11 w-11 items-center justify-center border border-white/20 text-fb-text lg:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFAB33]"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -90,7 +90,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="py-3 text-base tracking-[0.04em] text-[#F8F8F8]/85"
+              className="py-3 text-base tracking-[0.04em] text-fb-body"
               onClick={() => setOpen(false)}
             >
               {link.label}

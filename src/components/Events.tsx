@@ -13,7 +13,7 @@ export function Events() {
           <p className="section-label">06 — Gatherings</p>
           <h2
             id="events-heading"
-            className="editorial-h max-w-2xl text-4xl text-[#F8F8F8] md:text-5xl"
+            className="editorial-h max-w-2xl text-4xl text-fb-text md:text-5xl"
           >
             Upcoming Gatherings
           </h2>
@@ -26,21 +26,21 @@ export function Events() {
                 <p className="font-mono text-xs tracking-[0.16em] uppercase text-[#FFAB33]">
                   {event.status}
                 </p>
-                <h3 className="mt-6 font-serif text-2xl text-[#F8F8F8] md:text-3xl">
+                <h3 className="mt-6 font-serif text-2xl text-fb-text md:text-3xl">
                   {event.title}
                 </h3>
-                <dl className="mt-8 space-y-3 text-sm text-[#F8F8F8]/65">
+                <dl className="mt-8 space-y-3 text-sm text-fb-body">
                   <div className="flex justify-between gap-4 border-b border-white/10 pb-3">
                     <dt>Location</dt>
-                    <dd className="text-right text-[#F8F8F8]">{event.location}</dd>
+                    <dd className="text-right text-fb-text">{event.location}</dd>
                   </div>
                   <div className="flex justify-between gap-4 border-b border-white/10 pb-3">
                     <dt>Date</dt>
-                    <dd className="text-right text-[#F8F8F8]">{event.date}</dd>
+                    <dd className="text-right text-fb-text">{event.date}</dd>
                   </div>
                   <div className="flex justify-between gap-4 pb-1">
                     <dt>Seats</dt>
-                    <dd className="text-right text-[#F8F8F8]">
+                    <dd className="text-right text-fb-text">
                       {event.seatsRemaining}
                     </dd>
                   </div>

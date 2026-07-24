@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-[#F8F8F8]">
+    <div className="min-h-screen bg-[#0B0B0B] text-fb-text">
       <header className="border-b border-white/10">
         <div className="container-site flex h-20 items-center justify-between">
           <Link href="/" aria-label="Founder-Being home">
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
           </Link>
           <Link
             href="/"
-            className="text-sm text-[#F8F8F8]/65 transition-colors hover:text-[#F8F8F8]"
+            className="text-sm text-fb-body transition-colors hover:text-fb-text"
           >
             Back home
           </Link>
@@ -30,7 +30,7 @@ export default function PrivacyPage() {
         <div className="container-content">
           <p className="section-label">Legal</p>
           <h1 className="editorial-h text-4xl md:text-5xl">Privacy</h1>
-          <div className="mt-10 space-y-6 text-base leading-relaxed text-[#F8F8F8]/70">
+          <div className="mt-10 space-y-6 text-base leading-relaxed text-fb-body">
             <p>
               Founder-Being respects your privacy. Information submitted through
               forms on this website is used solely to respond to your enquiry and,
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
               </a>
               .
             </p>
-            <p className="text-sm text-[#F8F8F8]/45">
+            <p className="text-sm text-fb-meta">
               This notice will be expanded as the initiative matures. Last
               updated {new Date().getFullYear()}.
             </p>

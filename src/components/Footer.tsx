@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-[1.2fr_1fr_1fr]">
           <div>
             <Logo variant="lockup-white" height={52} />
-            <p className="mt-8 max-w-xs font-serif text-xl leading-snug text-[#F8F8F8]/85">
+            <p className="mt-8 max-w-xs font-serif text-xl leading-snug text-fb-body">
               Building Healthier Founders.
               <br />
               Building Better Companies.
@@ -27,7 +27,7 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-[#F8F8F8]/65 transition-colors duration-300 hover:text-[#F8F8F8]"
+                    className="text-sm text-fb-body transition-colors duration-300 hover:text-fb-text"
                   >
                     {link.label}
                   </a>
@@ -36,7 +36,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/privacy"
-                  className="text-sm text-[#F8F8F8]/65 transition-colors duration-300 hover:text-[#F8F8F8]"
+                  className="text-sm text-fb-body transition-colors duration-300 hover:text-fb-text"
                 >
                   Privacy
                 </Link>
@@ -44,7 +44,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/terms"
-                  className="text-sm text-[#F8F8F8]/65 transition-colors duration-300 hover:text-[#F8F8F8]"
+                  className="text-sm text-fb-body transition-colors duration-300 hover:text-fb-text"
                 >
                   Terms
                 </Link>
@@ -60,7 +60,7 @@ export function Footer() {
               <li>
                 <a
                   href={siteConfig.social.instagram}
-                  className="text-sm text-[#F8F8F8]/65 transition-colors duration-300 hover:text-[#F8F8F8]"
+                  className="text-sm text-fb-body transition-colors duration-300 hover:text-fb-text"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -70,7 +70,7 @@ export function Footer() {
               <li>
                 <a
                   href={siteConfig.social.linkedin}
-                  className="text-sm text-[#F8F8F8]/65 transition-colors duration-300 hover:text-[#F8F8F8]"
+                  className="text-sm text-fb-body transition-colors duration-300 hover:text-fb-text"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -80,7 +80,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="text-sm text-[#F8F8F8]/65 transition-colors duration-300 hover:text-[#F8F8F8]"
+                  className="text-sm text-fb-body transition-colors duration-300 hover:text-fb-text"
                 >
                   {siteConfig.email}
                 </a>
@@ -89,7 +89,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-8 text-xs tracking-wide text-[#F8F8F8]/4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-8 text-xs tracking-wide text-fb-text sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {siteConfig.name}. All rights reserved.
           </p>

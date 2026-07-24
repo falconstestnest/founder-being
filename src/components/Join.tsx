@@ -13,11 +13,11 @@ export function Join() {
           <p className="section-label">09 — Join</p>
           <h2
             id="join-heading"
-            className="editorial-h text-4xl text-[#F8F8F8] md:text-5xl"
+            className="editorial-h text-4xl text-fb-text md:text-5xl"
           >
             Join Founder-Being
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[#F8F8F8]/65">
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-fb-body">
             Share a few details. We will follow up thoughtfully when the next
             gathering or conversation is right.
           </p>

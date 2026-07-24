@@ -63,7 +63,7 @@ function CharCount({ value, min, max }: { value: string; min?: number; max: numb
   const len = value.length;
   const ok = (!min || len >= min) && len <= max;
   return (
-    <p className={`mt-1 text-xs font-mono ${ok ? "text-white/40" : "text-[#FFAB33]"}`}>
+    <p className={`mt-1 text-xs font-mono ${ok ? "text-fb-meta" : "text-[#FFAB33]"}`}>
       {len}/{max}
       {min ? ` · min ${min}` : ""}
     </p>
@@ -231,10 +231,10 @@ export function ApplicationForm() {
         aria-live="polite"
       >
         <p className="section-label">Application</p>
-        <h3 className="editorial-h text-3xl text-[#F8F8F8] md:text-4xl">
+        <h3 className="editorial-h text-3xl text-fb-text md:text-4xl">
           Application received.
         </h3>
-        <p className="mt-6 text-base leading-relaxed text-[#F8F8F8]/70">
+        <p className="mt-6 text-base leading-relaxed text-fb-body">
           Thank you for applying to the Founder-Being Kodaikanal Full Moon
           Retreat. Every application is reviewed personally. If selected in the
           first round, we will contact you by phone or WhatsApp by{" "}
@@ -244,10 +244,10 @@ export function ApplicationForm() {
         <p className="mt-8 font-mono text-sm tracking-wide text-[#FFAB33]">
           Reference: {successCode}
         </p>
-        <p className="mt-4 text-sm text-[#F8F8F8]/55">
+        <p className="mt-4 text-sm text-fb-secondary">
           Corrections? Email{" "}
           <a
-            className="text-[#F8F8F8] underline-offset-4 hover:underline"
+            className="text-fb-text underline-offset-4 hover:underline"
             href={`mailto:${kodaikanalRetreat.supportEmail}`}
           >
             {kodaikanalRetreat.supportEmail}
@@ -266,14 +266,14 @@ export function ApplicationForm() {
   }
 
   const fieldClass = "field";
-  const labelClass = "mb-2 block text-xs font-mono tracking-[0.12em] uppercase text-[#F8F8F8]/45";
+  const labelClass = "mb-2 block text-xs font-mono tracking-[0.12em] uppercase text-fb-meta";
 
   return (
     <form onSubmit={onSubmit} noValidate className="border border-white/10 p-6 md:p-10">
       <div className="mb-10">
         <p className="section-label">Application</p>
-        <h3 className="editorial-h text-3xl text-[#F8F8F8]">Apply to Attend</h3>
-        <p className="mt-3 text-sm text-[#F8F8F8]/55">
+        <h3 className="editorial-h text-3xl text-fb-text">Apply to Attend</h3>
+        <p className="mt-3 text-sm text-fb-secondary">
           Three short steps. No account. No payment on this website.
         </p>
         <ol className="mt-8 flex flex-wrap gap-3" aria-label="Progress">
@@ -281,7 +281,7 @@ export function ApplicationForm() {
             <li
               key={label}
               className={`font-mono text-xs tracking-[0.1em] uppercase ${
-                i === step ? "text-[#FFAB33]" : i < step ? "text-[#F8F8F8]/70" : "text-white/30"
+                i === step ? "text-[#FFAB33]" : i < step ? "text-fb-body" : "text-fb-meta"
               }`}
             >
               {String(i + 1).padStart(2, "0")} {label}
@@ -424,7 +424,7 @@ export function ApplicationForm() {
               onChange={(e) => set("companyUrl", e.target.value)}
             />
           </label>
-          <p className="sm:col-span-2 text-xs text-[#F8F8F8]/4">
+          <p className="sm:col-span-2 text-xs text-fb-text">
             LinkedIn or company website is required.
           </p>
         </div>
@@ -477,7 +477,7 @@ export function ApplicationForm() {
             <legend className={labelClass}>
               Have you attended a Founder-Being event before? *
             </legend>
-            <div className="mt-2 flex gap-6 text-sm text-[#F8F8F8]/8">
+            <div className="mt-2 flex gap-6 text-sm text-fb-text">
               {(["yes", "no"] as const).map((v) => (
                 <label key={v} className="inline-flex items-center gap-2">
                   <input
@@ -577,7 +577,7 @@ export function ApplicationForm() {
             />
           </label>
 
-          <div className="space-y-4 border-t border-white/10 pt-6 text-sm text-[#F8F8F8]/7">
+          <div className="space-y-4 border-t border-white/10 pt-6 text-sm text-fb-text">
             <label className="flex items-start gap-3">
               <input
                 type="checkbox"

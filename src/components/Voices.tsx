@@ -33,7 +33,7 @@ export function Voices() {
         <p className="section-label">08 — Voices</p>
         <h2
           id="voices-heading"
-          className="editorial-h max-w-2xl text-4xl text-[#F8F8F8] md:text-5xl"
+          className="editorial-h max-w-2xl text-4xl text-fb-text md:text-5xl"
         >
           Founder Voices
         </h2>
@@ -44,10 +44,10 @@ export function Voices() {
               visible ? "opacity-100" : "opacity-0"
             }`}
           >
-            <p className="font-serif text-3xl leading-snug text-[#F8F8F8] md:text-4xl">
+            <p className="font-serif text-3xl leading-snug text-fb-text md:text-4xl">
               “{current.quote}”
             </p>
-            <footer className="mt-10 font-mono text-xs tracking-[0.12em] uppercase text-[#F8F8F8]/45">
+            <footer className="mt-10 font-mono text-xs tracking-[0.12em] uppercase text-fb-meta">
               {current.attribution}
             </footer>
           </blockquote>

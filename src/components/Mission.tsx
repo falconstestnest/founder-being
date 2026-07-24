@@ -13,11 +13,11 @@ export function Mission() {
           <p className="section-label">03 — Mission</p>
           <h2
             id="mission-heading"
-            className="editorial-h text-4xl text-[#F8F8F8] md:text-5xl lg:text-[3.5rem]"
+            className="editorial-h text-4xl text-fb-text md:text-5xl lg:text-[3.5rem]"
           >
             Our Mission
           </h2>
-          <p className="mt-10 text-lg leading-relaxed text-[#F8F8F8]/72 md:text-xl">
+          <p className="mt-10 text-lg leading-relaxed text-fb-body md:text-xl">
             To build a global movement advancing founder wellbeing, conscious
             leadership, and emotionally sustainable entrepreneurship.
           </p>
@@ -30,7 +30,7 @@ export function Mission() {
                 key={place}
                 className="flex flex-col items-center text-center md:flex-1"
               >
-                <span className="font-serif text-2xl text-[#F8F8F8] md:text-3xl">
+                <span className="font-serif text-2xl text-fb-text md:text-3xl">
                   {place}
                 </span>
                 {i < missionTimeline.length - 1 && (

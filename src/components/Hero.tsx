@@ -19,10 +19,10 @@ export function Hero() {
 
         <h1
           id="hero-heading"
-          className="editorial-h max-w-3xl text-4xl text-[#F8F8F8] sm:text-5xl md:text-6xl lg:text-[4.25rem]"
+          className="editorial-h max-w-3xl text-4xl text-fb-text sm:text-5xl md:text-6xl lg:text-[4.25rem]"
         >
           Building Healthier Founders.
-          <span className="mt-3 block text-[#F8F8F8]/90">
+          <span className="mt-3 block text-fb-text">
             Building Better Companies.
           </span>
         </h1>
@@ -46,7 +46,7 @@ export function Hero() {
 
       <a
         href="#changed"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm text-[#F8F8F8]/45 transition-colors duration-300 hover:text-[#FFAB33] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm text-fb-meta transition-colors duration-300 hover:text-[#FFAB33] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
         aria-label="Scroll to content"
       >
         <span aria-hidden>↓</span>

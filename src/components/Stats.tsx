@@ -12,7 +12,7 @@ export function Stats() {
           <p className="section-label">05 — Evidence</p>
           <h2
             id="stats-heading"
-            className="editorial-h max-w-2xl text-4xl text-[#F8F8F8] md:text-5xl"
+            className="editorial-h max-w-2xl text-4xl text-fb-text md:text-5xl"
           >
             Why Founder Wellbeing Matters
           </h2>
@@ -25,10 +25,10 @@ export function Stats() {
                 <p className="font-mono text-5xl tracking-tight text-[#FFAB33] md:text-6xl">
                   {stat.value}
                 </p>
-                <p className="mt-6 font-serif text-2xl leading-snug text-[#F8F8F8] md:text-[1.75rem]">
+                <p className="mt-6 font-serif text-2xl leading-snug text-fb-text md:text-[1.75rem]">
                   {stat.headline}
                 </p>
-                <p className="mt-4 text-xs tracking-wide text-[#F8F8F8]/40">
+                <p className="mt-4 text-xs tracking-wide text-fb-meta">
                   {stat.source}
                 </p>
               </article>
