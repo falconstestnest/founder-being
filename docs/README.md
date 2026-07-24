@@ -28,6 +28,7 @@ Index of project documentation and the rule for keeping it current.
 | Logos, monograms, favicons, brand assets | [LOGO_PLACEMENT.md](./LOGO_PLACEMENT.md) | `src/components/Logo.tsx`, `Header.tsx`, `Hero.tsx`, `Footer.tsx`, `src/app/not-found.tsx`, `src/app/privacy/**`, `src/app/terms/**`, `src/app/opengraph-image.tsx`, `src/components/JsonLd.tsx`, `src/app/layout.tsx` (icons), `public/brand/**`, `public/icons/**`, `public/favicon*`, `public/icon*`, `public/apple-touch-icon.png`, `public/site.webmanifest`, `src/app/icon.png`, `src/app/apple-icon.png` |
 | Retreat Platform (product handoff) | [RETREAT_PLATFORM_MVP.md](./RETREAT_PLATFORM_MVP.md) | `src/app/retreats/**`, `src/components/retreat/**`, `src/lib/retreats/**`, `src/app/api/retreats/**`, `supabase/migrations/**` |
 | Kodaikanal retreat implementation PRD | [Founder_Being_Kodaikanal_Retreat_Signup_PRD.md](./Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) | Same as retreat platform + event content in `src/lib/retreats/kodaikanal-2026.ts` |
+| Admin Dashboard (UI/UX design PRD) | [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md) | `src/app/admin/**`, `src/components/admin/**`, `src/lib/admin/**`, `src/app/admin/admin.css` |
 
 *Add a row whenever a new topic-specific doc is created under `docs/`.*
 
@@ -41,6 +42,7 @@ Index of project documentation and the rule for keeping it current.
 | [AGENTS.md](../AGENTS.md) | Agent / AI coding rules for this repo |
 | [RETREAT_PLATFORM_MVP.md](./RETREAT_PLATFORM_MVP.md) | Retreat Platform product handoff (vision, MVP, checklist, next phase) |
 | [Founder_Being_Kodaikanal_Retreat_Signup_PRD.md](./Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) | Full implementation PRD for Kodaikanal Full Moon Retreat (Aug 2026) |
+| [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md) | Admin Dashboard design PRD — Calm Operations UI/UX |
 
 ---
 

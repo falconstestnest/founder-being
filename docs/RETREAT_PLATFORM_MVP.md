@@ -146,16 +146,21 @@ Before opening applications:
 
 # Next Phase
 
-The next major milestone is the **Founder-Being Admin Console**, which will build upon the existing schema to provide:
+The next major milestone is the **Founder-Being Admin Console** (operational home—not a generic admin panel).
 
-* Application review and selection
-* Founder communication history
-* Deposit and balance tracking
-* Refund management
-* Operational reporting
-* Retreat configuration
-* Capacity management
-* Audit logs
+**Design source of truth:** [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md)  
+**Shell route (noindex):** `/admin`
+
+Capabilities on the existing schema:
+
+* Application review and selection  
+* Founder communication history  
+* Deposit and balance tracking  
+* Refund management  
+* Operational reporting  
+* Retreat configuration  
+* Capacity management  
+* Audit logs  
 
 No database redesign should be required, as the current MVP architecture has been designed to support these future capabilities.
 

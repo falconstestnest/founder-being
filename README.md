@@ -29,6 +29,7 @@ Motion: fade only. No gradients, parallax, or animated counters.
 - [Logo placement](docs/LOGO_PLACEMENT.md) — lockups, monograms, favicons, and where they appear
 - [Retreat Platform](docs/RETREAT_PLATFORM_MVP.md) — product handoff (scope, privacy, checklist, next phase)
 - [Kodaikanal retreat PRD](docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) — full implementation requirements
+- [Admin Dashboard design PRD](docs/ADMIN_DASHBOARD_DESIGN_PRD.md) — Calm Operations UI/UX
 
 ## Retreat Platform
 

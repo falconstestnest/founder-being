@@ -24,6 +24,7 @@ When changing code, config, or assets that an existing markdown file already des
 | Logos / brand assets / favicons | `docs/LOGO_PLACEMENT.md` |
 | Retreat Platform product handoff | `docs/RETREAT_PLATFORM_MVP.md` |
 | Kodaikanal Full Moon Retreat PRD | `docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md` |
+| Admin Dashboard design PRD | `docs/ADMIN_DASHBOARD_DESIGN_PRD.md` |
 
 Full path watchlists live in `docs/README.md`.
 
@@ -35,4 +36,5 @@ Full path watchlists live in `docs/README.md`.
 - Content defaults: `src/lib/retreats/kodaikanal-2026.ts`.
 - Schema: `supabase/migrations/`.
 - Never publish internal costs, honoraria, or applicant scoring on the public site.
+- Admin UI follows `docs/ADMIN_DASHBOARD_DESIGN_PRD.md` (Calm Operations). Shell at `/admin` must stay noindex; auth required before production.
 <!-- END:docs-sync-rules -->
