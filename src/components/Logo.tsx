@@ -2,8 +2,11 @@ import Image from "next/image";
 
 /**
  * Founder-Being brand mark component.
- * Uses exported lockup / monogram / wordmark assets only —
- * never reconstructs monogram + wordmark in the UI.
+ *
+ * - `lockup-*` → single exported stacked lockup PNG
+ * - `monogram-*` / `wordmark-*` → single exported assets
+ * - `nav-white` / `nav-gold` → intentional horizontal nav treatment
+ *   (monogram + horizontal wordmark). Used only in the sticky header.
  */
 export type LogoVariant =
   | "lockup-white"
@@ -14,21 +17,19 @@ export type LogoVariant =
   | "monogram-black"
   | "wordmark-white"
   | "wordmark-gold"
-  | "wordmark-black";
+  | "wordmark-black"
+  | "nav-white"
+  | "nav-gold";
 
 type LogoProps = {
   className?: string;
   variant?: LogoVariant;
-  /** Display height in CSS pixels. Width scales with asset aspect ratio. */
+  /** Display height in CSS pixels (for nav: monogram height). */
   height?: number;
   priority?: boolean;
 };
 
-/** Intrinsic pixel sizes of files in /public/brand (web-optimized). */
-const ASSETS: Record<
-  LogoVariant,
-  { src: string; width: number; height: number }
-> = {
+const ASSETS = {
   "lockup-white": {
     src: "/brand/lockup-white.png",
     width: 534,
@@ -74,7 +75,92 @@ const ASSETS: Record<
     width: 2459,
     height: 222,
   },
-};
+} as const;
+
+function SingleLogo({
+  src,
+  intrinsicW,
+  intrinsicH,
+  height,
+  priority,
+  className,
+  alt,
+}: {
+  src: string;
+  intrinsicW: number;
+  intrinsicH: number;
+  height: number;
+  priority?: boolean;
+  className?: string;
+  alt: string;
+}) {
+  const width = Math.round((height * intrinsicW) / intrinsicH);
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      priority={priority}
+      className={`h-auto w-auto select-none ${className ?? ""}`}
+      style={{ height, width: "auto" }}
+      sizes={`${width}px`}
+    />
+  );
+}
+
+/** Horizontal nav lockup: monogram + FOUNDER-BEING wordmark side by side. */
+function NavLogo({
+  monogramSrc,
+  wordmarkSrc,
+  height,
+  priority,
+  className,
+}: {
+  monogramSrc: string;
+  wordmarkSrc: string;
+  height: number;
+  priority?: boolean;
+  className?: string;
+}) {
+  const mark = ASSETS["monogram-white"];
+  const word = ASSETS["wordmark-white"];
+  const markW = Math.round((height * mark.width) / mark.height);
+  // Wordmark height ~40% of monogram (matches preferred earlier nav look)
+  const wordH = Math.max(12, Math.round(height * 0.4));
+  const wordW = Math.round((wordH * word.width) / word.height);
+  const gap = Math.max(10, Math.round(height * 0.35));
+
+  return (
+    <span
+      className={`inline-flex items-center select-none ${className ?? ""}`}
+      style={{ gap }}
+      role="img"
+      aria-label="Founder-Being"
+    >
+      <Image
+        src={monogramSrc}
+        alt=""
+        width={markW}
+        height={height}
+        priority={priority}
+        aria-hidden
+        className="h-auto w-auto"
+        style={{ height, width: "auto" }}
+      />
+      <Image
+        src={wordmarkSrc}
+        alt=""
+        width={wordW}
+        height={wordH}
+        priority={priority}
+        aria-hidden
+        className="h-auto w-auto"
+        style={{ height: wordH, width: "auto" }}
+      />
+    </span>
+  );
+}
 
 export function Logo({
   className = "",
@@ -82,19 +168,40 @@ export function Logo({
   height = 44,
   priority = false,
 }: LogoProps) {
-  const asset = ASSETS[variant];
-  const width = Math.round((height * asset.width) / asset.height);
+  if (variant === "nav-white") {
+    return (
+      <NavLogo
+        monogramSrc={ASSETS["monogram-white"].src}
+        wordmarkSrc={ASSETS["wordmark-white"].src}
+        height={height}
+        priority={priority}
+        className={className}
+      />
+    );
+  }
 
+  if (variant === "nav-gold") {
+    return (
+      <NavLogo
+        monogramSrc={ASSETS["monogram-gold"].src}
+        wordmarkSrc={ASSETS["wordmark-gold"].src}
+        height={height}
+        priority={priority}
+        className={className}
+      />
+    );
+  }
+
+  const asset = ASSETS[variant];
   return (
-    <Image
+    <SingleLogo
       src={asset.src}
-      alt="Founder-Being"
-      width={width}
+      intrinsicW={asset.width}
+      intrinsicH={asset.height}
       height={height}
       priority={priority}
-      className={`h-auto w-auto select-none ${className}`}
-      style={{ height, width: "auto" }}
-      sizes={`${width}px`}
+      className={className}
+      alt="Founder-Being"
     />
   );
 }

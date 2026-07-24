@@ -9,7 +9,7 @@ Guide to correct logo use on the Founder-Being website.
 | **Component** | `src/components/Logo.tsx` |
 | **Project assets** | `public/brand/` |
 | **Source pack** | `~/Downloads/3. Founder-Being/founder being/` |
-| **Last verified** | 2026-07-25 |
+| **Last verified** | 2026-07-25 (header: horizontal nav logo restored) |
 
 ---
 
@@ -34,7 +34,7 @@ Three asset types:
 
 | Location | Variant | File | Height | Source file |
 |----------|---------|------|-------:|-------------|
-| Header · desktop (`sm+`) | `lockup-white` | `lockup-white.png` | 44 px | `src/components/Header.tsx` |
+| Header · desktop (`sm+`) | `nav-white` | monogram + horizontal wordmark | 34 px mark | `src/components/Header.tsx` |
 | Header · mobile (`<sm`) | `monogram-white` | `monogram-white.png` | 32 px | `src/components/Header.tsx` |
 | Hero | `lockup-white` | `lockup-white.png` | 130 px | `src/components/Hero.tsx` |
 | Footer | `lockup-white` | `lockup-white.png` | 52 px | `src/components/Footer.tsx` |
@@ -57,17 +57,21 @@ Breakpoint: mobile monogram uses Tailwind `sm` (640px).
 
 | Variant | Asset path | Typical use |
 |---------|------------|-------------|
-| `lockup-white` | `/brand/lockup-white.png` | Dark UI (default) |
+| `nav-white` | monogram-white + wordmark-white (horizontal) | **Sticky header (desktop)** |
+| `nav-gold` | monogram-gold + wordmark-gold (horizontal) | Special nav only |
+| `lockup-white` | `/brand/lockup-white.png` | Hero, footer, legal, 404 (stacked export) |
 | `lockup-gold` | `/brand/lockup-gold.png` | Campaign / special only |
 | `lockup-black` | `/brand/lockup-black.png` | Light backgrounds |
 | `monogram-white` | `/brand/monogram-white.png` | Mobile header, tight space |
 | `monogram-gold` | `/brand/monogram-gold.png` | Icons / accents |
 | `monogram-black` | `/brand/monogram-black.png` | Light UI surfaces |
-| `wordmark-white` | `/brand/wordmark-white.png` | Reserved |
+| `wordmark-white` | `/brand/wordmark-white.png` | Prefer via `nav-*` when paired |
 | `wordmark-gold` | `/brand/wordmark-gold.png` | Reserved |
 | `wordmark-black` | `/brand/wordmark-black.png` | Reserved |
 
-Lockups are **single exported images** (trimmed web versions). Intrinsic sizes in `Logo.tsx` must match the PNGs after any asset regenerate.
+**Header exception:** The sticky header uses `nav-white` — monogram beside the horizontal `FOUNDER-BEING` wordmark — because that reads better at nav height than the stacked lockup. Stacked `lockup-white` remains the default for hero, footer, and page chrome.
+
+Stacked lockups are **single exported images** (trimmed web versions). Intrinsic sizes in `Logo.tsx` must match the PNGs after any asset regenerate.
 
 ---
 
@@ -133,8 +137,8 @@ Metadata icons are declared in `src/app/layout.tsx`.
 
 | Usage | Height |
 |-------|-------:|
-| Header (desktop) | **40–48 px** (implemented **44**) |
-| Header (mobile) | **32 px** |
+| Header (desktop, nav mark) | **34 px** monogram + horizontal wordmark |
+| Header (mobile) | **32 px** monogram |
 | Hero | **120–140 px** (implemented **130**) |
 | Footer | **48–56 px** (implemented **52**) |
 | 404 | **~96 px** |
@@ -155,7 +159,7 @@ Metadata icons are declared in `src/app/layout.tsx`.
 
 ### Do not
 
-* Build lockups from separate monogram + wordmark nodes.
+* Build **stacked** lockups from separate monogram + wordmark nodes (use `lockup-*` exports). The header `nav-*` horizontal treatment is the only approved exception.
 * Stretch, crop, rotate, or recolor assets in CSS.
 * Add shadows, gradients, strokes, or effects.
 * Put gold lockup on the main dark site UI unless a campaign requires it.

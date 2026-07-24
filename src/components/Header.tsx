@@ -37,9 +37,9 @@ export function Header() {
           className="flex shrink-0 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
           aria-label="Founder-Being home"
         >
-          {/* Desktop: primary white lockup · Mobile: monogram only */}
+          {/* Desktop: horizontal monogram + wordmark · Mobile: monogram only */}
           <span className="hidden sm:inline-flex">
-            <Logo variant="lockup-white" height={44} priority />
+            <Logo variant="nav-white" height={34} priority />
           </span>
           <span className="inline-flex sm:hidden">
             <Logo variant="monogram-white" height={32} priority />
