@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Founder-Being
 
-## Getting Started
+Institutional one-page website for **Founder-Being** — a founder wellbeing and conscious leadership initiative.
 
-First, run the development server:
+**Tagline:** Building Healthier Founders. Building Better Companies.
+
+**Canonical URL:** [https://www.founderbeing.org](https://www.founderbeing.org)
+
+## Design
+
+Quiet, premium, editorial. Apple × Aesop × Headspace — not a startup landing page.
+
+| Token | Value |
+|-------|--------|
+| Black | `#0B0B0B` |
+| White | `#F8F8F8` |
+| Gold accent | `#FFAB33` |
+| Primary type | Inter |
+| Editorial type | Cormorant Garamond |
+| Numbers / labels | IBM Plex Mono |
+| Max width | 1280px |
+| Content width | 760px |
+
+Motion: fade only. No gradients, parallax, or animated counters.
+
+## Stack
+
+- Next.js App Router (SSR / static where possible)
+- TypeScript
+- Tailwind CSS v4
+- Vercel deployment
+
+## Develop
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+```
+src/
+  app/           # routes, SEO, API
+  components/    # page sections
+  lib/           # site config + content data
+```
 
-To learn more about Next.js, take a look at the following resources:
+Join form posts to `POST /api/join` (validated; logs payload until a CRM is wired).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## SEO
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Meta title / description per brand spec
+- Canonical, Open Graph, Twitter cards
+- `sitemap.xml`, `robots.txt`
+- JSON-LD: Organization, WebSite, Event, BreadcrumbList
+- Dynamic OG image at `/opengraph-image`
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Connected to GitHub + Vercel. Push to `main` for production.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+vercel --prod
+```
+
+## License
+
+Private — all rights reserved, Founder-Being.
