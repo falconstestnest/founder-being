@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { navLinks } from "@/lib/site";
@@ -31,13 +32,19 @@ export function Header() {
       }`}
     >
       <div className="container-site flex h-20 items-center justify-between gap-6">
-        <a
-          href="#top"
-          className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
+        <Link
+          href="/#top"
+          className="flex shrink-0 items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
           aria-label="Founder-Being home"
         >
-          <Logo height={36} />
-        </a>
+          <Logo variant="mark-white" height={34} priority />
+          <Logo
+            variant="wordmark-white"
+            height={14}
+            className="hidden sm:inline-flex"
+            priority
+          />
+        </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {navLinks.map((link) => (

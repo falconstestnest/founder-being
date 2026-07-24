@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { navLinks, siteConfig } from "@/lib/site";
 
@@ -9,8 +10,8 @@ export function Footer() {
       <div className="container-site">
         <div className="grid gap-12 md:grid-cols-[1.2fr_1fr_1fr]">
           <div>
-            <Logo height={40} />
-            <p className="mt-6 max-w-xs font-serif text-xl leading-snug text-[#F8F8F8]/85">
+            <Logo variant="lockup-white" height={56} />
+            <p className="mt-8 max-w-xs font-serif text-xl leading-snug text-[#F8F8F8]/85">
               Building Healthier Founders.
               <br />
               Building Better Companies.
@@ -33,20 +34,20 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <a
+                <Link
                   href="/privacy"
                   className="text-sm text-[#F8F8F8]/65 transition-colors duration-300 hover:text-[#F8F8F8]"
                 >
                   Privacy
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/terms"
                   className="text-sm text-[#F8F8F8]/65 transition-colors duration-300 hover:text-[#F8F8F8]"
                 >
                   Terms
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

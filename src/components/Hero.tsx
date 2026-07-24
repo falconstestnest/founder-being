@@ -9,7 +9,7 @@ export function Hero() {
     >
       <div className="container-site flex w-full flex-col items-center py-28 text-center">
         <div className="mb-12 md:mb-14">
-          <Logo height={110} className="mx-auto max-w-[min(100%,420px)] w-auto" />
+          <Logo variant="lockup-white" height={110} priority className="mx-auto" />
         </div>
 
         <h1

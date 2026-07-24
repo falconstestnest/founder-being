@@ -9,6 +9,8 @@ export function JsonLd() {
     url: siteConfig.url,
     email: siteConfig.email,
     description: siteConfig.description,
+    logo: `${siteConfig.url}/brand/logo-white.png`,
+    image: `${siteConfig.url}/brand/monogram-gold.png`,
     sameAs: [siteConfig.social.instagram, siteConfig.social.linkedin],
     slogan: siteConfig.tagline,
   };

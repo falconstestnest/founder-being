@@ -1,11 +1,17 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "Founder-Being | Building Healthier Founders";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const monogramData = await readFile(
+    join(process.cwd(), "public/brand/monogram-gold-512.png"),
+  );
+  const monogramSrc = `data:image/png;base64,${monogramData.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -15,31 +21,29 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "72px",
+          alignItems: "flex-start",
+          padding: "72px 80px",
           background: "#0B0B0B",
           color: "#F8F8F8",
-          fontFamily: "Georgia, serif",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            fontSize: 64,
-            letterSpacing: 1,
-            marginBottom: 40,
-          }}
-        >
-          <span>Founder</span>
-          <span style={{ color: "#FFAB33", margin: "0 8px" }}>-</span>
-          <span>Being</span>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={monogramSrc}
+          width={168}
+          height={202}
+          alt=""
+          style={{ marginBottom: 40 }}
+        />
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            fontSize: 42,
-            lineHeight: 1.25,
+            fontFamily: "Georgia, serif",
+            fontSize: 46,
+            lineHeight: 1.2,
             maxWidth: 900,
+            letterSpacing: -0.5,
           }}
         >
           <span>Building Healthier Founders.</span>
@@ -47,15 +51,15 @@ export default function OpenGraphImage() {
         </div>
         <div
           style={{
-            marginTop: 48,
-            fontSize: 20,
-            letterSpacing: 4,
+            marginTop: 40,
+            fontSize: 18,
+            letterSpacing: 6,
             textTransform: "uppercase",
             color: "#FFAB33",
             fontFamily: "ui-monospace, monospace",
           }}
         >
-          founderbeing.org
+          Founder-Being · founderbeing.org
         </div>
       </div>
     ),

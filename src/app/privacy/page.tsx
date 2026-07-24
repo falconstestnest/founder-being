@@ -14,8 +14,13 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-[#0B0B0B] text-[#F8F8F8]">
       <header className="border-b border-white/10">
         <div className="container-site flex h-20 items-center justify-between">
-          <Link href="/" aria-label="Founder-Being home">
-            <Logo height={32} />
+          <Link
+            href="/"
+            className="flex items-center gap-3"
+            aria-label="Founder-Being home"
+          >
+            <Logo variant="mark-white" height={30} />
+            <Logo variant="wordmark-white" height={12} className="hidden sm:inline-flex" />
           </Link>
           <Link
             href="/"
