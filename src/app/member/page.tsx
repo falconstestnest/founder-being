@@ -9,9 +9,18 @@ export default async function MemberHomePage() {
       workspace={workspace}
       fullName={ctx.fullName || "Member"}
       cards={[
-        { label: "Upcoming gatherings", value: "—" },
-        { label: "Community updates", value: "—" },
-        { label: "Resources", value: "—" },
+        {
+          label: "Upcoming events",
+          emptyState: "No upcoming events are connected yet.",
+        },
+        {
+          label: "Community updates",
+          emptyState: "Updates will appear once communications are connected.",
+        },
+        {
+          label: "Resources",
+          emptyState: "Resources are not available yet.",
+        },
       ]}
       actions={[
         { href: "/events", label: "Browse events", primary: true },

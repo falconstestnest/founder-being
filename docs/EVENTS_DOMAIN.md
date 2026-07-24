@@ -24,6 +24,8 @@ Redirects:
 * `/gatherings/interest` → `/events/interest`
 * `/retreats/kodaikanal-full-moon-2026` → `/events/kodaikanal-full-moon-retreat-2026` (then rich programme page)
 
+**Homepage:** may include an Events preview section. Canonical discovery and all public links use **`/events`** (not `#events`).
+
 ---
 
 ## Events Hub filters

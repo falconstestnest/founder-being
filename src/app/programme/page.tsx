@@ -9,14 +9,32 @@ export default async function ProgrammeHomePage() {
       workspace={workspace}
       fullName={ctx.fullName || "Programme"}
       cards={[
-        { label: "Applications pending", value: "—", hint: "Needs review" },
-        { label: "Today's events", value: "—" },
-        { label: "Upcoming retreats", value: "1" },
-        { label: "Open tasks", value: "—" },
+        {
+          label: "Applications",
+          emptyState:
+            "No applications are connected yet. This workspace will update once programme data is connected.",
+        },
+        {
+          label: "Today's events",
+          emptyState: "No events are live today.",
+        },
+        {
+          label: "Upcoming retreats",
+          value: "1",
+          hint: "From Events catalogue",
+        },
+        {
+          label: "Open tasks",
+          emptyState: "No open tasks yet.",
+        },
       ]}
       actions={[
-        { href: "/programme/applications", label: "Review applications", primary: true },
-        { href: "/events", label: "Publish / manage events" },
+        {
+          href: "/admin/events",
+          label: "Manage events",
+          primary: true,
+        },
+        { href: "/programme/applications", label: "Review applications" },
         { href: "/programme/communications", label: "Communications" },
       ]}
     />

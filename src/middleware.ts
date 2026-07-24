@@ -4,13 +4,18 @@ import { updateSession } from "@/lib/supabase/middleware";
 const PUBLIC_AUTH_PATHS = [
   "/login",
   "/login/callback",
+  "/login/forgot-password",
+  "/login/reset-password",
   "/admin/login",
   "/admin/auth/callback",
   "/access",
+  "/forbidden",
 ];
 
 const PROTECTED_PREFIXES = [
   "/workspace",
+  "/access/pending",
+  "/security",
   "/admin",
   "/founder",
   "/patron",
@@ -45,23 +50,39 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (!isProtected(pathname) && pathname !== "/login") {
+  // Public access request form (not pending)
+  if (pathname === "/access" || pathname === "/forbidden") {
     return NextResponse.next();
   }
 
-  // Sign-in page: already authenticated → always /workspace (stable post-auth hub)
-  if (isPublicAuth(pathname) && pathname.startsWith("/login")) {
+  if (!isProtected(pathname) && !pathname.startsWith("/login")) {
+    return NextResponse.next();
+  }
+
+  // Exact /login only: already authenticated → /workspace
+  // Do not auto-redirect forgot-password or reset-password
+  if (pathname === "/login") {
     const { response, user, configured } = await updateSession(request);
-    if (configured && user && pathname === "/login") {
+    if (configured && user) {
       const dest = request.nextUrl.clone();
       dest.pathname = "/workspace";
       const next = request.nextUrl.searchParams.get("next");
       dest.search = "";
-      if (next && next.startsWith("/") && !next.startsWith("//")) {
+      if (
+        next &&
+        next.startsWith("/") &&
+        !next.startsWith("//") &&
+        !next.startsWith("/login")
+      ) {
         dest.searchParams.set("next", next);
       }
       return NextResponse.redirect(dest);
     }
+    return response;
+  }
+
+  if (isPublicAuth(pathname) && pathname.startsWith("/login/")) {
+    const { response } = await updateSession(request);
     return response;
   }
 
@@ -76,7 +97,6 @@ export async function middleware(request: NextRequest) {
 
   if (!configured) {
     if (isAuthSurface) return response;
-    // Never expose local fallback IAM in production routing
     const login = request.nextUrl.clone();
     login.pathname = "/login";
     login.searchParams.set("error", "auth_not_configured");
@@ -100,6 +120,11 @@ export const config = {
     "/login/:path*",
     "/workspace",
     "/workspace/:path*",
+    "/access",
+    "/access/:path*",
+    "/security",
+    "/security/:path*",
+    "/forbidden",
     "/admin",
     "/admin/:path*",
     "/founder",

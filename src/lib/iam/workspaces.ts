@@ -42,11 +42,14 @@ const ROLE_WORKSPACE_PRIORITY: {
   { role: "none", workspace: "member" },
 ];
 
-/** When system role is none/read_only, relationship may refine portal */
+/**
+ * Relationship → portal workspace only (own limited data).
+ * Never grants CMS / ops (applications.review, payments.manage, users.assign).
+ * co_founder / founding_team_member require system roles — not relationship alone.
+ * See portalEntitlements.ts: patron.portal · founder.portal · volunteer.portal
+ */
 const RELATIONSHIP_WORKSPACE: Partial<Record<RelationshipSlug, WorkspaceId>> = {
   patron: "patron",
-  co_founder: "executive",
-  founding_team_member: "executive",
   volunteer: "volunteer",
   member: "founder",
   advisor: "member",

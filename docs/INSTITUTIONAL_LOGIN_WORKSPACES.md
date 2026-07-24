@@ -38,16 +38,22 @@ The user **never chooses** a dashboard. Relationship influences language and exp
 
 ## Stable post-auth target: `/workspace`
 
-All of these land on `/workspace` first:
+All of these land on `/workspace` first (except password recovery form):
 
 * password sign-in  
 * magic-link callback  
 * Google OAuth  
-* password-reset completion (when configured)  
+* password-reset completion (after new password)  
 * expired-session recovery  
 
 ```text
 /login → /workspace → resolver → role-specific destination
+```
+
+Password recovery is separate:
+
+```text
+/login/forgot-password → email → /login/callback → /login/reset-password → /workspace
 ```
 
 Do **not** embed role-specific routes in authentication logic.
@@ -56,27 +62,22 @@ Email deep-links may pass `?next=/programme/...`; `/workspace` validates that `n
 
 ---
 
-## Resolver states
+## Resolver states and dedicated outcomes
 
-Implementation: `src/lib/iam/workspaceSession.ts`
+Implementation: `src/lib/iam/workspaceSession.ts` · `outcomePathForState()`
 
-| State | Meaning |
-| ----- | ------- |
-| `authenticated_and_authorized` | Redirect to workspace path |
-| `unauthenticated` | Redirect to `/login` |
-| `profile_missing` | Signed in, no profile |
-| `profile_inactive` | Profile not active yet |
-| `role_missing` | Active but no workspace assigned |
-| `mfa_required` | Privileged role; MFA incomplete (`REQUIRE_WORKSPACE_MFA=1`) |
-| `access_suspended` | Suspended — no access |
-| `configuration_missing` | Auth not configured |
+| State | Outcome route |
+| ----- | ------------- |
+| `authenticated_and_authorized` | Assigned workspace path |
+| `unauthenticated` | `/login` |
+| `profile_missing` / `profile_inactive` / `role_missing` | `/access/pending` |
+| `mfa_required` | `/security/setup` (`REQUIRE_WORKSPACE_MFA=1`) |
+| `access_suspended` | `/forbidden?reason=suspended` |
+| Permission denied | `/forbidden` |
+| Wrong workspace | One hop to assigned home |
+| `configuration_missing` | `/login?error=auth_not_configured` |
 
-### User-facing copy
-
-**Profile not ready** — *Your workspace is being prepared*  
-**No role** — *Access is awaiting approval*  
-**MFA** — *Complete your security setup* → `/workspace/security`  
-**Suspended** — *Workspace access is currently unavailable*
+No bounce loops between middleware and `/workspace`.
 
 ---
 

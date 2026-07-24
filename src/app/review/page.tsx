@@ -9,20 +9,29 @@ export default async function ReviewHomePage() {
       workspace={workspace}
       fullName={ctx.fullName || "Reviewer"}
       cards={[
-        { label: "Assigned reviews", value: "—" },
-        { label: "Pending", value: "—", hint: "In your queue" },
-        { label: "Completed", value: "—" },
-        { label: "Avg. review time", value: "—" },
+        {
+          label: "Assigned reviews",
+          emptyState: "No applications are assigned to you yet.",
+        },
+        {
+          label: "Pending",
+          emptyState: "Your review queue is empty.",
+        },
+        {
+          label: "Completed",
+          emptyState: "Completed reviews will appear here.",
+        },
       ]}
       actions={[
         { href: "/review/queue", label: "Open review queue", primary: true },
       ]}
     >
       <section className="mt-10 admin-card">
-        <h2 className="admin-section-title">Queue</h2>
+        <h2 className="admin-section-title">Review principles</h2>
         <p className="text-sm text-[var(--admin-muted)]">
-          You&apos;re all caught up. Assigned applications will appear here for
-          Approve · Waitlist · Decline.
+          You only see applications assigned to you. Reviewer notes, decisions,
+          and conflicts of interest are kept separate from applicant-facing
+          records.
         </p>
       </section>
     </WorkspaceHome>

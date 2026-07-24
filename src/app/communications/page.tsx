@@ -9,13 +9,29 @@ export default async function CommunicationsHomePage() {
       workspace={workspace}
       fullName={ctx.fullName || "Communications"}
       cards={[
-        { label: "Upcoming campaigns", value: "—" },
-        { label: "Pending messages", value: "—" },
-        { label: "Scheduled emails", value: "—" },
-        { label: "WhatsApp", value: "—" },
+        {
+          label: "Campaigns",
+          emptyState: "No campaigns are connected yet.",
+        },
+        {
+          label: "Pending messages",
+          emptyState: "No messages need attention.",
+        },
+        {
+          label: "Scheduled emails",
+          emptyState: "Nothing is scheduled.",
+        },
+        {
+          label: "WhatsApp",
+          emptyState: "WhatsApp workflows are not connected yet.",
+        },
       ]}
       actions={[
-        { href: "/communications/campaigns", label: "Create campaign", primary: true },
+        {
+          href: "/communications/campaigns",
+          label: "Create campaign",
+          primary: true,
+        },
         { href: "/communications/messages", label: "Send reminder" },
       ]}
     />

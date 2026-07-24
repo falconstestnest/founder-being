@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { Logo } from "@/components/Logo";
+import { trackCta } from "@/lib/analytics/cta";
 import {
   requestableSystemRoles,
   type SystemRoleSlug,
@@ -14,6 +15,8 @@ export default function AccessRequestPage() {
   const [email, setEmail] = useState("");
   const [selected, setSelected] = useState<SystemRoleSlug[]>([]);
   const [note, setNote] = useState("");
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [website, setWebsite] = useState(""); // honeypot
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -33,7 +36,16 @@ export default function AccessRequestPage() {
       setError("Select at least one preferred role.");
       return;
     }
+    if (!privacyConsent) {
+      setError("Please confirm privacy consent to continue.");
+      return;
+    }
     setSubmitting(true);
+    void trackCta("cta_started", {
+      cta_name: "request_access",
+      source_page: "/access",
+      authenticated: false,
+    });
     try {
       const res = await fetch("/api/iam/access-request", {
         method: "POST",
@@ -43,13 +55,24 @@ export default function AccessRequestPage() {
           email,
           preferredRoles: selected,
           note: note || undefined,
+          privacyConsent: true,
+          website: website || undefined,
         }),
       });
       const data = await res.json();
       if (!res.ok) {
+        void trackCta("cta_failed", {
+          cta_name: "request_access",
+          source_page: "/access",
+          error_code: String(res.status),
+        });
         setError(data.error || "Request failed.");
         return;
       }
+      void trackCta("cta_completed", {
+        cta_name: "request_access",
+        source_page: "/access",
+      });
       setDone(true);
     } finally {
       setSubmitting(false);
@@ -75,18 +98,36 @@ export default function AccessRequestPage() {
 
         {done ? (
           <div className="mt-12 border border-white/10 p-8">
-            <h2 className="font-serif text-2xl">Request received</h2>
+            <h2 className="font-serif text-2xl">Your request has been received</h2>
             <p className="mt-4 text-sm text-fb-body">
-              Thank you. If approved, you will receive next steps by email. Your
-              preferred role is a request only—final permissions are assigned by
-              Super Administrator.
+              Access is reviewed manually. Submitting a request does not create
+              an account or grant access. We&apos;ll contact you if further
+              information is needed.
             </p>
-            <Link href="/" className="btn btn-secondary mt-8 inline-flex">
-              Back home
-            </Link>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/" className="btn btn-secondary inline-flex">
+                Back home
+              </Link>
+              <Link href="/login" className="btn btn-secondary inline-flex">
+                Sign in
+              </Link>
+            </div>
           </div>
         ) : (
           <form onSubmit={onSubmit} className="mt-10 space-y-6">
+            {/* Honeypot */}
+            <div className="absolute -left-[9999px] opacity-0" aria-hidden>
+              <label>
+                Website
+                <input
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </label>
+            </div>
+
             <label className="block">
               <span className="font-mono text-xs uppercase tracking-wider text-fb-meta">
                 Full name
@@ -161,6 +202,24 @@ export default function AccessRequestPage() {
                 maxLength={1000}
                 placeholder="How you relate to Founder-Being…"
               />
+            </label>
+
+            <label className="flex cursor-pointer gap-3 text-sm text-fb-body">
+              <input
+                type="checkbox"
+                className="mt-1 accent-[#FFAB33]"
+                checked={privacyConsent}
+                onChange={(e) => setPrivacyConsent(e.target.checked)}
+                required
+              />
+              <span>
+                I understand this is a request only, and I agree to Founder-Being
+                processing my details for access review in line with the{" "}
+                <Link href="/privacy" className="link-inline">
+                  Privacy Policy
+                </Link>
+                .
+              </span>
             </label>
 
             {error && (

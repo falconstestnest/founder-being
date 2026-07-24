@@ -201,15 +201,13 @@ function SignInForm() {
             Continue with Google
           </button>
 
-          <p className="text-center type-small">
-            <button
-              type="button"
-              className="text-fb-secondary underline-offset-4 hover:underline"
-              onClick={() => setMode("magic")}
-            >
-              Forgot password? Use a magic link
-            </button>
-          </p>
+          {mode === "password" && (
+            <p className="text-center type-small">
+              <Link href="/login/forgot-password" className="link-inline">
+                Forgot your password?
+              </Link>
+            </p>
+          )}
         </form>
 
         <p className="mt-8 text-center type-small">

@@ -208,7 +208,7 @@ export async function resolveWorkspaceSession(): Promise<WorkspaceSessionResult>
   }
 
   // Privileged roles: block until MFA when REQUIRE_WORKSPACE_MFA=1
-  // (OS v0.2 security gate turns this on; enrollment UI is /workspace/security)
+  // Enrollment UI: /security/setup
   const enforceMfa = process.env.REQUIRE_WORKSPACE_MFA === "1";
   if (
     enforceMfa &&
@@ -232,6 +232,38 @@ export async function resolveWorkspaceSession(): Promise<WorkspaceSessionResult>
     title: workspace.title,
     body: workspace.purpose,
   };
+}
+
+/**
+ * Dedicated outcome routes — avoid bouncing between /workspace and guards.
+ *
+ * Unauthenticated → /login
+ * Inactive / role missing → /access/pending
+ * MFA required → /security/setup
+ * Suspended → /forbidden?reason=suspended
+ * Permission denied → /forbidden
+ */
+export function outcomePathForState(
+  state: WorkspaceResolveState,
+): string {
+  switch (state) {
+    case "unauthenticated":
+      return "/login";
+    case "configuration_missing":
+      return "/login?error=auth_not_configured";
+    case "profile_missing":
+    case "profile_inactive":
+    case "role_missing":
+      return "/access/pending";
+    case "mfa_required":
+      return "/security/setup";
+    case "access_suspended":
+      return "/forbidden?reason=suspended";
+    case "authenticated_and_authorized":
+      return "/workspace";
+    default:
+      return "/access/pending";
+  }
 }
 
 function mapProfile(

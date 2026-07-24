@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { trackCta } from "@/lib/analytics/cta";
 import type { FounderEvent } from "@/lib/events/taxonomy";
 import {
   EVENT_TYPE_LABELS,
@@ -30,6 +31,17 @@ export function GatheringInterestForm({ prefill }: { prefill: Prefill }) {
     const form = e.currentTarget;
     const data = new FormData(form);
 
+    const ctaBase = {
+      cta_name: "event_interest",
+      source_page: typeof window !== "undefined" ? window.location.pathname : "/events/interest",
+      event_id: prefill.eventId,
+      event_type: prefill.eventType,
+      registration_workflow: prefill.registrationWorkflow,
+      authenticated: false,
+    } as const;
+
+    void trackCta("cta_started", ctaBase);
+
     try {
       const res = await fetch("/api/events/interest", {
         method: "POST",
@@ -53,14 +65,21 @@ export function GatheringInterestForm({ prefill }: { prefill: Prefill }) {
       });
       const json = (await res.json()) as { error?: string; ok?: boolean };
       if (!res.ok) {
+        void trackCta("cta_failed", {
+          ...ctaBase,
+          error_code: String(res.status),
+        });
         setStatus("error");
         setMessage(json.error || "Something went wrong. Please try again.");
         return;
       }
+      void trackCta("cta_completed", ctaBase);
+      void trackCta("cta_submitted", ctaBase);
       setStatus("success");
       setMessage("Thank you. We have received your interest.");
       form.reset();
     } catch {
+      void trackCta("cta_failed", { ...ctaBase, error_code: "network" });
       setStatus("error");
       setMessage("Unable to submit right now. Please email hello@founderbeing.org.");
     }

@@ -3,9 +3,10 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 /**
- * OAuth / magic-link callback.
- * Always hand off to /workspace — never resolve role-specific paths here.
- * Embedding destinations in auth logic is forbidden; /workspace is the sole post-login hub.
+ * OAuth / magic-link / password-recovery callback.
+ *
+ * Password recovery: next=/login/reset-password is allowed as a recovery destination.
+ * All other successful auths hand off to /workspace (never embed role paths here).
  */
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -31,9 +32,13 @@ export async function GET(request: Request) {
       });
       const { error } = await supabase.auth.exchangeCodeForSession(code);
       if (!error) {
+        // Recovery flow must reach the password form, not the workspace resolver
+        if (next === "/login/reset-password") {
+          return NextResponse.redirect(`${origin}/login/reset-password`);
+        }
+
         const dest = new URL("/workspace", origin);
-        // Only forward next when it is an app-relative path; /workspace validates it
-        if (next && next.startsWith("/") && !next.startsWith("//")) {
+        if (next && next.startsWith("/") && !next.startsWith("//") && !next.startsWith("/login")) {
           dest.searchParams.set("next", next);
         }
         return NextResponse.redirect(dest);

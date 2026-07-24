@@ -52,7 +52,9 @@ See [Events Domain](docs/EVENTS_DOMAIN.md) and [Events Operations Foundation](do
 | Surface | Route |
 |---------|--------|
 | Sign in | `/login` (institutional — not “Admin Login”) |
+| Password recovery | `/login/forgot-password` · `/login/reset-password` |
 | Workspace hub | `/workspace` (post-auth resolver — never user-picked) |
+| Access outcomes | `/access` · `/access/pending` · `/security/setup` · `/forbidden` |
 | Operations shell | `/admin` (Super Administrator) |
 | Events (ops) | `/admin/events` · `/admin/events/[eventId]` |
 | Role workspaces | `/founder` · `/patron` · `/programme` · `/review` · `/finance` · … |

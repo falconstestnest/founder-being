@@ -9,6 +9,10 @@ import {
   EVENT_TYPE_LABELS,
   REGISTRATION_WORKFLOW_LABELS,
 } from "@/lib/events/taxonomy";
+import {
+  buildIdentityLinkKeys,
+  normalizeEmail,
+} from "@/lib/identity/normalize";
 import { getServiceSupabase } from "@/lib/supabase/server";
 
 const schema = z.object({
@@ -19,7 +23,7 @@ const schema = z.object({
   registrationWorkflow: z.string().min(1),
   eventSlug: z.string().optional(),
   fullName: z.string().trim().min(2).max(100),
-  email: z.string().trim().email().transform((e) => e.toLowerCase()),
+  email: z.string().trim().email().transform((e) => normalizeEmail(e)),
   whatsapp: z.string().trim().max(40).optional().nullable(),
   location: z.string().trim().max(120).optional().nullable(),
   company: z.string().trim().max(160).optional().nullable(),
@@ -112,7 +116,19 @@ async function persist(record: {
   note: string | null;
   marketing_consent: boolean;
 }) {
-  const row = { ...record, created_at: new Date().toISOString() };
+  // Identity link keys (email / WhatsApp) — never name-only merge
+  const link = buildIdentityLinkKeys({
+    email: record.email,
+    whatsapp: record.whatsapp,
+  });
+  const whatsappNorm = link.whatsappNormalized || record.whatsapp;
+
+  const row = {
+    ...record,
+    email: link.emailNormalized || record.email,
+    whatsapp: whatsappNorm,
+    created_at: new Date().toISOString(),
+  };
   const supabase = getServiceSupabase();
   if (supabase) {
     const { error } = await supabase.from("gathering_interest").insert(row);
@@ -125,6 +141,10 @@ async function persist(record: {
     event_type: row.event_type,
     city: row.city,
     emailDomain: row.email.split("@")[1],
+    identity_keys: {
+      email: Boolean(link.emailNormalized),
+      whatsapp: Boolean(link.whatsappNormalized),
+    },
   });
 
   return NextResponse.json({ ok: true });

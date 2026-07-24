@@ -7,6 +7,7 @@ import {
 } from "@/lib/iam/roles";
 import {
   resolveWorkspaceSession,
+  outcomePathForState,
   type WorkspaceSessionResult,
 } from "@/lib/iam/workspaceSession";
 import {
@@ -30,9 +31,13 @@ export type WorkspaceAuthCtx = {
 /**
  * Enforce that this request may use `expected` workspace.
  *
- * The workspace resolver is routing only — this guard re-checks session every
- * time. A user manually visiting another route is redirected to their home
- * (or /workspace for blocked states), not merely shown a hidden sidebar.
+ * Explicit outcomes (no resolver loops):
+ * - Unauthenticated → /login
+ * - Inactive / role missing → /access/pending
+ * - MFA required → /security/setup
+ * - Suspended → /forbidden?reason=suspended
+ * - Wrong workspace → assigned home
+ * - Permission denied → /forbidden
  */
 function primaryRoleLabel(roles: SystemRoleSlug[]): string | undefined {
   for (const slug of roles) {
@@ -51,7 +56,6 @@ export async function requireWorkspace(
   workspace: WorkspaceDef;
   resolved: WorkspaceDef;
   session: WorkspaceSessionResult;
-  /** Discreet label for profile menu only */
   roleLabel?: string;
 }> {
   const session = await resolveWorkspaceSession();
@@ -65,7 +69,7 @@ export async function requireWorkspace(
   }
 
   if (session.state !== "authenticated_and_authorized" || !session.profile) {
-    redirect(`/workspace?state=${session.state}`);
+    redirect(outcomePathForState(session.state));
   }
 
   const profile = session.profile;
@@ -96,12 +100,13 @@ export async function requireWorkspace(
   }
 
   if (resolved.id !== expected) {
+    // Wrong workspace: one hop to assigned home (not back through /workspace)
     redirect(resolved.path);
   }
 
   if (options?.permission) {
     if (!anyRoleHasPermission(profile.systemRoles, options.permission)) {
-      redirect(`/workspace?state=role_missing&denied=${options.permission}`);
+      redirect("/forbidden");
     }
   }
 

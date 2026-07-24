@@ -5,7 +5,8 @@
 **Last verified:** 2026-07-25  
 
 Public hub: `/events` · Form: `/events/interest?event={slug}`  
-Homepage still anchors `#events` as a preview of the Events Hub.
+
+Canonical discovery route: **`/events`**. The homepage may include an Events preview section for scrolling; public links and documentation always point to `/events`, not `#events`.
 
 ---
 
