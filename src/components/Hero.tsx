@@ -1,9 +1,9 @@
+import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
 export function Hero() {
   return (
     <section
-      id="top"
       className="noise relative flex min-h-[100svh] items-center justify-center bg-[#0B0B0B]"
       aria-labelledby="hero-heading"
     >
@@ -30,22 +30,26 @@ export function Hero() {
         </p>
 
         <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
-          <a href="#patron" className="btn btn-primary min-w-[15rem]">
+          <Link href="/patrons" className="btn btn-primary min-w-[15rem]">
             Become a Founding Patron
-          </a>
-          <a href="#about" className="btn btn-secondary min-w-[15rem]">
-            Explore Founder-Being
-          </a>
+          </Link>
+          <Link href="/about" className="btn btn-secondary min-w-[15rem]">
+            Learn about Founder-Being
+          </Link>
+        </div>
+
+        <div className="mt-6 flex flex-wrap justify-center gap-4">
+          <Link href="/events" className="type-small link-inline">
+            View upcoming gatherings
+          </Link>
+          <span className="text-fb-meta" aria-hidden>
+            ·
+          </span>
+          <Link href="/mission" className="type-small link-inline">
+            Explore our mission
+          </Link>
         </div>
       </div>
-
-      <a
-        href="#changed"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm text-fb-meta transition-colors duration-300 hover:text-[#FFAB33] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
-        aria-label="Scroll to content"
-      >
-        <span aria-hidden>↓</span>
-      </a>
     </section>
   );
 }

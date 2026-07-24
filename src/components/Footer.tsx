@@ -25,14 +25,22 @@ export function Footer() {
             <ul className="mt-5 space-y-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-fb-body transition-colors duration-300 hover:text-fb-text"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/login"
+                  className="text-sm text-fb-body transition-colors duration-300 hover:text-fb-text"
+                >
+                  Sign In
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/privacy"

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { patronBenefits } from "@/lib/data";
 
@@ -69,9 +70,9 @@ export function Patron() {
         </div>
 
         <FadeIn className="mt-12">
-          <a href="#contact" className="btn btn-gold">
+          <Link href="/contact" className="btn btn-gold">
             Become a Founding Patron
-          </a>
+          </Link>
         </FadeIn>
       </div>
     </section>

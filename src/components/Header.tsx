@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { navLinks } from "@/lib/site";
 
 export function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -23,6 +25,11 @@ export function Header() {
     };
   }, [open]);
 
+  function isActive(href: string) {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
@@ -33,11 +40,10 @@ export function Header() {
     >
       <div className="container-site flex h-20 items-center justify-between gap-6">
         <Link
-          href="/#top"
+          href="/"
           className="flex shrink-0 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
           aria-label="Founder-Being home"
         >
-          {/* Desktop: horizontal monogram + wordmark · Mobile: monogram only */}
           <span className="hidden sm:inline-flex">
             <Logo variant="nav-white" height={34} priority />
           </span>
@@ -46,16 +52,24 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[0.8125rem] tracking-[0.06em] text-fb-body transition-colors duration-300 hover:text-fb-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+          {navLinks.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-[0.8125rem] tracking-[0.06em] transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33] ${
+                  active
+                    ? "text-fb-text"
+                    : "text-fb-body hover:text-fb-text"
+                }`}
+                aria-current={active ? "page" : undefined}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <button
@@ -86,16 +100,29 @@ export function Header() {
         className={`border-t border-white/10 bg-[#0B0B0B] lg:hidden ${open ? "block" : "hidden"}`}
       >
         <nav className="container-site flex flex-col gap-1 py-6" aria-label="Mobile">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="py-3 text-base tracking-[0.04em] text-fb-body"
-              onClick={() => setOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`py-3 text-base tracking-[0.04em] ${
+                  active ? "text-fb-text" : "text-fb-body"
+                }`}
+                aria-current={active ? "page" : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+          <Link
+            href="/login"
+            className="mt-2 py-3 text-base text-[#FFAB33]"
+            onClick={() => setOpen(false)}
+          >
+            Sign In
+          </Link>
         </nav>
       </div>
     </header>

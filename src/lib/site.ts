@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Founder-Being",
   tagline: "Building Healthier Founders. Building Better Companies.",
-  url: "https://www.founderbeing.org",
+  url: "https://www.foundrbeing.com",
   description:
     "Founder-Being is a founder wellbeing and conscious leadership initiative supporting entrepreneurs through gatherings, reflection circles, wellness experiences, and meaningful conversations across India and the Middle East.",
   ogTitle: "Founder-Being | Building Healthier Founders",
@@ -14,11 +14,29 @@ export const siteConfig = {
   },
 } as const;
 
+/** Primary public navigation — real routes only (no hash URLs). */
 export const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#vision", label: "Vision" },
-  { href: "#community", label: "Community" },
+  { href: "/about", label: "About" },
+  { href: "/mission", label: "Mission" },
   { href: "/events", label: "Events" },
-  { href: "#patron", label: "Become a Patron" },
-  { href: "#contact", label: "Contact" },
+  { href: "/impact", label: "Impact" },
+  { href: "/patrons", label: "Patrons" },
+  { href: "/community", label: "Community" },
+  { href: "/contact", label: "Contact" },
 ] as const;
+
+/** Legacy homepage hashes → real routes (client-side migration). */
+export const legacyHashRoutes: Record<string, string> = {
+  "#about": "/about",
+  "#vision": "/mission",
+  "#mission": "/mission",
+  "#community": "/community",
+  "#impact": "/impact",
+  "#events": "/events",
+  "#patron": "/patrons",
+  "#patrons": "/patrons",
+  "#contact": "/contact",
+  "#join": "/contact",
+  "#changed": "/about",
+  "#top": "/",
+};

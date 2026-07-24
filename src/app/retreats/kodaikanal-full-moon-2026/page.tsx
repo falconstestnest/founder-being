@@ -433,8 +433,8 @@ export default function KodaikanalRetreatPage() {
                 <p className="max-w-xl text-lg text-fb-text">
                   Applications for this retreat are currently closed. Join the
                   Founder-Being list on the{" "}
-                  <Link href="/#contact" className="underline-offset-4 hover:underline">
-                    main site
+                  <Link href="/contact" className="underline-offset-4 hover:underline">
+                    contact page
                   </Link>{" "}
                   to hear about future gatherings.
                 </p>

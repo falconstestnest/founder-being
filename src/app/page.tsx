@@ -1,31 +1,70 @@
-import { Events } from "@/components/Events";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Impact } from "@/components/Impact";
-import { Join } from "@/components/Join";
-import { Mission } from "@/components/Mission";
-import { Patron } from "@/components/Patron";
-import { SectionChanged } from "@/components/SectionChanged";
-import { Stats } from "@/components/Stats";
+import { HomePathways } from "@/components/HomePathways";
+import { LegacyHashRedirect } from "@/components/LegacyHashRedirect";
 import { Voices } from "@/components/Voices";
-import { WhatIs } from "@/components/WhatIs";
+import Link from "next/link";
+import { FadeIn } from "@/components/FadeIn";
 
 export default function HomePage() {
   return (
     <>
+      <LegacyHashRedirect />
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-[#FFAB33] focus:px-4 focus:py-2 focus:text-[#0B0B0B]"
+      >
+        Skip to content
+      </a>
       <Header />
-      <main>
+      <main id="main-content">
         <Hero />
-        <SectionChanged />
-        <WhatIs />
-        <Mission />
-        <Impact />
-        <Stats />
-        <Events />
-        <Patron />
+        <HomePathways />
+
+        <section className="section border-t border-white/10">
+          <div className="container-site max-w-3xl text-center">
+            <FadeIn>
+              <p className="section-label">Context</p>
+              <h2 className="type-h2 section-heading">
+                Entrepreneurship has changed
+              </h2>
+              <p className="section-lead mx-auto">
+                Capital cycles move faster. Uncertainty and loneliness have
+                become ordinary conditions of the journey. Founder wellbeing is
+                no longer optional.
+              </p>
+              <Link href="/about" className="btn btn-secondary mt-10 inline-flex">
+                Read why Founder-Being exists
+              </Link>
+            </FadeIn>
+          </div>
+        </section>
+
         <Voices />
-        <Join />
+
+        <section className="section border-t border-white/10">
+          <div className="container-site max-w-2xl text-center">
+            <FadeIn>
+              <p className="section-label">Begin</p>
+              <h2 className="type-h2 section-heading">
+                Start a conversation
+              </h2>
+              <p className="section-lead mx-auto">
+                Programme enquiries, partnerships, patron conversations, and
+                general contact—each through a structured form.
+              </p>
+              <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                <Link href="/contact" className="btn btn-primary">
+                  Contact Founder-Being
+                </Link>
+                <Link href="/events" className="btn btn-secondary">
+                  View upcoming gatherings
+                </Link>
+              </div>
+            </FadeIn>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
