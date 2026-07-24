@@ -36,6 +36,7 @@ Index of project documentation and the rule for keeping it current.
 | Typography system | [TYPOGRAPHY.md](./TYPOGRAPHY.md) | `src/app/globals.css` |
 | Institution OS (Phase 2) | [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) | Future modules: People CRM, orgs, timeline, workflows — post security gate |
 | Institutional login & workspaces | [INSTITUTIONAL_LOGIN_WORKSPACES.md](./INSTITUTIONAL_LOGIN_WORKSPACES.md) | `src/app/login/**`, `src/app/founder/**`, `src/lib/iam/workspaces.ts`, `src/middleware.ts` |
+| **OS v0.2 Secure People Foundation** | [OS_V0_2_SECURE_PEOPLE_FOUNDATION.md](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md) | Next milestone: security gate + Person graph + timeline — before other Phase 2 |
 
 *Add a row whenever a new topic-specific doc is created under `docs/`.*
 
@@ -55,6 +56,17 @@ Index of project documentation and the rule for keeping it current.
 | [GATHERINGS.md](./GATHERINGS.md) | Upcoming Gatherings catalogue + CMS interest tags |
 | [TYPOGRAPHY.md](./TYPOGRAPHY.md) | Typography scale, colour tokens, rhythm, content types |
 | [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) | Phase 2 Institutional Readiness — Institution OS architecture |
+| [OS_V0_2_SECURE_PEOPLE_FOUNDATION.md](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md) | **Next milestone** — security gate + canonical Person graph |
+
+---
+
+## Recommended reading order (new contributors)
+
+1. [OS_V0_2_SECURE_PEOPLE_FOUNDATION.md](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md) — what to build next  
+2. [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) — security gate  
+3. [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) — long-term OS map  
+4. [EVENTS_DOMAIN.md](./EVENTS_DOMAIN.md) — unified events  
+5. [INSTITUTIONAL_LOGIN_WORKSPACES.md](./INSTITUTIONAL_LOGIN_WORKSPACES.md) — Sign In & dashboards  
 
 ---
 

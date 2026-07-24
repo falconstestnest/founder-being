@@ -27,7 +27,20 @@ That distinction should guide every future decision. The architecture should sca
 
 ---
 
-# Prerequisites (v1.0 gate)
+# Next milestone
+
+**Do not start Phase 2 modules in parallel.**  
+
+Execute: **[Founder-Being OS v0.2 — Secure People Foundation](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md)**
+
+1. Production security gate (executable)  
+2. Canonical Person model + dedup  
+3. Institutional timeline  
+4. Then unify programmes further and attention dashboard  
+
+---
+
+# Prerequisites (v1.0 / before real data)
 
 Do not treat Phase 2 modules as live with real institutional data until Phase 1 production gates pass:
 

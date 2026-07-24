@@ -15,6 +15,9 @@ The console is **design-complete and architecture-ready—not production-secure 
 
 After these gates pass, product expansion follows **Phase 2 — Institutional Readiness** ([INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md)): People CRM, organizations, timeline, workflows — an Institution OS, not another event tool.
 
+**Next named milestone:** [OS v0.2 — Secure People Foundation](./OS_V0_2_SECURE_PEOPLE_FOUNDATION.md)  
+(security gate complete + canonical Person graph + timeline — before communications/docs/finance/AI expansion)
+
 ---
 
 ## Phase 1 — Production access control (this release)

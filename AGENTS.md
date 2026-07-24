@@ -43,4 +43,6 @@ Full path watchlists live in `docs/README.md`.
 - **Never** grant access by email match. Use `requireAuthz(permission)` on every admin API. See `docs/IAM_PRODUCTION_ACCESS_CONTROL.md`.
 - Local `.data/` IAM is disabled in production. `/admin` is middleware-protected.
 - Long-term product is an **Institution OS** (`docs/INSTITUTION_OS_PHASE2.md`): one Person graph, append-only timeline, IAM ≠ CRM. Do not invent parallel contact silos per programme.
+- **Next milestone only:** `docs/OS_V0_2_SECURE_PEOPLE_FOUNDATION.md` — finish security gate + Person graph before communications, documents, finance, automation, or AI.
+- Every Phase 2 feature must answer: (1) canonical owner entity? (2) timeline event? (3) required permission?
 <!-- END:docs-sync-rules -->
