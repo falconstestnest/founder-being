@@ -23,6 +23,10 @@ Quiet, premium, editorial. Apple × Aesop × Headspace — not a startup landing
 
 Motion: fade only. No gradients, parallax, or animated counters.
 
+## Docs
+
+- [Logo placement](docs/LOGO_PLACEMENT.md) — where monograms, wordmarks, and favicons appear
+
 ## Stack
 
 - Next.js App Router (SSR / static where possible)
