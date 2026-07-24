@@ -58,6 +58,10 @@ type PageProps = { params: Promise<{ section: string }> };
 
 export default async function AdminSectionPage({ params }: PageProps) {
   const { section } = await params;
+  // Dedicated IAM routes live under /admin/team/*
+  if (section === "team" || section === "people") {
+    notFound();
+  }
   const meta = sectionMeta[section];
   if (!meta) notFound();
 

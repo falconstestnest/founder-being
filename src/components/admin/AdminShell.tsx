@@ -40,14 +40,21 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
           <nav className="admin-sidebar-nav" aria-label="Primary">
             {adminNavPrimary.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="admin-nav-link"
-                data-active={isActive(pathname, item.href)}
-              >
-                {item.label}
-              </Link>
+              <div key={item.href}>
+                {item.dividerBefore && (
+                  <div
+                    className="my-3 border-t border-[var(--admin-border)]"
+                    role="separator"
+                  />
+                )}
+                <Link
+                  href={item.href}
+                  className="admin-nav-link"
+                  data-active={isActive(pathname, item.href)}
+                >
+                  {item.label}
+                </Link>
+              </div>
             ))}
           </nav>
 

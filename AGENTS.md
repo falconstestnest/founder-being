@@ -25,6 +25,7 @@ When changing code, config, or assets that an existing markdown file already des
 | Retreat Platform product handoff | `docs/RETREAT_PLATFORM_MVP.md` |
 | Kodaikanal Full Moon Retreat PRD | `docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md` |
 | Admin Dashboard design PRD | `docs/ADMIN_DASHBOARD_DESIGN_PRD.md` |
+| IAM Team & Access | `docs/IAM_TEAM_ACCESS_PRD.md` |
 
 Full path watchlists live in `docs/README.md`.
 
@@ -37,4 +38,5 @@ Full path watchlists live in `docs/README.md`.
 - Schema: `supabase/migrations/`.
 - Never publish internal costs, honoraria, or applicant scoring on the public site.
 - Admin UI follows `docs/ADMIN_DASHBOARD_DESIGN_PRD.md` (Calm Operations). Shell at `/admin` must stay noindex; auth required before production.
+- IAM is **Team & Access** (`docs/IAM_TEAM_ACCESS_PRD.md`), not a generic Users page. Super Admin: `jimmymanalel@gmail.com` — protected, not removable via UI.
 <!-- END:docs-sync-rules -->

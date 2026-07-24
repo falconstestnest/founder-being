@@ -155,14 +155,17 @@ Large operational tables work best with filtering and drill-down rather than dis
 * Patrons  
 * Communications  
 * Content  
-* People  
 * Analytics  
+* —  
+* **Team & Access** (IAM — not a simple Users page)  
 * Settings  
 
 **Bottom**
 
 * Help  
 * Profile  
+
+See [IAM_TEAM_ACCESS_PRD.md](./IAM_TEAM_ACCESS_PRD.md).
 
 ---
 

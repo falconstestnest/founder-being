@@ -30,6 +30,7 @@ Motion: fade only. No gradients, parallax, or animated counters.
 - [Retreat Platform](docs/RETREAT_PLATFORM_MVP.md) — product handoff (scope, privacy, checklist, next phase)
 - [Kodaikanal retreat PRD](docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) — full implementation requirements
 - [Admin Dashboard design PRD](docs/ADMIN_DASHBOARD_DESIGN_PRD.md) — Calm Operations UI/UX
+- [Team & Access (IAM)](docs/IAM_TEAM_ACCESS_PRD.md) — roles, Super Admin, invite/approve
 
 ## Retreat Platform
 
@@ -40,6 +41,16 @@ Application-based residential retreats, separate from the homepage.
 | Kodaikanal Full Moon Retreat (26–31 Aug 2026) | [`/retreats/kodaikanal-full-moon-2026`](https://www.foundrbeing.com/retreats/kodaikanal-full-moon-2026) |
 
 See the [Retreat Platform handoff](docs/RETREAT_PLATFORM_MVP.md) for principles, MVP boundaries, deployment checklist, and Admin Console roadmap.
+
+## Operations & IAM
+
+| Surface | Route |
+|---------|--------|
+| Operations shell | `/admin` |
+| Team & Access (IAM) | `/admin/team` |
+| Request access (preferred roles) | `/access` |
+
+Super Administrator: **Jimmy James** · `jimmymanalel@gmail.com` (protected). Run `supabase/migrations/20260726_iam_team_access.sql` for production RBAC.
 
 ## Stack
 

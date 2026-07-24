@@ -1,11 +1,11 @@
 export type AdminNavItem = {
   href: string;
   label: string;
-  /** Short description for command palette / empty states */
   description: string;
+  dividerBefore?: boolean;
 };
 
-/** Primary sidebar — order matches Design PRD */
+/** Primary sidebar — Team & Access is IAM, not a simple Users page. */
 export const adminNavPrimary: AdminNavItem[] = [
   {
     href: "/admin",
@@ -48,19 +48,20 @@ export const adminNavPrimary: AdminNavItem[] = [
     description: "Site and programme content",
   },
   {
-    href: "/admin/people",
-    label: "People",
-    description: "Founder directory",
-  },
-  {
     href: "/admin/analytics",
     label: "Analytics",
     description: "Numbers-first metrics",
   },
   {
+    href: "/admin/team",
+    label: "Team & Access",
+    description: "Identity & access management",
+    dividerBefore: true,
+  },
+  {
     href: "/admin/settings",
     label: "Settings",
-    description: "Workspace and roles",
+    description: "Workspace configuration",
   },
 ];
 
