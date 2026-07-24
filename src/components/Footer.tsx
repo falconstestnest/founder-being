@@ -10,7 +10,7 @@ export function Footer() {
       <div className="container-site">
         <div className="grid gap-12 md:grid-cols-[1.2fr_1fr_1fr]">
           <div>
-            <Logo variant="lockup-white" height={56} />
+            <Logo variant="lockup-white" height={52} />
             <p className="mt-8 max-w-xs font-serif text-xl leading-snug text-[#F8F8F8]/85">
               Building Healthier Founders.
               <br />

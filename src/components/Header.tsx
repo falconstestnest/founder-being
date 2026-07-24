@@ -34,16 +34,16 @@ export function Header() {
       <div className="container-site flex h-20 items-center justify-between gap-6">
         <Link
           href="/#top"
-          className="flex shrink-0 items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
+          className="flex shrink-0 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFAB33]"
           aria-label="Founder-Being home"
         >
-          <Logo variant="mark-white" height={34} priority />
-          <Logo
-            variant="wordmark-white"
-            height={14}
-            className="hidden sm:inline-flex"
-            priority
-          />
+          {/* Desktop: primary white lockup · Mobile: monogram only */}
+          <span className="hidden sm:inline-flex">
+            <Logo variant="lockup-white" height={44} priority />
+          </span>
+          <span className="inline-flex sm:hidden">
+            <Logo variant="monogram-white" height={32} priority />
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">

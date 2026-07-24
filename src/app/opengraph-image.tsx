@@ -7,10 +7,10 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpenGraphImage() {
-  const monogramData = await readFile(
-    join(process.cwd(), "public/brand/monogram-gold-512.png"),
+  const lockupData = await readFile(
+    join(process.cwd(), "public/brand/lockup-white.png"),
   );
-  const monogramSrc = `data:image/png;base64,${monogramData.toString("base64")}`;
+  const lockupSrc = `data:image/png;base64,${lockupData.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -21,29 +21,30 @@ export default async function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "flex-start",
-          padding: "72px 80px",
+          alignItems: "center",
+          padding: "64px",
           background: "#0B0B0B",
           color: "#F8F8F8",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={monogramSrc}
-          width={168}
-          height={202}
+          src={lockupSrc}
+          width={200}
+          height={240}
           alt=""
-          style={{ marginBottom: 40 }}
+          style={{ marginBottom: 36 }}
         />
         <div
           style={{
             display: "flex",
             flexDirection: "column",
+            alignItems: "center",
             fontFamily: "Georgia, serif",
-            fontSize: 46,
-            lineHeight: 1.2,
+            fontSize: 40,
+            lineHeight: 1.25,
+            textAlign: "center",
             maxWidth: 900,
-            letterSpacing: -0.5,
           }}
         >
           <span>Building Healthier Founders.</span>
@@ -51,15 +52,15 @@ export default async function OpenGraphImage() {
         </div>
         <div
           style={{
-            marginTop: 40,
-            fontSize: 18,
-            letterSpacing: 6,
+            marginTop: 36,
+            fontSize: 16,
+            letterSpacing: 5,
             textTransform: "uppercase",
             color: "#FFAB33",
             fontFamily: "ui-monospace, monospace",
           }}
         >
-          Founder-Being · founderbeing.org
+          founderbeing.org
         </div>
       </div>
     ),
