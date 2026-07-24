@@ -167,6 +167,20 @@ Large operational tables work best with filtering and drill-down rather than dis
 
 See [IAM_TEAM_ACCESS_PRD.md](./IAM_TEAM_ACCESS_PRD.md).
 
+### Target sidebar (Phase 2 Institution OS)
+
+```
+Dashboard
+People → People / Organizations / Relationships
+Community → Gatherings / Retreats / Applications / Attendance
+Communications → Email / WhatsApp / Announcements
+Operations → Tasks / Documents / Payments / Reports
+Insights → Analytics / Founder Journey / AI Insights
+Administration → Team & Access / Audit / System Health / Security / Settings
+```
+
+Full module definitions: [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md).
+
 ---
 
 # Dashboard Home

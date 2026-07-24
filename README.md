@@ -31,6 +31,8 @@ Motion: fade only. No gradients, parallax, or animated counters.
 - [Kodaikanal retreat PRD](docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) — full implementation requirements
 - [Admin Dashboard design PRD](docs/ADMIN_DASHBOARD_DESIGN_PRD.md) — Calm Operations UI/UX
 - [Team & Access (IAM)](docs/IAM_TEAM_ACCESS_PRD.md) — roles, Super Admin, invite/approve
+- [Institution OS Phase 2](docs/INSTITUTION_OS_PHASE2.md) — People CRM, orgs, timeline, workflows (post security gate)
+- [Typography](docs/TYPOGRAPHY.md) — type scale and colour tokens
 
 ## Retreat Platform
 

@@ -13,6 +13,8 @@ The console is **design-complete and architecture-ready—not production-secure 
 
 `/admin` must never be treated as open. Unauthenticated users are redirected to `/admin/login`.
 
+After these gates pass, product expansion follows **Phase 2 — Institutional Readiness** ([INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md)): People CRM, organizations, timeline, workflows — an Institution OS, not another event tool.
+
 ---
 
 ## Phase 1 — Production access control (this release)

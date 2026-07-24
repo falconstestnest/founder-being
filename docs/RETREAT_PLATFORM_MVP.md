@@ -149,6 +149,7 @@ Before opening applications:
 The next major milestone is the **Founder-Being Admin Console** (operational home—not a generic admin panel).
 
 **Design source of truth:** [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md)  
+**Institution OS roadmap:** [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md)  
 **Shell route (noindex):** `/admin`
 
 Capabilities on the existing schema:

@@ -33,6 +33,7 @@ Index of project documentation and the rule for keeping it current.
 | IAM production access control | [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) | `src/middleware.ts`, `src/lib/iam/authz.ts`, `src/app/admin/login/**`, `src/app/admin/auth/**` |
 | Upcoming Gatherings | [GATHERINGS.md](./GATHERINGS.md) | `src/lib/gatherings.ts`, `src/components/Events.tsx`, `src/app/gatherings/**`, `src/app/api/gatherings/**` |
 | Typography system | [TYPOGRAPHY.md](./TYPOGRAPHY.md) | `src/app/globals.css` |
+| Institution OS (Phase 2) | [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) | Future modules: People CRM, orgs, timeline, workflows — post security gate |
 
 *Add a row whenever a new topic-specific doc is created under `docs/`.*
 
@@ -49,6 +50,9 @@ Index of project documentation and the rule for keeping it current.
 | [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md) | Admin Dashboard design PRD — Calm Operations UI/UX |
 | [IAM_TEAM_ACCESS_PRD.md](./IAM_TEAM_ACCESS_PRD.md) | IAM / Team & Access — RBAC, Super Admin, invites |
 | [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) | Phase 1 authn/authz gates — not prod-secure until checklist passes |
+| [GATHERINGS.md](./GATHERINGS.md) | Upcoming Gatherings catalogue + CMS interest tags |
+| [TYPOGRAPHY.md](./TYPOGRAPHY.md) | Typography scale, colour tokens, rhythm, content types |
+| [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) | Phase 2 Institutional Readiness — Institution OS architecture |
 
 ---
 

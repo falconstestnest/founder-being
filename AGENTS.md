@@ -26,6 +26,7 @@ When changing code, config, or assets that an existing markdown file already des
 | Kodaikanal Full Moon Retreat PRD | `docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md` |
 | Admin Dashboard design PRD | `docs/ADMIN_DASHBOARD_DESIGN_PRD.md` |
 | IAM Team & Access | `docs/IAM_TEAM_ACCESS_PRD.md` |
+| Institution OS Phase 2 | `docs/INSTITUTION_OS_PHASE2.md` |
 
 Full path watchlists live in `docs/README.md`.
 
@@ -41,4 +42,5 @@ Full path watchlists live in `docs/README.md`.
 - IAM is **Team & Access** (`docs/IAM_TEAM_ACCESS_PRD.md`), not a generic Users page. Super Admin: `jimmymanalel@gmail.com` — protected, bootstrap via DB only.
 - **Never** grant access by email match. Use `requireAuthz(permission)` on every admin API. See `docs/IAM_PRODUCTION_ACCESS_CONTROL.md`.
 - Local `.data/` IAM is disabled in production. `/admin` is middleware-protected.
+- Long-term product is an **Institution OS** (`docs/INSTITUTION_OS_PHASE2.md`): one Person graph, append-only timeline, IAM ≠ CRM. Do not invent parallel contact silos per programme.
 <!-- END:docs-sync-rules -->
