@@ -19,13 +19,13 @@ export const sectionMeta: Record<
     primary: "Review application",
   },
   retreats: {
-    title: "Retreats",
-    description: "Legacy label — use Events. Residential programmes live in the Events catalogue.",
+    title: "Retreats (deprecated)",
+    description: "Compatibility pointer → Events (type = retreat). Do not add features here.",
     primary: "Open Events",
   },
   gatherings: {
-    title: "Gatherings",
-    description: "Legacy label — use Events for all public programmes.",
+    title: "Gatherings (deprecated)",
+    description: "Compatibility pointer → Events. Temporary only.",
     primary: "Open Events",
   },
   patrons: {

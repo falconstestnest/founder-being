@@ -31,19 +31,21 @@ Motion: fade only. No gradients, parallax, or animated counters.
 - [Kodaikanal retreat PRD](docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) — full implementation requirements
 - [Admin Dashboard design PRD](docs/ADMIN_DASHBOARD_DESIGN_PRD.md) — Calm Operations UI/UX
 - [Team & Access (IAM)](docs/IAM_TEAM_ACCESS_PRD.md) — roles, Super Admin, invite/approve
+- [Events Domain](docs/EVENTS_DOMAIN.md) — unified public + catalogue model  
+- [Events Operations Foundation](docs/EVENTS_OPERATIONS_FOUNDATION.md) — admin shell around each Event  
 - [Institution OS Phase 2](docs/INSTITUTION_OS_PHASE2.md) — long-term OS map  
 - **[OS v0.2 Secure People Foundation](docs/OS_V0_2_SECURE_PEOPLE_FOUNDATION.md)** — **next milestone** (security gate + Person graph)
 - [Typography](docs/TYPOGRAPHY.md) — type scale and colour tokens
 
-## Retreat Platform
+## Events domain
 
-Application-based residential retreats, separate from the homepage.
+One model for retreats, meetups, dialogues, and side events. Public hub: [`/events`](https://www.foundrbeing.com/events). Admin: `/admin/events`.
 
 | Event | Public route |
 |-------|----------------|
-| Kodaikanal Full Moon Retreat (26–31 Aug 2026) | [`/retreats/kodaikanal-full-moon-2026`](https://www.foundrbeing.com/retreats/kodaikanal-full-moon-2026) |
+| Kodaikanal Full Moon Retreat (26–31 Aug 2026) | [`/retreats/kodaikanal-full-moon-2026`](https://www.foundrbeing.com/retreats/kodaikanal-full-moon-2026) (also under Events) |
 
-See the [Retreat Platform handoff](docs/RETREAT_PLATFORM_MVP.md) for principles, MVP boundaries, deployment checklist, and Admin Console roadmap.
+See [Events Domain](docs/EVENTS_DOMAIN.md) and [Events Operations Foundation](docs/EVENTS_OPERATIONS_FOUNDATION.md). Legacy Retreats / Gatherings admin labels are deprecated pointers only.
 
 ## Operations & IAM
 
@@ -51,6 +53,7 @@ See the [Retreat Platform handoff](docs/RETREAT_PLATFORM_MVP.md) for principles,
 |---------|--------|
 | Sign in | `/login` (institutional — not “Admin Login”) |
 | Operations shell | `/admin` (Super Administrator) |
+| Events (ops) | `/admin/events` · `/admin/events/[eventId]` |
 | Workspaces | `/founder` · `/patron` · `/programme` · `/review` · `/finance` · … |
 | Team & Access (IAM) | `/admin/team` |
 | Request access | `/access` (request only — not registration) |

@@ -33,6 +33,7 @@ Index of project documentation and the rule for keeping it current.
 | IAM production access control | [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) | `src/middleware.ts`, `src/lib/iam/authz.ts`, `src/app/admin/login/**`, `src/app/admin/auth/**` |
 | Upcoming Gatherings | [GATHERINGS.md](./GATHERINGS.md) | Legacy — see Events Domain |
 | Events Domain (unified) | [EVENTS_DOMAIN.md](./EVENTS_DOMAIN.md) | `src/lib/events/**`, `src/app/events/**`, `src/components/events/**`, `src/app/api/events/**` |
+| Events Operations Foundation | [EVENTS_OPERATIONS_FOUNDATION.md](./EVENTS_OPERATIONS_FOUNDATION.md) | `src/app/admin/events/**`, participation, lifecycle, adminTabs |
 | Typography system | [TYPOGRAPHY.md](./TYPOGRAPHY.md) | `src/app/globals.css` |
 | Institution OS (Phase 2) | [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md) | Future modules: People CRM, orgs, timeline, workflows — post security gate |
 | Institutional login & workspaces | [INSTITUTIONAL_LOGIN_WORKSPACES.md](./INSTITUTIONAL_LOGIN_WORKSPACES.md) | `src/app/login/**`, `src/app/founder/**`, `src/lib/iam/workspaces.ts`, `src/middleware.ts` |

@@ -9,16 +9,20 @@ const emptyCopy: Record<string, { title: string; body: string }> = {
     body: "Founders and cohorts will surface here as the platform grows.",
   },
   retreats: {
-    title: "Retreats ready for operations",
-    body: "Kodaikanal Full Moon Retreat is configured in product data. Connect Supabase to manage capacity and status live.",
+    title: "Deprecated — use Events",
+    body: "Retreats are Events with type=retreat. Open /admin/events (filter coming). Do not create a parallel data model.",
   },
   applications: {
     title: "No applications yet",
-    body: "Applications will appear here once founders begin applying. Use a split list/detail layout—never a new page for review.",
+    body: "Applications will appear here once founders begin applying. Prefer event-scoped Applications tab under each Event.",
   },
   gatherings: {
-    title: "No gatherings scheduled",
-    body: "Reflection circles and dialogues will list here with filters and saved views.",
+    title: "Deprecated — use Events",
+    body: "Gatherings are Events with meetup/dialogue types. Open /admin/events. Temporary compatibility pointer only.",
+  },
+  events: {
+    title: "Events",
+    body: "Use /admin/events for the operational list.",
   },
   patrons: {
     title: "No patrons on record",
@@ -58,8 +62,12 @@ type PageProps = { params: Promise<{ section: string }> };
 
 export default async function AdminSectionPage({ params }: PageProps) {
   const { section } = await params;
-  // Dedicated IAM routes live under /admin/team/*
-  if (section === "team" || section === "people") {
+  // Dedicated routes — not the generic [section] shell
+  if (
+    section === "team" ||
+    section === "people" ||
+    section === "events"
+  ) {
     notFound();
   }
   const meta = sectionMeta[section];
@@ -78,8 +86,8 @@ export default async function AdminSectionPage({ params }: PageProps) {
         primaryAction={
           section === "help" || section === "profile"
             ? undefined
-            : section === "retreats"
-              ? { label: meta.primary, href: "/admin/applications" }
+            : section === "retreats" || section === "gatherings"
+              ? { label: meta.primary, href: "/admin/events" }
               : section === "applications"
                 ? { label: meta.primary }
                 : { label: meta.primary }
@@ -90,7 +98,7 @@ export default async function AdminSectionPage({ params }: PageProps) {
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
           <EmptyState
             title="Application list"
-            body="Search, filters, sorting, bulk actions and keyboard navigation belong here."
+            body="Search, filters, sorting, bulk actions and keyboard navigation belong here. Prefer event-scoped Applications under each Event."
           />
           <EmptyState
             title="Application detail"
@@ -99,47 +107,36 @@ export default async function AdminSectionPage({ params }: PageProps) {
         </div>
       )}
 
-      {section === "retreats" && (
-        <div className="admin-card max-w-md">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <p className="text-sm font-semibold">Kodaikanal Full Moon Retreat</p>
-            <span className="admin-badge">Open</span>
-          </div>
-          <dl className="space-y-2 font-mono text-xs text-[var(--admin-muted)]">
-            <div className="flex justify-between gap-4">
-              <dt>Capacity</dt>
-              <dd className="text-white">15</dd>
-            </div>
-            <div className="flex justify-between gap-4">
-              <dt>Applications</dt>
-              <dd className="text-white">—</dd>
-            </div>
-            <div className="flex justify-between gap-4">
-              <dt>Revenue</dt>
-              <dd className="text-white">—</dd>
-            </div>
-            <div className="flex justify-between gap-4">
-              <dt>Timeline</dt>
-              <dd className="text-white">26–31 Aug 2026</dd>
-            </div>
-          </dl>
-          <div className="mt-6 flex flex-wrap gap-2">
-            <a href="/admin/applications" className="admin-btn admin-btn-primary">
-              Manage
+      {/* Deprecated programme modules — temporary pointers only */}
+      {(section === "retreats" || section === "gatherings") && (
+        <div className="admin-card max-w-lg space-y-4">
+          <p className="text-sm text-[var(--admin-muted)]">
+            {section === "retreats"
+              ? "Retreats are Events with type = retreat. This route is a compatibility pointer only — do not add features or a parallel data model."
+              : "Gatherings are Events (meetup, dialogue, side event). This route is a compatibility pointer only."}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <a href="/admin/events" className="admin-btn admin-btn-primary">
+              Open Events
             </a>
-            <a
-              href="/retreats/kodaikanal-full-moon-2026"
-              className="admin-btn"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Public page
-            </a>
+            {section === "retreats" && (
+              <a
+                href="/admin/events/evt_kodaikanal_full_moon_2026"
+                className="admin-btn"
+              >
+                Kodaikanal retreat
+              </a>
+            )}
           </div>
+          <p className="font-mono text-xs text-[var(--admin-muted)]">
+            deprecated → /admin/events
+          </p>
         </div>
       )}
 
-      {section !== "applications" && section !== "retreats" && (
+      {section !== "applications" &&
+        section !== "retreats" &&
+        section !== "gatherings" && (
         <EmptyState title={empty.title} body={empty.body} />
       )}
 

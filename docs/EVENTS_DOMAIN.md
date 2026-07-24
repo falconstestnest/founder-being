@@ -87,13 +87,18 @@ API: `POST /api/events/interest` → `gathering_interest` table (compatible name
 
 ---
 
-## Event dashboard (future CMS)
+## Event dashboard (admin)
 
-Per event: Overview · Applications · Interest · People · Communications · Payments · Timeline · Documents · Settings  
+**Implemented shell:** [EVENTS_OPERATIONS_FOUNDATION.md](./EVENTS_OPERATIONS_FOUNDATION.md)
 
-Also planned: Duplicate Event · Post-event pipeline · Analytics · Notes · Document centre  
+```text
+/admin/events
+/admin/events/[eventId]?tab=overview|applications|interest|…
+```
 
-See [INSTITUTION_OS_PHASE2.md](./INSTITUTION_OS_PHASE2.md).
+Workflow-aware tabs. Capacity derived from participation. Lifecycle transitions guarded.
+
+Also planned: full create/duplicate UI, post-event pipeline, Person timeline attach (OS v0.2).
 
 ---
 

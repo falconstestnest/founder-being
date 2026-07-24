@@ -26,18 +26,23 @@ When changing code, config, or assets that an existing markdown file already des
 | Kodaikanal Full Moon Retreat PRD | `docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md` |
 | Admin Dashboard design PRD | `docs/ADMIN_DASHBOARD_DESIGN_PRD.md` |
 | IAM Team & Access | `docs/IAM_TEAM_ACCESS_PRD.md` |
+| Events Domain | `docs/EVENTS_DOMAIN.md` |
+| Events Operations Foundation | `docs/EVENTS_OPERATIONS_FOUNDATION.md` |
 | Institution OS Phase 2 | `docs/INSTITUTION_OS_PHASE2.md` |
+| OS v0.2 Secure People Foundation | `docs/OS_V0_2_SECURE_PEOPLE_FOUNDATION.md` |
 
 Full path watchlists live in `docs/README.md`.
 
-## Retreat Platform notes
+## Events & programme notes
 
-- Product handoff: `docs/RETREAT_PLATFORM_MVP.md` (keep language product-facing, not “what we shipped today”).
-- Public event page: `/retreats/kodaikanal-full-moon-2026` (separate from the main homepage).
-- Application-first: no checkout or Buy Now in MVP.
-- Content defaults: `src/lib/retreats/kodaikanal-2026.ts`.
-- Schema: `supabase/migrations/`.
+- **Single Events domain** — no new retreat or gathering data models. Admin primary surface: `/admin/events`.
+- Public hub: `/events`. Catalogue: `src/lib/events/catalog.ts`. Ops shell: participation, lifecycle, workflow tabs.
+- Public event page: `/retreats/kodaikanal-full-moon-2026` (legacy path; also under Events).
+- Application-first: no checkout or Buy Now on retreats in MVP.
+- Content defaults: `src/lib/retreats/kodaikanal-2026.ts` + `src/lib/events/*`.
+- Schema: `supabase/migrations/` (includes `event_participation`, lifecycle audit).
 - Never publish internal costs, honoraria, or applicant scoring on the public site.
+- Counts are **derived** from participation records — never primary source of truth.
 - Admin UI follows `docs/ADMIN_DASHBOARD_DESIGN_PRD.md` (Calm Operations). Shell at `/admin` must stay noindex; auth required before production.
 - IAM is **Team & Access** (`docs/IAM_TEAM_ACCESS_PRD.md`), not a generic Users page. Super Admin: `jimmymanalel@gmail.com` — protected, bootstrap via DB only.
 - **Never** grant access by email match. Use `requireAuthz(permission)` on every admin API. See `docs/IAM_PRODUCTION_ACCESS_CONTROL.md`.

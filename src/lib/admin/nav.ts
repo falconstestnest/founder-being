@@ -20,12 +20,12 @@ export const adminNavPrimary: AdminNavItem[] = [
   {
     href: "/admin/events",
     label: "Events",
-    description: "Unified events hub — retreats, meetups, dialogues",
+    description: "All events — single domain (retreats, meetups, dialogues)",
   },
   {
     href: "/admin/applications",
     label: "Applications",
-    description: "Review and select founders",
+    description: "Cross-event applications (also under each Event)",
   },
   {
     href: "/admin/patrons",
