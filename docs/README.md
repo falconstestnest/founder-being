@@ -26,6 +26,8 @@ Index of project documentation and the rule for keeping it current.
 | Topic | Doc | Watch these paths (non-exhaustive) |
 |-------|-----|-------------------------------------|
 | Logos, monograms, favicons, brand assets | [LOGO_PLACEMENT.md](./LOGO_PLACEMENT.md) | `src/components/Logo.tsx`, `Header.tsx`, `Hero.tsx`, `Footer.tsx`, `src/app/not-found.tsx`, `src/app/privacy/**`, `src/app/terms/**`, `src/app/opengraph-image.tsx`, `src/components/JsonLd.tsx`, `src/app/layout.tsx` (icons), `public/brand/**`, `public/icons/**`, `public/favicon*`, `public/icon*`, `public/apple-touch-icon.png`, `public/site.webmanifest`, `src/app/icon.png`, `src/app/apple-icon.png` |
+| Retreat platform product scope (MVP) | [RETREAT_PLATFORM_MVP.md](./RETREAT_PLATFORM_MVP.md) | `src/app/retreats/**`, `src/components/retreat/**`, `src/lib/retreats/**`, `src/app/api/retreats/**`, `supabase/migrations/**` |
+| Kodaikanal retreat full PRD | [Founder_Being_Kodaikanal_Retreat_Signup_PRD.md](./Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) | Same as retreat platform + event content in `src/lib/retreats/kodaikanal-2026.ts` |
 
 *Add a row whenever a new topic-specific doc is created under `docs/`.*
 
@@ -37,6 +39,8 @@ Index of project documentation and the rule for keeping it current.
 |-----|---------|
 | [../README.md](../README.md) | Project overview, stack, run/deploy |
 | [AGENTS.md](../AGENTS.md) | Agent / AI coding rules for this repo |
+| [RETREAT_PLATFORM_MVP.md](./RETREAT_PLATFORM_MVP.md) | Product scope for retreat applications |
+| [Founder_Being_Kodaikanal_Retreat_Signup_PRD.md](./Founder_Being_Kodaikanal_Retreat_Signup_PRD.md) | Implementation-ready PRD for Aug 2026 retreat |
 
 ---
 

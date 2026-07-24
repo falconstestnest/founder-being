@@ -46,7 +46,7 @@ export function Events() {
                   </div>
                 </dl>
                 <a href={event.href} className="btn btn-secondary mt-10 w-full">
-                  Register Interest
+                  {"cta" in event ? event.cta : "Register Interest"}
                 </a>
               </article>
             </FadeIn>

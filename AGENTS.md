@@ -22,6 +22,16 @@ When changing code, config, or assets that an existing markdown file already des
 | Topic | Doc |
 |-------|-----|
 | Logos / brand assets / favicons | `docs/LOGO_PLACEMENT.md` |
+| Retreat platform product scope | `docs/RETREAT_PLATFORM_MVP.md` |
+| Kodaikanal Full Moon Retreat PRD | `docs/Founder_Being_Kodaikanal_Retreat_Signup_PRD.md` |
 
 Full path watchlists live in `docs/README.md`.
+
+## Retreat platform notes
+
+- Public event page: `/retreats/kodaikanal-full-moon-2026` (separate from the main homepage).
+- Application-first: no checkout or Buy Now in MVP.
+- Content defaults: `src/lib/retreats/kodaikanal-2026.ts`.
+- Schema: `supabase/migrations/`.
+- Never publish internal costs, honoraria, or applicant scoring on the public site.
 <!-- END:docs-sync-rules -->

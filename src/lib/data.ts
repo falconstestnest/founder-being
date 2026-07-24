@@ -57,12 +57,22 @@ export const statistics = [
 
 export const events = [
   {
+    title: "Kodaikanal Full Moon Retreat",
+    location: "Kodaikanal, Tamil Nadu",
+    date: "26–31 August 2026",
+    seatsRemaining: "15 founders · Application only",
+    status: "Next Event" as const,
+    href: "/retreats/kodaikanal-full-moon-2026",
+    cta: "Apply to Attend",
+  },
+  {
     title: "Founder Reflection Circle",
     location: "Kochi, Kerala",
     date: "Date to be announced",
     seatsRemaining: "Limited seats",
-    status: "Next Event" as const,
+    status: "Upcoming" as const,
     href: "#contact",
+    cta: "Register Interest",
   },
   {
     title: "Conscious Leadership Dialogue",
@@ -71,14 +81,7 @@ export const events = [
     seatsRemaining: "Registration opens soon",
     status: "Upcoming" as const,
     href: "#contact",
-  },
-  {
-    title: "Founder Gathering",
-    location: "Bengaluru, India",
-    date: "Date to be announced",
-    seatsRemaining: "Waitlist available",
-    status: "Upcoming" as const,
-    href: "#contact",
+    cta: "Register Interest",
   },
 ] as const;
 
