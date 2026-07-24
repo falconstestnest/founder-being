@@ -170,6 +170,9 @@ Do **not** declare IAM production-ready until:
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
+
+# Full connection checklist (no secrets): docs/SUPABASE_PRODUCTION_SETUP.md
+# Note: code does NOT read NEXT_PUBLIC_SUPABASE_ANON_KEY or SUPABASE_SECRET_KEY.
 SUPER_ADMIN_EMAIL=jimmymanalel@gmail.com
 
 # Development only — never in production

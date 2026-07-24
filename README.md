@@ -67,13 +67,15 @@ See [Events Domain](docs/EVENTS_DOMAIN.md) and [Events Operations Foundation](do
 Super Administrator is bootstrapped in the database only (Jimmy James · `jimmymanalel@gmail.com` · protected). Email match never grants privileges.
 
 ```bash
-# Required for /admin
+# Required for login + workspaces (exact names — not ANON_KEY / SECRET_KEY)
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
+SUPABASE_SERVICE_ROLE_KEY=   # server only — never NEXT_PUBLIC_
 ```
 
-Run IAM migrations under `supabase/migrations/*iam*`.
+If `/login` says **Supabase is not configured**, these three are missing from Vercel (or not redeployed).  
+See [docs/SUPABASE_PRODUCTION_SETUP.md](docs/SUPABASE_PRODUCTION_SETUP.md).  
+Run migrations under `supabase/migrations/` in the documented order on the **owner-created** production project.
 
 ## Stack
 

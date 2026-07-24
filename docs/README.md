@@ -31,6 +31,7 @@ Index of project documentation and the rule for keeping it current.
 | Admin Dashboard (UI/UX design PRD) | [ADMIN_DASHBOARD_DESIGN_PRD.md](./ADMIN_DASHBOARD_DESIGN_PRD.md) | `src/app/admin/**`, `src/components/admin/**`, `src/lib/admin/**`, `src/app/admin/admin.css` |
 | Identity & Access (Team & Access) | [IAM_TEAM_ACCESS_PRD.md](./IAM_TEAM_ACCESS_PRD.md) | `src/lib/iam/**`, `src/app/admin/team/**`, `src/app/access/**`, `src/app/api/iam/**`, `supabase/migrations/*iam*` |
 | IAM production access control | [IAM_PRODUCTION_ACCESS_CONTROL.md](./IAM_PRODUCTION_ACCESS_CONTROL.md) | `src/middleware.ts`, `src/lib/iam/authz.ts`, `src/app/admin/login/**`, `src/app/admin/auth/**` |
+| Supabase production setup | [SUPABASE_PRODUCTION_SETUP.md](./SUPABASE_PRODUCTION_SETUP.md) | Env vars, redirects, migrations, Super Admin bootstrap (no secrets) |
 | Upcoming Gatherings | [GATHERINGS.md](./GATHERINGS.md) | Legacy — see Events Domain |
 | Events Domain (unified) | [EVENTS_DOMAIN.md](./EVENTS_DOMAIN.md) | `src/lib/events/**`, `src/app/events/**`, `src/components/events/**`, `src/app/api/events/**` |
 | Events Operations Foundation | [EVENTS_OPERATIONS_FOUNDATION.md](./EVENTS_OPERATIONS_FOUNDATION.md) | `src/app/admin/events/**`, participation, lifecycle, adminTabs |

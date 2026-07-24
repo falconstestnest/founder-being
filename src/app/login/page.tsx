@@ -51,10 +51,12 @@ function SignInForm() {
       }
       await afterAuth();
     } catch (err) {
+      const msg =
+        err instanceof Error ? err.message : "We couldn't sign you in.";
       setError(
-        err instanceof Error
-          ? err.message
-          : "We couldn't sign you in. Please try again.",
+        /not configured/i.test(msg)
+          ? "Secure access is not configured yet. Please contact the Founder-Being team."
+          : msg,
       );
     } finally {
       setLoading(false);
@@ -82,8 +84,12 @@ function SignInForm() {
       }
       setMessage("Check your email for a magic link.");
     } catch (err) {
+      const msg =
+        err instanceof Error ? err.message : "We couldn't send a magic link.";
       setError(
-        err instanceof Error ? err.message : "We couldn't send a magic link.",
+        /not configured/i.test(msg)
+          ? "Secure access is not configured yet. Please contact the Founder-Being team."
+          : msg,
       );
     } finally {
       setLoading(false);
@@ -105,7 +111,13 @@ function SignInForm() {
       });
       if (err) setError(err.message);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Google sign-in failed.");
+      const msg =
+        err instanceof Error ? err.message : "Google sign-in failed.";
+      setError(
+        /not configured/i.test(msg)
+          ? "Secure access is not configured yet. Please contact the Founder-Being team."
+          : msg,
+      );
       setLoading(false);
     }
   }
