@@ -1,11 +1,45 @@
 # Hash → Real Routes Migration Report
 
 **Date:** 2026-07-25  
-**Status:** Complete for primary navigation  
+**Status:** Complete · public IA stable  
+**Last verified:** 2026-07-25  
 
 ---
 
-## Mapping
+## Canonical public routes (primary model)
+
+All new public CTAs, documentation, emails, event links, and CMS content must use:
+
+```text
+/about
+/mission
+/impact
+/events
+/patrons
+/community
+/contact
+```
+
+Plus programme and utility routes as needed:
+
+```text
+/
+/events/[slug]
+/events/interest?event={slug}
+/retreats/...
+/login
+/access
+/privacy
+/terms
+```
+
+### Cleanup rule (from this point forward)
+
+**Do not introduce new `/#...` links**, even for convenience.
+
+---
+
+## Mapping (legacy only)
 
 | Old URL | New URL | Redirect behaviour |
 | ------- | ------- | ------------------ |
@@ -48,13 +82,13 @@
 /about
 /mission
 /impact
-/events          (existing hub, refined metadata)
+/events
 /patrons
 /community
 /contact
-/login           (existing)
-/privacy         (existing)
-/terms           (existing)
+/login
+/privacy
+/terms
 ```
 
 Dedicated programmes unchanged: `/retreats/...`, `/events/...` detail, `/access`, `/login`.
@@ -64,33 +98,79 @@ Dedicated programmes unchanged: `/retreats/...`, `/events/...` detail, `/access`
 ## SEO
 
 * One H1 per page  
-* Canonical per route  
+* Canonical per route (`alternates.canonical`)  
 * Open Graph title, description, URL  
-* `sitemap.xml` lists all public section routes  
-* Homepage no longer duplicates full section pages (previews + pathways only)
+* `sitemap.xml` lists all public section routes + catalogue events  
+* Homepage is concise (preview + pathways) — not a long SPA  
 
 ---
 
-## Test checklist
+## Allowed in-page anchors (not IA hashes)
 
-| Test | Status |
+These are **not** section SPA routes and may remain:
+
+| Pattern | Purpose |
+| ------- | ------- |
+| `href="#main-content"` | Accessibility skip link |
+| Retreat page `#apply`, `#programme` | Same-page jumps on long programme content |
+
+They must never replace primary discovery routes such as `/events` or `/about`.
+
+---
+
+## Acceptance check (code review · 2026-07-25)
+
+| Test | Result |
 | ---- | ------ |
-| Primary nav has no `/#...` | Pass (code review) |
-| `/about`, `/mission`, `/impact`, `/events`, `/patrons` direct load | Pass (build routes exist) |
-| Refresh works on each route | Pass (static/SSR pages) |
-| Legacy hash → route (`/#events`) | Pass (`LegacyHashRedirect`) |
-| Event interest forms keep event metadata | Pass (`/events/interest?event=`) |
-| Unique metadata | Pass (per-page `metadata` exports) |
-| Mobile nav on every route | Pass (shared `Header`) |
-| Design system consistency | Pass (existing components + tokens) |
+| Primary nav has no `/#...` | ✅ `navLinks` real routes only |
+| Footer has no `/#...` | ✅ |
+| Hero / pathways real routes | ✅ |
+| Direct load routes exist | ✅ `/about` … `/contact` pages |
+| Refresh works | ✅ Static/SSR App Router pages |
+| Mobile menu uses `navLinks` | ✅ shared `Header` |
+| Event CTA prefill | ✅ `/events/interest?event=` |
+| Canonical tags | ✅ per public section + events |
+| Sitemap entries | ✅ `src/app/sitemap.ts` |
+| Legacy hash redirects | ✅ `LegacyHashRedirect` + `legacyHashRoutes` |
+| Invalid routes | ✅ app `not-found` |
+| Repo `href="/#..."` in product CTAs | ✅ none |
+| Repo `href="#..."` (IA) | ✅ none (skip + same-page only) |
 
-Automated e2e for hash migration can be added later; keep `LegacyHashRedirect` until analytics show negligible hash traffic.
+**Live production smoke** (operator): direct load, refresh, back/forward, mobile menu, footer, one old hash URL — confirm on `foundrbeing.com` after next deploy.
 
 ---
 
-## Do not remove yet
+## Legacy hash handling policy
 
-* `LegacyHashRedirect` on homepage  
-* `legacyHashRoutes` map in `src/lib/site.ts`  
+Keeping legacy redirects **temporarily** is correct.
 
-Remove only after traffic data confirms hash links are obsolete.
+Remove `LegacyHashRedirect` and `legacyHashRoutes` **only after** analytics confirm that routes such as:
+
+```text
+/#events
+/#about
+/#mission
+/#patrons
+```
+
+no longer receive meaningful traffic.
+
+Until then they are **compatibility redirects only** — not part of the primary navigation model.
+
+---
+
+## Implementation map
+
+| Piece | Path |
+| ----- | ---- |
+| Nav + legacy map | `src/lib/site.ts` |
+| Hash client redirect | `src/components/LegacyHashRedirect.tsx` |
+| Header / Footer | `src/components/Header.tsx`, `Footer.tsx` |
+| Sitemap | `src/app/sitemap.ts` |
+| Section pages | `src/app/{about,mission,impact,events,patrons,community,contact}/` |
+
+---
+
+## Bottom line
+
+The public information architecture is **stable**. Build on real routes; do not return to a single-page hash structure.

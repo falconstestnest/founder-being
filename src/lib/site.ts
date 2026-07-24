@@ -14,7 +14,11 @@ export const siteConfig = {
   },
 } as const;
 
-/** Primary public navigation — real routes only (no hash URLs). */
+/**
+ * Primary public navigation — real routes only.
+ * Do not add /#... links here or in CTAs/docs/emails/CMS copy.
+ * Legacy hashes: legacyHashRoutes + LegacyHashRedirect (compat only).
+ */
 export const navLinks = [
   { href: "/about", label: "About" },
   { href: "/mission", label: "Mission" },
