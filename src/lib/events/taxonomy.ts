@@ -217,6 +217,9 @@ export type FounderEvent = {
   /** ISO dates when known */
   startsOn?: string;
   endsOn?: string;
+  /** Optional clock time for public display (local to location.timezone) */
+  startsAtTime?: string;
+  endsAtTime?: string;
   cta: string;
   /** Path under /events or absolute path for legacy deep pages */
   path: string;
@@ -224,4 +227,11 @@ export type FounderEvent = {
   /** Hub grouping overrides */
   hubTabs: HubTab[];
   featured?: boolean;
+  /** External registration (e.g. Luma) — never invent URLs */
+  registrationProvider?: "luma" | "internal" | "none";
+  /** Trusted HTTPS embed URL (iframe src) */
+  registrationEmbedUrl?: string;
+  /** Public registration page for fallback (new tab) */
+  registrationUrl?: string;
+  registrationProviderEventId?: string;
 };

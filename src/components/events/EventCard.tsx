@@ -15,9 +15,14 @@ export function EventCard({
   featured?: boolean;
 }) {
   const isKodaikanal = event.slug === "kodaikanal-full-moon-retreat-2026";
-  const primaryHref = isKodaikanal
+  const hasExternalRegister =
+    event.registrationProvider === "luma" && Boolean(event.registrationEmbedUrl);
+  const primaryHref = isKodaikanal || hasExternalRegister
     ? event.path
     : interestPath(event);
+  const primaryLabel = hasExternalRegister
+    ? "View details & register"
+    : event.cta;
 
   return (
     <article
@@ -114,14 +119,13 @@ export function EventCard({
 
       <div className="mt-auto flex flex-col gap-3 pt-8 sm:flex-row sm:items-center">
         <Link href={primaryHref} className="btn btn-primary">
-          {event.cta}
+          {primaryLabel}
         </Link>
-        <Link
-          href={event.path}
-          className="btn btn-secondary"
-        >
-          View details
-        </Link>
+        {!hasExternalRegister && (
+          <Link href={event.path} className="btn btn-secondary">
+            View details
+          </Link>
+        )}
       </div>
     </article>
   );

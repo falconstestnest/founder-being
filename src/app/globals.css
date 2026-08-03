@@ -117,6 +117,50 @@ html {
   outline-offset: 2px;
 }
 
+/* Luma event registration embed */
+.luma-embed-section {
+  width: 100%;
+}
+
+.luma-embed-container {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #151719;
+}
+
+.luma-embed-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #151719;
+  pointer-events: none;
+}
+
+.luma-embed {
+  display: block;
+  width: 100%;
+  min-height: 450px;
+  height: 450px;
+  border: 0;
+  background: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .luma-embed {
+    height: 520px;
+    min-height: 520px;
+  }
+}
+
 /* Programmatic focus target after client navigation */
 #main-content:focus {
   outline: none;

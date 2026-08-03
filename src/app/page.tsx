@@ -5,11 +5,17 @@ import { HomePathways } from "@/components/HomePathways";
 import { LegacyHashRedirect } from "@/components/LegacyHashRedirect";
 import { RouteFocusMain } from "@/components/RouteFocusMain";
 import { SkipToContent } from "@/components/SkipToContent";
+import { UpcomingGatheringCard } from "@/components/events/UpcomingGatheringCard";
 import { Voices } from "@/components/Voices";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
+import { getEventBySlug } from "@/lib/events/catalog";
 
 export default function HomePage() {
+  const featuredGathering =
+    getEventBySlug("trivandrum-meetup-2026") ??
+    null;
+
   return (
     <>
       <LegacyHashRedirect />
@@ -19,6 +25,20 @@ export default function HomePage() {
       <main id="main-content" tabIndex={-1}>
         <Hero />
         <HomePathways />
+
+        {featuredGathering && (
+          <section
+            className="section border-t border-white/10"
+            aria-labelledby="home-gathering-heading"
+          >
+            <div className="container-site max-w-3xl">
+              <h2 id="home-gathering-heading" className="sr-only">
+                Upcoming gathering
+              </h2>
+              <UpcomingGatheringCard event={featuredGathering} />
+            </div>
+          </section>
+        )}
 
         <section className="section border-t border-white/10">
           <div className="container-site max-w-3xl text-center">

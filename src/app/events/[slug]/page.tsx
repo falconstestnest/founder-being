@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { EventStatusBadge } from "@/components/events/EventStatusBadge";
+import { LumaEventEmbed } from "@/components/events/LumaEventEmbed";
 import {
   getEventBySlug,
   interestPath,
@@ -36,23 +37,77 @@ export async function generateMetadata({
   };
 }
 
+function formatWhen(event: {
+  summaryLine: string;
+  startsOn?: string;
+  startsAtTime?: string;
+  endsAtTime?: string;
+  location: { timezone: string };
+}) {
+  if (event.startsOn && event.startsAtTime) {
+    const time =
+      event.endsAtTime != null
+        ? `${event.startsAtTime}–${event.endsAtTime}`
+        : event.startsAtTime;
+    return `${event.startsOn} · ${time} (${event.location.timezone})`;
+  }
+  return event.summaryLine;
+}
+
 export default async function EventDetailPage({ params }: PageProps) {
   const { slug } = await params;
 
   const event = getEventBySlug(slug);
   if (!event) notFound();
 
-  // Kodaikanal is served via rewrite to the full programme page
+  // Kodaikanal is served via rewrite to the full residential programme page
   if (slug === "kodaikanal-full-moon-retreat-2026") {
     notFound();
   }
 
   const c = event.capacity;
+  const hasLuma =
+    event.registrationProvider === "luma" && Boolean(event.registrationEmbedUrl);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.title,
+    description: event.description,
+    startDate: event.startsOn
+      ? `${event.startsOn}${event.startsAtTime ? `T${event.startsAtTime}:00` : ""}`
+      : undefined,
+    endDate: event.startsOn
+      ? `${event.startsOn}${event.endsAtTime ? `T${event.endsAtTime}:00` : ""}`
+      : undefined,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: {
+      "@type": "Place",
+      name: event.location.venuePublic || event.location.city,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: event.location.city,
+        addressRegion: event.location.state,
+        addressCountry: event.location.country,
+      },
+    },
+    organizer: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    url: `${siteConfig.url}${event.path}`,
+  };
 
   return (
     <>
       <Header />
       <main className="bg-[#0B0B0B] text-fb-text">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <article className="container-site max-w-3xl py-28">
           <p className="section-label">Event</p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -71,35 +126,27 @@ export default async function EventDetailPage({ params }: PageProps) {
 
           <p className="section-lead mt-10">{event.description}</p>
 
-          {event.bullets && (
-            <ul className="list-intentional">
-              {event.bullets.map((b) => (
-                <li key={b}>
-                  <span className="list-mark" aria-hidden>
-                    —
-                  </span>
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-
           <section className="content-group mt-12 border-t border-white/10 pt-10">
-            <h2 className="type-h4">Location</h2>
+            <h2 className="type-h4">When &amp; where</h2>
             <dl className="mt-6 grid gap-4 sm:grid-cols-2 type-body">
               <div>
-                <dt className="type-meta">Country</dt>
-                <dd className="mt-1">{event.location.country}</dd>
+                <dt className="type-meta">Date &amp; time</dt>
+                <dd className="mt-1">{formatWhen(event)}</dd>
               </div>
-              {event.location.state && (
-                <div>
-                  <dt className="type-meta">State / region</dt>
-                  <dd className="mt-1">{event.location.state}</dd>
-                </div>
-              )}
+              <div>
+                <dt className="type-meta">Venue</dt>
+                <dd className="mt-1">
+                  {event.location.venuePublic ||
+                    event.location.venue ||
+                    event.location.city}
+                </dd>
+              </div>
               <div>
                 <dt className="type-meta">City</dt>
-                <dd className="mt-1">{event.location.city}</dd>
+                <dd className="mt-1">
+                  {event.location.city}
+                  {event.location.state ? `, ${event.location.state}` : ""}
+                </dd>
               </div>
               <div>
                 <dt className="type-meta">Timezone</dt>
@@ -107,52 +154,65 @@ export default async function EventDetailPage({ params }: PageProps) {
                   {event.location.timezone}
                 </dd>
               </div>
-              {(event.location.venuePublic || event.location.venue) && (
-                <div className="sm:col-span-2">
-                  <dt className="type-meta">Venue</dt>
-                  <dd className="mt-1">
-                    {event.location.venuePublic || event.location.venue}
-                  </dd>
-                </div>
-              )}
             </dl>
           </section>
 
-          <section className="content-group mt-12 border-t border-white/10 pt-10">
-            <h2 className="type-h4">Operations snapshot</h2>
-            <dl className="mt-6 grid gap-4 sm:grid-cols-3 font-mono text-sm">
-              <div>
-                <dt className="type-meta">Lifecycle</dt>
-                <dd className="mt-1 text-fb-body">
-                  {EVENT_LIFECYCLE_LABELS[event.lifecycle]}
-                </dd>
+          {event.bullets && event.bullets.length > 0 && (
+            <section className="content-group mt-12 border-t border-white/10 pt-10">
+              <h2 className="type-h4">Who this is for</h2>
+              {event.audience && (
+                <p className="mt-4 type-body text-fb-secondary">
+                  {event.audience}
+                </p>
+              )}
+              <ul className="list-intentional mt-6">
+                {event.bullets.map((b) => (
+                  <li key={b}>
+                    <span className="list-mark" aria-hidden>
+                      —
+                    </span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {hasLuma && event.registrationEmbedUrl ? (
+            <section
+              id="register"
+              className="content-group mt-12 border-t border-white/10 pt-10"
+              aria-labelledby="register-heading"
+            >
+              <p className="section-label">Registration</p>
+              <h2 id="register-heading" className="type-h3 section-heading">
+                Join the gathering
+              </h2>
+              <p className="section-lead mt-4 max-w-xl">
+                Founder-Being gatherings are intentionally small. Review the
+                details below and reserve your place through Luma.
+              </p>
+              <div className="mt-10">
+                <LumaEventEmbed
+                  embedUrl={event.registrationEmbedUrl}
+                  publicEventUrl={event.registrationUrl}
+                  title={event.title}
+                  eventId={
+                    event.registrationProviderEventId ?? event.id
+                  }
+                />
               </div>
-              <div>
-                <dt className="type-meta">Workflow</dt>
-                <dd className="mt-1 text-fb-body">
-                  {REGISTRATION_WORKFLOW_LABELS[event.registrationWorkflow]}
-                </dd>
-              </div>
-              <div>
-                <dt className="type-meta">Capacity</dt>
-                <dd className="mt-1 text-fb-body">
-                  {c.capacity ?? "—"}
-                </dd>
-              </div>
-              <div>
-                <dt className="type-meta">Applications</dt>
-                <dd className="mt-1 text-fb-body">{c.applications}</dd>
-              </div>
-              <div>
-                <dt className="type-meta">Confirmed</dt>
-                <dd className="mt-1 text-fb-body">{c.confirmed}</dd>
-              </div>
-              <div>
-                <dt className="type-meta">Waitlisted</dt>
-                <dd className="mt-1 text-fb-body">{c.waitlisted}</dd>
-              </div>
-            </dl>
-          </section>
+            </section>
+          ) : (
+            <div className="mt-12 flex flex-col gap-3 sm:flex-row">
+              <Link href={interestPath(event)} className="btn btn-primary">
+                {event.cta}
+              </Link>
+              <Link href="/events" className="btn btn-secondary">
+                All events
+              </Link>
+            </div>
+          )}
 
           {event.themes.length > 0 && (
             <section className="content-group mt-12 border-t border-white/10 pt-10">
@@ -170,20 +230,40 @@ export default async function EventDetailPage({ params }: PageProps) {
             </section>
           )}
 
-          {event.footnotes?.map((n) => (
-            <p key={n} className="mt-6 type-small">
-              {n}
-            </p>
-          ))}
+          <section className="content-group mt-12 border-t border-white/10 pt-10">
+            <h2 className="type-h4">Programme notes</h2>
+            <dl className="mt-6 grid gap-4 sm:grid-cols-3 font-mono text-sm">
+              <div>
+                <dt className="type-meta">Lifecycle</dt>
+                <dd className="mt-1 text-fb-body">
+                  {EVENT_LIFECYCLE_LABELS[event.lifecycle]}
+                </dd>
+              </div>
+              <div>
+                <dt className="type-meta">Workflow</dt>
+                <dd className="mt-1 text-fb-body">
+                  {REGISTRATION_WORKFLOW_LABELS[event.registrationWorkflow]}
+                </dd>
+              </div>
+              <div>
+                <dt className="type-meta">Capacity</dt>
+                <dd className="mt-1 text-fb-body">{c.capacity ?? "—"}</dd>
+              </div>
+            </dl>
+            {event.footnotes?.map((n) => (
+              <p key={n} className="mt-6 type-small">
+                {n}
+              </p>
+            ))}
+          </section>
 
-          <div className="mt-12 flex flex-col gap-3 sm:flex-row">
-            <Link href={interestPath(event)} className="btn btn-primary">
-              {event.cta}
-            </Link>
-            <Link href="/events" className="btn btn-secondary">
-              All events
-            </Link>
-          </div>
+          {hasLuma && (
+            <div className="mt-12">
+              <Link href="/events" className="btn btn-secondary">
+                All events
+              </Link>
+            </div>
+          )}
         </article>
       </main>
       <Footer />
