@@ -30,10 +30,19 @@ export function LumaEventEmbed({
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const safeEmbed = isTrustedLumaEmbedUrl(embedUrl) ? embedUrl : null;
-  const safePublic =
-    publicEventUrl && isTrustedLumaPublicUrl(publicEventUrl)
+  const hasDistinctPublic =
+    Boolean(publicEventUrl) &&
+    isTrustedLumaPublicUrl(publicEventUrl!) &&
+    publicEventUrl !== embedUrl;
+  // Prefer real public Luma page; only fall back to embed URL if no public page yet
+  const safePublic = hasDistinctPublic
+    ? publicEventUrl!
+    : publicEventUrl && isTrustedLumaPublicUrl(publicEventUrl)
       ? publicEventUrl
       : safeEmbed;
+  const fallbackLabel = hasDistinctPublic
+    ? "Registration not loading? Open it in Luma."
+    : "Registration not loading? Open registration in a new tab.";
 
   useEffect(() => {
     if (!safeEmbed || viewed.current || !sectionRef.current) return;
@@ -123,7 +132,7 @@ export function LumaEventEmbed({
               });
             }}
           >
-            Registration not loading? Open it in Luma.
+            {fallbackLabel}
           </a>
         </p>
       )}

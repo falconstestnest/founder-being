@@ -79,9 +79,8 @@ export const eventsCatalog: FounderEvent[] = [
     registrationProviderEventId: "evt-K0tHGdJ3FsGRnNX",
     registrationEmbedUrl:
       "https://luma.com/embed/event/evt-K0tHGdJ3FsGRnNX/simple",
-    /** Verified HTTPS Luma embed surface (public slug page not published separately) */
-    registrationUrl:
-      "https://luma.com/embed/event/evt-K0tHGdJ3FsGRnNX/simple",
+    /** Public Luma event page (verified) */
+    registrationUrl: "https://luma.com/tttzwisa",
     bullets: [
       "Founder-to-founder conversation beyond networking theatre",
       "Guided reflection in a calm, institutional setting",
